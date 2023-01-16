@@ -1,0 +1,33 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = unset
+tab_width = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{sh,bash,csh,nu,fish,ps1}]
+indent_size = 2
+indent_style = space
+
+[*.{md,json}]
+indent_size = 4
+indent_style = tab
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+[*.{js,ts,rs}]
+indent_size = 2
+indent_style = space
+
+[*.{jsx,tsx}]
+indent_size = 4
+indent_style = space
+
+[*.py]
+tab_width = 2
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = false
