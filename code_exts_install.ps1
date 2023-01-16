@@ -82,7 +82,7 @@ $extensions = @(
 
 $extensions | ForEach-Object {
     try {
-        Invoke-Expression "& codium-insiders.cmd --install-extension $_ --force"
+        Invoke-Expression "& code.cmd --install-extension $_ --force"
         Write-Host # New-Line
     } catch {
         $_

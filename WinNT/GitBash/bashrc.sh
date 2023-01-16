@@ -5,26 +5,26 @@ env=~/.ssh/agent.env
 agent_load_env() { test -f "$env" && . "$env" >|/dev/null; }
 
 agent_start() {
-	(
-		umask 077
-		ssh-agent >|"$env"
-	)
-	. "$env" >|/dev/null
+    (
+        umask 077
+        ssh-agent >|"$env"
+    )
+    . "$env" >|/dev/null
 }
 
 agent_load_env
 
 # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
 agent_run_state=$(
-	ssh-add -l >|/dev/null 2>&1
-	echo $?
+    ssh-add -l >|/dev/null 2>&1
+    echo $?
 )
 
 if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-	agent_start
-	ssh-add
+    agent_start
+    ssh-add
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-	ssh-add
+    ssh-add
 fi
 
 unset env
@@ -35,13 +35,8 @@ case $- in
 *) return ;;
 esac
 
-config_dir="$HOME"/.config
-
-if [ -d "$config_dir/bash" ]; then
-	for src in "$config_dir"/bash/*.sh; do
-		source "$src"
-	done
-fi
+stty werase '^H'
+xset b off
 
 # # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
@@ -78,7 +73,14 @@ HISTTIMEFORMAT='%a %Y-%m-%d %H:%M:%S'
 # "$NODE_PATH"
 # export NODE_EXE="$NODE_PATH"/node.exe
 if [[ -n "$NVM_SYMLINK" ]]; then
-	export NODE_PRESERVE_SYMLINKS=1
-	export NODE_PATH="$NVM_SYMLINK"
-	export NODE_EXE="$NODE_PATH"/node.exe
+    export NODE_PRESERVE_SYMLINKS=1
+
+fi
+
+config_dir="$HOME"/.config
+
+if [ -d "$config_dir/bash" ]; then
+    for src in "$config_dir"/bash/*.sh; do
+        source "$src"
+    done
 fi

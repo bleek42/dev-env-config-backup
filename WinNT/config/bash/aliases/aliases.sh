@@ -14,60 +14,50 @@ alias wslupd='wsl --update --web-download'
 alias wslshutd='wsl --shutdown'
 
 if command -v codium-insiders >/dev/null 2>&1; then
-	alias codiuminsider='codium-insiders'
+    alias codiumins='codium-insiders'
 fi
 
 ### Check if shell has commands before assigning alias
 
 # list more than the default repositories with GH CLI
 if command -v gh >/dev/null 2>&1; then
-	alias lsrepos='gh repo list --limit=100'
+    alias allrepos='gh repo list --limit=150'
 fi
 
 if command -v bat >/dev/null 2>&1; then
-	alias cat='bat'
+    alias cat='bat'
 fi
 
-# if command -v pnpm >/dev/null 2>&1; then
-# 	alias npm='pnpm'
-# fi
+if command -v pnpm >/dev/null 2>&1; then
+    alias npm='pnpm'
+    alias npx='pnpx'
+fi
 
 # Show full paths of files in current directory
 alias paths='ls -d $PWD/*'
 
 if command -v exa >/dev/null 2>&1; then
-	echo "exa cmd exists in PATH: exa is the new ls"
-	alias ls='exa --someflags init'
+    printf "exa cmd exists in PATH: exa is the new ls"
+    eval "$(zoxide init bash --cmd cd --hook pwd)"
 else
-	# --show-control-chars: help showing Korean or accented characters
-	alias ls='ls -F --color=auto --show-control-chars'
-	alias ll='ls -l'
+    # --show-control-chars: help showing Korean or accented characters
+    alias ls='ls -F --color=auto --show-control-chars'
+    alias ll='ls -l'
 
-	# Show hidden files too
-	alias la='ls -A'
-	# Show file size, permissions, date, etc.
-	alias ll='ls -lvhs'
-	alias lll='ls -alvhs'
-	# Show only directories
-	alias l.='ls -d */'
-	# sort files by size, showing biggest at the bottom
-	alias lsort="ls -alSr | tr -s ' ' | cut -d ' ' -f 5,9"
-
-	# typo correction
-	alias l='ls'
-	alias s='ls'
-	alias sl='ls'
-	# For fun: the ls ligature
-	alias ʪ='ls'
+    # Show hidden files too
+    alias la='ls -A'
+    # Show file size, permissions, date, etc.
+    alias ll='ls -lvhs'
+    alias lll='ls -alvhs'
+    # Show only directories
+    alias l.='ls -d */'
+    # sort files by size, showing biggest at the bottom
+    alias lsort="ls -alSr | tr -s ' ' | cut -d ' ' -f 5,9"
 fi
 
-# if [[ -f "package.json" ]] && command -v ultra >/dev/null 2>&1; then
-# 	alias npm='ultra'
-# 	echo "local package.json file detected: using ultra for npm commands..."
-# fi
-
 if command -v pnpm >/dev/null 2>&1; then
-	alias npm='pnpm'
+    alias npm='pnpm'
+    alias npx='pnpx'
 fi
 
 alias unicode=getunicodec
@@ -79,7 +69,7 @@ alias unicode=getunicodec
 # don't clobber files or ruin the OS
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm="rm -I --preserve-root"
+alias rm="rm -i --preserve-root"
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
@@ -160,16 +150,16 @@ alias wget="wget -c"
 # use to get current directory with spaces escaped
 alias qwd='printf "%q\n" "$(pwd)"'
 
-# case "$TERM" in
-#xterm*)
-# The following programs are known to require a Win32 Console
-# for interactive usage, therefore let's launch them through winpty
-# when run inside `mintty`.
-# for name in node ipython php php5 psql python2.7; do
-# 	case "$(type -p "$name".exe 2>/dev/null)" in
-# 	'' | /usr/bin/*) continue ;;
-# 	esac
-# 	alias $name="winpty $name.exe"
-#	done
-# ;;
-# esac
+case "$TERM" in
+xterm*)
+    # The following programs are known to require a Win32 Console
+    # for interactive usage, therefore let's launch them through winpty
+    # when run inside `mintty`.
+    for name in node ipython php php5 psql python2.7; do
+        case "$(type -p "$name".exe 2>/dev/null)" in
+        '' | /usr/bin/*) continue ;;
+        esac
+        alias $name='winpty $name.exe'
+    done
+    ;;
+esac
