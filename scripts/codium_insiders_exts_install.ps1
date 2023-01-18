@@ -77,7 +77,7 @@ $extensions = @(
 "zgm.vscode-fish"
 "ypresto.vscode-intelli-refactor"
 "Zignd.html-css-class-completion"
-# Open/Launch in Visual Studio
+# Open/Launch in Visual Studio cODIUM iNSIDERS
 ) | SORT
 
 $extensions | ForEach-Object {
