@@ -16,7 +16,7 @@ Method = rank
 ## Not specifying a protocol will ban the protocol from being used
 ## If a mirror has more than one protocol defined only the first is written to the mirrorlist
 ## Empty means all in reversed alphabetic order
-##Protocols =
+Protocols =https,ftp
 
 ## When set to False - all certificates are accepted.
 ## Use only if you fully trust all ssl-enabled mirrors.
