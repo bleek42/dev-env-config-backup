@@ -20,7 +20,7 @@ insert_final_newline = false
 
 [*.{sh,bash,csh,zsh,nu,fish,ps1}]
 indent_size = 4
-indent_style = space
+indent_style = tab
 trim_trailing_whitespace = false
 
 [*.{js,ts,rs}]
