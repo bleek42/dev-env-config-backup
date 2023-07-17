@@ -1,8 +1,0 @@
-[Unit]
-Description=systemd-cron update units
-Documentation=man:systemd.cron(7)
-
-[Service]
-Type=oneshot
-ExecStartPre=/usr/bin/touch /run/crond.reboot
-ExecStart=/bin/sh -c '/usr/bin/systemctl daemon-reload ; sleep 1 ; /usr/bin/systemctl restart cron.target'

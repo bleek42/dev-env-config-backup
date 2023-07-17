@@ -1,9 +1,0 @@
-[Unit]
-Description=Optimizing pacman hooks
-
-[Service]
-Type=oneshot
-ExecStart=bash -c "if /usr/lib/garuda/is-snapshot-boot; then rm -f /etc/pacman.d/hooks/01-snapshot-reject.hook; else ln -fs /dev/null /etc/pacman.d/hooks/01-snapshot-reject.hook; fi"
-
-[Install]
-WantedBy=multi-user.target

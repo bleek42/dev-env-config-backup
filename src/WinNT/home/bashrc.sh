@@ -2,29 +2,29 @@
 
 env=~/.ssh/agent.env
 
-agent_load_env() { test -f "$env" && . "$env" >|/dev/null; }
+agent_load_env() { test -f "$env" && source "$env" >|/dev/null; }
 
 agent_start() {
-    (
-        umask 077
-        ssh-agent >|"$env"
-    )
-    . "$env" >|/dev/null
+  (
+    umask 077
+    ssh-agent >|"$env"
+  )
+  source "$env" >|/dev/null
 }
 
 agent_load_env
 
 # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
 agent_run_state=$(
-    ssh-add -l >|/dev/null 2>&1
-    echo $?
+  ssh-add -l >|/dev/null 2>&1
+  echo $?
 )
 
 if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-    agent_start
-    ssh-add
+  agent_start
+  ssh-add
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-    ssh-add
+  ssh-add
 fi
 
 unset env
@@ -47,6 +47,10 @@ shopt -s checkjobs
 shopt -s dirspell
 # # enable programmable completions
 shopt -s progcomp
+# # save long commands to one history entry
+shopt -s cmdhist
+# append to the history file, don't overwrite it
+shopt -s histappend
 
 # ═══════════════════════════════════════
 # HISTORY MANAGEMENT
@@ -61,26 +65,21 @@ HISTFILESIZE=5000
 HISTCONTROL='ignoreboth'
 # Store timestamps in history file, and display them as 'Mon 2020-06-01 23:42:05'.
 HISTTIMEFORMAT='%a %Y-%m-%d %H:%M:%S'
-# # save long commands to one history entry
-shopt -s cmdhist
-# append to the history file, don't overwrite it
-shopt -s histappend
 
 # # If this shell is connected to a tty, disable software flow control.
 # # In other words, prevent accidentally hitting ^S from freezing the entire terminal.
 [ -t 0 ] && stty -ixon 2>/dev/null
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/usr/bin/bash lesspipe)"
-
-# if [[ -n "$NVM_SYMLINK" ]]; then
-#     export NODE_PRESERVE_SYMLINKS=1
+# if command -v fnm >/dev/null 2>&1; then
+#   eval "$(fnm env --use-on-cd)"
+#   NODE_PATH="$(which node)"
+#   export NODE_PATH
 # fi
 
 config_dir="$HOME/.config"
 
 if [ -d "$config_dir/bash" ]; then
-    for src in "$config_dir"/bash/**/*.sh; do
-        test ! -f "$src" || source "$src"
-    done
+  for src in "$config_dir"/bash/**/*.sh; do
+    test ! -f "$src" || source "$src"
+  done
 fi

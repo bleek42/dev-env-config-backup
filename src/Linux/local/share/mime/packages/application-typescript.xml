@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
-    <mime-type type="application/typescript">
-        <comment>Typescript text files that compile to javascript(.js, .jsx)</comment>
-        <glob-deleteall/>
-        <glob pattern="*.ts"/>
-        <glob pattern="*.tsx"/>
-    </mime-type>
-</mime-info>

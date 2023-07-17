@@ -1,32 +1,51 @@
 #!/usr/bin/env bash
 
-export DISPLAY=:0
+export LESS='-F -i -J -M -R -W -x4 -X -z-4'
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
+export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
-if [ "$TERM_PROGRAM" = "vscode" ]; then
-    unset WT_SESSION
-    unset WT_PROFILE_ID
+export GPT_AUTH="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"
+
+test -z "${MSYS_DIR}" && export MSYS_DIR="$LOCALAPPDATA/Git"
+test -f "$HOME/.profile" && source "$HOME/.profile"
+test -f "$HOME/.bashrc" && source "$HOME/.bashrc"
+# test -f "$HOME/.bash_login" && source "$HOME/.bash_login"
+# echo "$MSYSYSTEM_CHOST"
+if [ -n "$WT_SESSION" ]; then
+  DISPLAY="$(hostname)$MSYSTEM_CHOST:0"
+  export TERM_PROGRAM="wterm"
+  export COLORTERM="truecolor"
+  export MICRO_TRUECOLOR=1
+  export DISPLAY
 fi
 
-if [ -n "$WT_SESSION" ]; then
-    export COLORTERM="truecolor"
-    export INIT_WT_SESSION="$WT_SESSION"
-    if tty -s && [[ "$INIT_WT_SESSION" = "$WT_SESSION" ]] && command -v neofetch >/dev/null 2>&1; then
-        neofetch --w3m --size 60%
-    fi
+if command -v volta >/dev/null 2>&1; then
+  eval "$(volta setup)"
+  # export PNPM_HOME="C:\Users\brand\AppData\Local\Volta\tools\image\packages\pnpm\pnpm"
+  NODE_PATH=$(volta which node)
+  PATH="$PATH":"$NODE_PATH"
+  export PATH NODE_PATH
+fi
 
-    if command -v oh-my-posh >/dev/null 2>&1; then
-        alias omp='oh-my-posh'
+if [[ $- == *i* ]] && command -v oh-my-posh >/dev/null 2>&1; then
 
-        case "$WT_PROFILE_ID" in
-        "{22cf8483-2f1e-4eb2-b9d2-1459fdfc8b94}")
-            eval "$(oh-my-posh prompt init bash --config "${HOME}"/.custom-lambda-gen.omp.json)"
-            ;;
-        "{46ca431a-3a87-5fb3-83cd-11ececc031d2}")
-            eval "$(oh-my-posh prompt init bash --config "${POSH_THEMES_PATH}"/kali.omp.json)"
-            ;;
-        *)
-            eval "$(oh-my-posh prompt init bash --config "${POSH_THEMES_PATH}"/tokyo.omp.json)"
-            ;;
-        esac
-    fi
+  case $TERM_PROGRAM in
+  "wterm")
+    eval "$(oh-my-posh init bash --config "${HOME}"/.bleek-lambda.omp.json)"
+    ;;
+  "vscode")
+    eval "$(oh-my-posh init bash --config "${POSH_THEMES_PATH}"/emodipt-extend.omp.json)"
+    ;;
+  *) source "$HOME/.config/bash/prompt.bash" ;;
+  esac
+
+  if [[ "$(tty)" = "/dev/cons0" ]] && command -v neofetch >/dev/null 2>&1; then
+    neofetch
+  fi
+
 fi

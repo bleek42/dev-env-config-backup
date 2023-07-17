@@ -1,0 +1,36 @@
+[core]
+autocrlf = no
+bare = false
+filemode = false
+symlinks = false
+logallrefupdates = true
+longPaths = true
+protectNTFS = false
+editor = /usr/bin/micro
+visual = ""
+
+[color]
+ui = auto
+
+[init]
+defaultBranch = main
+
+[merge]
+
+[user]
+name = bleek42
+email = brandonleek42@gmail.com
+
+[credential]
+helper = ""
+
+[user]
+name = bleek42
+email =
+
+[credential "helperselector"]
+selected = manager-core
+
+[user "https://gitlab.com"]
+name =
+email =
