@@ -1,34 +1,5 @@
 #!/usr/bin/env bash
 
-env=~/.ssh/agent.env
-
-agent_load_env() { test -f "$env" && source "$env" >|/dev/null; }
-
-agent_start() {
-  (
-    umask 077
-    ssh-agent >|"$env"
-  )
-  source "$env" >|/dev/null
-}
-
-agent_load_env
-
-# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
-agent_run_state=$(
-  ssh-add -l >|/dev/null 2>&1
-  echo $?
-)
-
-if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-  agent_start
-  ssh-add
-elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-  ssh-add
-fi
-
-unset env
-
 case $- in
 *i*) ;;
 *) return ;;
@@ -70,16 +41,17 @@ HISTTIMEFORMAT='%a %Y-%m-%d %H:%M:%S'
 # # In other words, prevent accidentally hitting ^S from freezing the entire terminal.
 [ -t 0 ] && stty -ixon 2>/dev/null
 
-# if command -v fnm >/dev/null 2>&1; then
-#   eval "$(fnm env --use-on-cd)"
-#   NODE_PATH="$(which node)"
-#   export NODE_PATH
-# fi
-
 config_dir="$HOME/.config"
 
 if [ -d "$config_dir/bash" ]; then
   for src in "$config_dir"/bash/**/*.sh; do
-    test ! -f "$src" || source "$src"
+    test -f "$src" && source "$src"
   done
 fi
+
+# if command -v direnv >/dev/null 2>&1; then
+#   eval "$(
+#     direnv hook bash
+#     direnv allow
+#   )"
+# fi

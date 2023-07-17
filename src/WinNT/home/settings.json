@@ -76,6 +76,7 @@
 		}
 	],
 	"defaultProfile": "{22cf8483-2f1e-4eb2-b9d2-1459fdfc8b94}",
+
 	"alwaysShowNotificationIcon": true,
 	"centerOnLaunch": true,
 	"copyFormatting": [
@@ -87,15 +88,15 @@
 	"initialCols": 135,
 	"initialRows": 45,
 	"minimizeToNotificationArea": true,
-	"profiles": {
-		"defaults": {
-			"antialiasingMode": "cleartype",
-			"background": "#000000",
-			"bellStyle": "taskbar",
-			"colorScheme": "AuraDarkTheme",
-			"cursorColor": "#0004FF",
-			"cursorShape": "emptyBox",
-			"experimental.connection.passthroughMode": true,
+"profiles": {
+	"defaults": {
+		"antialiasingMode": "cleartype",
+		"background": "#000000",
+		"bellStyle": "taskbar",
+		"colorScheme": "AuraDarkTheme",
+		"cursorColor": "#0004FF",
+		"cursorShape": "emptyBox",
+		"experimental.connection.passthroughMode": true,
 			"font": {
 				"face": "ProFontWindows Nerd Font Mono",
 				"size": 14.0,
