@@ -1,0 +1,902 @@
+cd Documents/Web_Portfolio/bleek-dot-dev
+l
+source ~/.zshrc
+cd ../.
+ls
+;l
+source ~/.zshrc
+cd bleek-dot-dev/
+gitprompt
+gitprompt_secondary
+source ~/.zshrc
+cd Documents/Web_Portfolio/bleek-dot-dev
+source ~/.zshrc
+cd ..
+cd bleek-dot-dev/
+source ~/.zshrc
+cd ..
+cd bleek-dot-dev/
+source ~/.zshrc
+cd Documents/Web_Portfolio/bleek-dot-dev
+cd ..
+cd Documents/Web_Portfolio/bleek-dot-dev
+source ~/.zshrc
+cd Documents/Web_Portfolio/bleek-dot-dev
+source ~/.zshrc
+sudo apt autoclean
+sudo apt install nala
+sudo nala update
+sudo nala upgrade
+nala --help
+nala --install-completion > /usr/share/zsh/functions/Completion/Debian/_
+sudo nala --install-completion > /usr/share/zsh/functions/Completion/Debian/_nala
+sudo nala --install-completion zsh > /usr/share/zsh/functions/Completion/Debian/_nala
+sudo touch /usr/share/zsh/functions/Completion/Debian/_nala
+nala --install-completion > /usr/share/zsh/functions/Completion/Debian/_nala
+nala --install-completion > sudo /usr/share/zsh/functions/Completion/Debian/_nala
+nala --install-completion zsh > sudo /usr/share/zsh/functions/Completion/Debian/_nala
+cd Documents/Web_Portfolio/bleek-dot-dev
+source ~/.zshrc
+cd Documents/Web_Portfolio/bleek-dot-dev
+git status
+rm sudo
+source ~/.zshrc
+typeset
+zle -l -a
+ls -a
+cd ~
+ls
+zplug env
+zplug update
+zplug clear
+cd /usr/share/zsh/vendor-completions
+ls
+sudo rm ../functions/Completion/Debian/_nala
+ls
+ll
+cd /mnt/wsl
+;s
+ls
+cat resolv.conf
+cat /etc/resolv.conf
+ll /usr/share
+ll /usr/share/zsh/vendor-completions/
+cd /mnt/wsl
+ls
+cd ..
+ls
+cdm wslg
+ls
+cd wslg
+ls
+ll distro/
+ll distro/Docker
+ll distro/Docker/host
+apt search docker
+sudo nala install docker-compose docker-doc
+cd /home/bleek42/Documents/Web_Portfolio/bleek-dot-dev
+code ~
+printenv
+alias
+source ~/.zshrc
+zle0 -l -a
+zle -l -a
+source ~/.zshrc
+bashcompinit
+bashcompinit --help
+typeset
+ls .cache
+rm -r .cache
+echo $PATH
+micro .ssh/config
+sudo nala remove micro
+sudo nala install micro
+micro .ssh/config
+code .
+code ,
+source ~/.zshrc
+cd /home/bleek42/Documents/Web_Portfolio/bleek-dot-dev
+ls
+echo $XDG_CACHE_HOME
+echo $XDG_CONFIG_DIRS
+echo $XDG_CONFIG_HOME
+echo $XDG_DATA_DIRS
+echo $XDG_RUNTIME_DIR
+echo $XDG_STATE_HOME
+alias
+zdq
+zle
+zle -l -a
+ls
+ls 
+treex 
+treex /usr/share
+zstyle
+printenv
+code .
+alias
+cd /home/bleek42/Documents/Web_Portfolio/bleek-dot-dev
+ls
+cd /home/bleek42/Documents/Web_Portfolio/bleek-dot-dev
+_zsh_highlight_main__type 
+print -P $(_zsh_highlight_main__type)
+printf $(_zsh_highlight_main__type)
+printf $_zsh_highlight_main__type
+print -P $_zsh_highlight_main__type
+whereis _zsh_highlight_main__type
+cat ~/.config/zplug/repos/woefe/git-prompt.zsh/examples/multiline.zsh codegen.ts
+cat ~/.config/zplug/repos/woefe/git-prompt.zsh/examples/multiline.zsh 
+cd /home/bleek42/Documents/Web_Portfolio/bleek-dot-dev
+code .
+cd /home/bleek42/Documents/Web_Portfolio/bleek-dot-dev
+ls
+ll
+la
+lt
+nala search ranger
+micro .ssh/config
+code .
+mkdir .cache
+micro --help
+micro -debug
+micro -debug .profile
+sudo nala purge micro
+sudo nala update
+sudo nala upgrade
+code .
+sudo nala reinstall libc-bin
+sudo apt reinstall libc-bin
+sudo nano /etc/wsl.conf
+ldconfig
+sude nano /etc/wsl.conf
+su root
+cd /usr/lib/wsl/lib
+ls
+ll
+sudo ldconfig
+sudo nano /etc/ld.so.conf.d/ld.wsl.conf
+sudo cd ..
+cd ..
+ls
+sudo apt reinstall libc-bin
+sudo apt update -y
+sudo apt upgradee
+sudo apt upgrade
+sudo nala install micro xsel xclip
+micro .zshrc
+sudo rm /etc/ld.so.cache
+ldconfig
+sudo ldconfig
+sudo nano /etc/profile.d/kali.sh
+ls
+micro .zshrc
+cat log.txt
+micro .zshrc -debug
+cat log.txt
+micro --help
+cide ,
+code ,
+code .
+strace micro -debug .zprofile Desktop
+sudo nala install strace
+strace micro -debug .zprofile Desktop
+strace micro -debug .zprofile 
+micro .zshrc 
+sudo nano /etc/wsl.conf
+sudo nano .zshrc Desktop
+cat log.txt
+strace micro -debug .zprofile 
+uname -r
+journalctl -xe
+systemctl status rtkit-daemon.service
+systemctl status 
+systemctl list-units --failed
+systemctl daemon-reload
+sudo systemctl daemon-reload
+systemctl list-units --failed
+systemctl status 
+journalctl -xe
+getent passwd rtkit
+sudo nano /usr/lib/systemd/system/rtkit-daemon.service
+getent passwd rtkit
+journalctl -xe
+systemctl status rtkit-daemon.service
+systemctl status 
+printenv
+sudo micro /etc/profile.d/kali.sh
+sudo nano /etc/profile.d/kali.sh
+echo $PATH
+sudo nano /etc/profile.d/kali.sh
+cd Documents/Web_Portfolio/bleek-dot-dev
+;s
+ls
+la
+code .
+pnpm run dev
+git add .
+git commit -m "fixed menu toggle, add cond render for toggle prop, more media query boilerplate using theme across /components"
+git push origin development
+gh pr create
+cd Documents/Web_Portfolio/bleek-dot-dev
+code .
+pnpm run dev
+git add .
+git commit -m "working on postion styling for navbar, hangs to far right in large displays with drop down toggle"
+git push origin development
+pnpm run dev
+git add .
+git commit -m "more navbar stuff: toggle is looking good & functional with props"
+git push origin development
+code .
+pnpm run dev
+git add .
+git commit -m "working with @next/font optimizations; added more defaults for components"
+git push origin development
+sudo nano /etc/profile.d/kali.sh
+sudo nano /etc/wsl.conf
+sudo nala update
+sudo nala upgrade
+kex --help
+kex --esm -s
+sudo nano /etc/profile.d/kali.sh
+kex --stop
+kex --help
+kex --status
+code .
+micro -debug .zprofile 
+sudo nano /etc/wsl.conf
+code .
+cd Documents/Web_Portfolio/bleek-dot-dev
+code .
+pnpm run dev
+rm -rf node_modules pnpm-lock.yaml
+pnpm i
+pnpm run dev
+pnpm run build
+code .
+pnpm run build
+pnpm run dev
+rm -rf .next
+pnpm run dev
+git add .
+git commit -m "still fiddling with stupid fonts/next with styled components: unsure how to integrate.. progress on flexbox section components on home page with text, padding, margin, flex shorthand, min width, etc../../.."
+git push origin development
+pnpm run dev
+git add .
+git commit -m "scrapped @next/fonts for now & using global style in Theme; fixed opt font props to use --var-fontname, is working mnow"
+git push origin development
+sudo nano /etc/profile.d/kali.sh
+sudo nala update && sudo nala upgrade
+code .
+source ~/.zshrc
+ls
+cd \$\{HOME\}
+ls
+ls -a
+ls .config
+ls .config/micro
+cd ..
+rm -rf \$\{HOME\}
+ls
+rm -rf .keychain .cargo
+ll
+rm log.txt
+cd Documents
+cd Web_Portfolio
+ls
+zstyle
+;s
+ls
+cd bleek-dot-dev/
+git shortlog
+rm -rf \$\{HOME\}
+rm -rf node_modules pnpm-lock.yaml
+ls
+git status
+ls ~/.config/nextjs-nodejs
+cat ~/.config/nextjs-nodejs/config.json
+which cat
+alias
+cat .editorconfig
+cat .editorconfig package.json
+type cat
+mkdir -p ~/.local/bin && ln -s /usr/bin/batcat
+mkdir -p ~/.local/bin/bat && ln -s /usr/bin/batcat ~/.local/bin/bat
+ls ~/.local/bin/
+which node
+node -v
+code .
+git pull origin development
+code .
+pnpm i
+pnpm run dev
+cd bleek-dot-dev/
+cd Documents/Web_Portfolio/bleek-dot-dev
+pnpm run dev
+npm run gen
+pnpm run dev
+pnpm add graphql-request@5.3
+pnpm view graphql-request versions
+pnpm add graphql-request@5.2.1-next.1
+pnpm add graphql-request@5.2.1
+pnpm add graphql-request@5.2.0
+pnpm rm graphql-request@6.0.0
+pnpm i
+pnpm run dev
+git status
+git add .
+git commit -m "queries/mutations working again: regen w/ changed gen script to use esm"
+git push origin development
+exit
+cd Documents/Web_Portfolio/bleek-dot-dev
+ls
+git status
+code .
+pnpm run dev
+code .
+pnpm run dev:edge
+npm run dev
+pnpm run dev
+pnpm run dev;edge
+pnpm run dev:edge
+rm -rf .next
+pnpm run dev:edge
+systemctl status 
+sudo nala update && sudo nala upgrade
+sudo nala remove micro
+nala search vim
+sudo nala install neovim
+apt search vundle
+touch .vimrc
+code .
+reset
+
+nvim
+nvim --help
+nvim .zprofile
+sudo neovim /etc/vim/vimrc
+sudo nvim /etc/vim/vimrc
+corepack 
+pnpm
+which node
+which pnpm
+pnpm setup --help
+echo $PNPM_HOME
+code .
+unset $PNPM_HOME
+unset PNPM_HOME
+which pnpm
+cd Documents/Web_Portfolio/bleek-dot-dev
+code .
+npm run dev
+npm run dev:edge
+node --help
+npm run dev:edge
+ls node_modules
+ls node_modules/.pnpm/next@13.4.8_@babel+core@7.22.9_react-dom@18.2.0_react@18.2.0
+ls
+ls node_modules/.pnpm/next@13.4.8_@babel+core@7.22.9_react-dom@18.2.0_react@18.2.0
+ls node_modules/next/dist
+ls node_modules/next/dist/bin
+git status
+git add .
+git commit -m "cleaned up scss code using for ref to components: toggle menu state/prop works"
+git push origin development
+npm run dev:edge
+pnpm run dev:edge
+code .
+git add .
+git commit -m "moved, fixed MetaProps using next type to ext from with defaultMetaProps using let declaration; more xterm stuff, triggering events with handleContinueHome func to dismiss landing page & navigate to /home"
+git push origin development
+nvim ~/.zprofile
+nvim ~/.zshrc
+code .
+systemctl status 
+systemctl status dbus.service
+journalctl -xe
+cd Documents/Web_Portfolio/bleek-dot-dev
+code .
+cd node_modules/.pnpm/next@13.4.8_@babel+core@7.22.9_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/bin
+cd ../../../../
+cd ../
+cd ../../
+sudo nala update && sudo nala upgrade
+kex --esm -s
+kex --status
+systemctl status 
+systemctl status lightdm.service
+kex --kill
+kex --stop
+kex --help
+kex --wslg-status
+cd ~
+nvim .zprofile
+echo $DISPLAY
+echo $WSL_IPV4
+nvim .zprofile
+cat .zprofile
+echo $NODE_PATH
+nvim.zprofile
+nvim .zprofile
+sudo -e /etc/wsl.conf Desktop
+kex --help
+kex --esm -s --multiscreen --verbose
+echo $NODE_PATH
+echo $DISPLAY
+kex --stop
+kex --status
+kex --esm -s --verbose
+systemctl status lightdm.service
+systemctl status
+systemctl is-failed
+systemctl status lightdm.service
+kex --stop
+sudo -e /etc/wsl.conf 
+code .
+strace .zprofile
+strace source .zprofile
+strace ~/.zprofile
+sudo strace ~/.zprofile
+printenv
+which node
+echo $PATH Desktop
+printenv
+which cargo
+type $WSLENV
+type WSLENV
+type 
+type --help
+type -h
+man type
+nala search man
+kex --esm -s --verbose
+kex --status
+cat .xsession-errors
+sudo systemctl enable lightdm.service
+kex --kill
+kex --stop
+kex --wslg-status
+kex --wslg-remove
+kex --wslg-status
+systemctl status lightdm.service
+sudo systemctl start lightdm.service
+systemctl status lightdm.service
+systemctl try-restart
+systemctl try-restart lightdm.service apt-daily.timer
+sudo systemctl try-restart lightdm.service
+systemctl status lightdm.service
+kex --esm -s --ip="${WSL_IPV4}"
+kex --esm -s -i "${WSL_IPV4}"
+code .
+sudo -e /etc/profile.d
+sudo -e /etc/profile.d/kali.sh
+sudo rm -rf /wsl*
+ls /
+sudo nala autopurge
+sudo nala autoremove
+sudo nala clean
+sudo nala history
+sudo nala list
+nala list | fzf deb 
+nala list | fzf "deb" 
+nala list | fd "deb"
+nala list | fdd "deb"
+nala list | ag 
+nala list | ag "deb"
+sudo apt reinstall kali-win-kex
+kex --esm -s 
+kex --sl
+kex --stop
+kex --status
+kex --stop --all
+kex --stop
+kex --status
+kex --help
+kex --kill
+code .
+sudo mount -o remount,rw /tmp/.X11-unix/
+sudo rm /tmp/.X11-unix
+sudo rm -rf /tmp/.X11-unix
+kex --win
+kex --status
+la /tmp/.X11-unix
+cat .ssh/config
+kex kill
+sudo umount /tmp/.X11-unix
+kex kill
+kex --help
+kex --status
+kex --esm -s
+systemctl status 
+systemctl list-units --failed
+sudo systemctl disable lightdm.service
+systemctl list-units --failed
+systemctl status 
+kex --kill
+kex --status
+kex --stop
+kex --status
+sudo mount -o remount,rw /tmp/.X11-unix
+ls /tm
+ls /tmp
+la /tmp
+kex --esm -s
+code .
+sudo mount -o remount,rw /tmp/.X11-unix
+kex --sl
+kex --kill
+kex --status
+kex --help
+kex --esm --ip -s
+systemctl status 
+systemctl list-units --failed
+sudo systemctl restart lightdm.service
+systemctl list-units --failed
+systemctl status lightdm.service
+sudo systemctl enable lightdm.service
+sudo systemctl restart lightdm.service
+systemctl status lightdm.service
+sudo systemctl start lightdm.service
+systemctl status lightdm.service
+systemctl show-environment
+systemctl status lightdm.service
+rm -rf /tmp/.ICE-unix /tmp/.X11-unix 
+sudo umount /tmp/.X11-unix
+rm -rf /tmp/.ICE-unix /tmp/.X11-unix 
+sudo rm -rf /tmp/.ICE-unix /tmp/.X11-unix 
+ls /tmp
+cat /tmp/win-kex-sl_bleek42.log
+sudo nala purge kali-win-kex
+man keychain
+alias
+zda
+zda 
+zdr
+zdqi
+ls
+zd /usr/lib/init
+ls
+cat vars.sh
+bat vars.sh
+batcat init-d-script
+cd ..
+ls
+cd X11
+ls
+la
+ld
+l
+ll
+ls -a
+cd ..
+ls
+nala search window
+sudo nala autoremove
+sudo nala autopurge
+sudo nala clean
+sudo nala show xorgxrdp
+sudo nala install xorg xrdp dbus-x11
+journalctl -xeu xrdp.service
+sudo systemctl enable xrdp --now
+journalctl -xeu xrdp.service
+cd /etc/xrdp
+ls
+ll
+cat xrdp.ini.original
+mv xrdp.ini.original xrdp.ini
+sudo mv xrdp.ini.original xrdp.ini
+sudo systemctl enable xrdp --now
+systemctl status xrdp.service
+sudo nvim /etc/debdelta/sources.conf
+cd /etc/apt
+ls
+zd keyrings
+ls
+ls -a
+cd ..
+ls
+nvmi sources.list.d/makedeb.list
+nvim sources.list.d/makedeb.list
+sudo nvim sources.list.d/makedeb.list
+ls
+sudo nala update && sudo nala upgrade
+mist
+makedeb
+makedeb --help
+nala search mist
+nala show mist
+nala search kali
+sudo nala install kali-desktop-base 
+sudo nala install kali-desktop-base kali-desktop-i3
+sudo nala install kali-desktop-base kali-desktop-i3 wlaunch kali-themes
+sudo nala install kali-desktop-base kali-desktop-i3 wmaker kali-themes
+cd ~/Documents/Web_Portfolio/bleek-dot-dev
+code .
+sudo nala autoclean
+sudo nala autoremove
+npm run gen
+pnpm graphql-codegen
+pnpm run gen
+which tsc
+pnpm i -g npm-check
+pnpm update
+rm -rf node_modules
+pnpm npm-check
+pnpm npm-check -u
+git status
+git add .
+git commit -m "max-widths/heights, margins, paddings, etc. touch ups in xterm landing page, next/image component child added in xtxtarea; added gql AssetWhereUnique, minor query fixed & edits; fixing deps issues"
+git push origin development
+pnpm update
+pnpm run dev
+pnpm i graphql-request@6
+pnpm nc
+pnpm npm-check
+pnpm run gen
+pnpm i -D @swc/core
+pnpm run gen
+pnpm run dev
+pnpm run gen
+pnpm prettier --help
+pnpm prettier --write src/types/**/*.ts
+pnpm run gen
+pnpm i graphql-tag
+pnpm run gen
+pnpm graphql-codegen-esm --help
+pnpm run gen
+pnpm run format
+git add .
+git commit -m "fixed swc/core, graphql deps issue & regen new types w/ AssetWhereUnique & prior edits; minor config file changes in root for esm""\
+"
+git push origin development
+pnpm run dev
+git status
+git add .
+git commit -m "mv graphql & interfaces out to src: no more types dir, redundant.. formatted lots of files, moved Next/Image to about page with working query, need to fix image transform fields in query asset for image "
+git push origin development
+code .
+ranger
+source ~/.zshrc
+cd Documents/Web_Portfolio/bleek-dot-dev
+lsw
+fdf
+alias
+cd Documents/Web_Portfolio/bleek-dot-dev
+git status
+code .
+sudo nala update && sudo nala upgrade
+code ~/.profile
+code ~/.zshenv node_modules
+code ~/.zprofile
+touch ~/.config/wlaunch && code ~/.config
+which prettier
+code .
+px 
+cd Documents/Web_Portfolio/bleek-dot-dev
+pnpm i -D @testing-library/react
+pnpm i -D @testing-library/jest-dom @testing-library/user-event
+code .
+pnpm run dev
+git add .
+git commit -m "more style adjustments & fixes: navbar, header, pagelayout, meta, etc.. making nav look better on small screens; renamed fonts & rearranged to improve loadtime hiccups on visit"
+git push origin development
+cd Documents/Web_Portfolio/bleek-dot-dev
+code ~
+printenv
+which prettier
+pnpm run dev
+pnpm i -g ts-node typescript 
+git add .
+git commit -m "fixed slow font load & got rid of var types: using jst names, added link tags to _document"
+git push origin development
+which pnpm
+which node
+pnpm which next
+ls node_modules/.bin/next
+./node_modules/.bin/next
+./node_modules/.pnpm/@next+swc-linux-x64-gnu@13.4.12/node_modules/@next/swc-linux-x64-gnu/README.md node_modules
+cat ./node_modules/.pnpm/@next+swc-linux-x64-gnu@13.4.12/node_modules/@next/swc-linux-x64-gnu/README.md node_modules
+cat ./node_modules/.pnpm/@next+swc-linux-x64-gnu@13.4.12/node_modules/@next/swc-linux-x64-gnu/README.md
+cat ./node_modules/.pnpm/@next+swc-linux-x64-gnu@13.4.8/node_modules/@next/swc-linux-x64-gnu/next-swc.linux-x64-gnu.node
+which next
+pnpm run dev
+pnpm run dev:edge
+pnpm i -D jest jest-environment-jsdom
+touch jest.config.js
+pnpm run dev
+pnpm run dev:edge
+pnpm run dev
+pnpm run dev:edge
+pnpm run dev
+git add .
+git commit -m "added testing-library react/jest/userevent/etc., tests/setup.ts, modified common theme, fixed issue in text-shadows"
+git push origin development
+sudo nala update && sudo nala upgrade
+ranger --help
+cat .cache/ranger
+ranger --copy-config=( rc | scope | ... | all )
+code .
+ranger --copy-config=( rc | scope | ... | all )
+la
+alias
+source ~/.zshrc
+alias
+source ~/.zshrc
+code .
+alias
+zplug --help
+zplug list
+zplug status
+zplug clean
+cd .config/zplug/repos/ohmyzsh/ohmyzsh/plugins
+ls
+cd fzf
+ls
+cat README.md
+cat fzf.plugin.zsh
+[[ -f "$HOME/.zshrc" ]] && source ~/.zshrc
+which prettier
+prettier --help
+touch .editorconfig
+touch .prettierrc.json
+source ~/.zshrc
+run-help
+which run-help
+run-help
+source ~/.zshrc
+which fdd
+source ~/.zshrc
+help zsh
+man zsh
+ls
+fzf-tab-complete
+source ~/.zshrc
+tags in context :completion::complete:rg::\
+    operand-argument-1 options  (_arguments _rg _ripgrep)\
+tags in context :completion::complete:rg:options:\
+    options  (_arguments _rg _ripgrep)\
+tags in context :completion::files-enhance:::\
+    globbed-files  (_files _files_enhance)
+rg -- # Press `C-x h` here\
+tags in context :completion::complete:rg::\
+    operand-argument-1 options  (_arguments _rg _ripgrep)\
+tags in context :completion::complete:rg:options:\
+    options  (_arguments _rg _ripgrep)\
+tags in context :completion::files-enhance:::\
+    globbed-files  (_files _files_enhance)
+fdf --\
+tags in context :completion::complete:fdfind::\
+    operand-argument-1 options  (_arguments _fdfind _ripgrep)\
+tags in context :completion::complete:fdfind:options:\
+    options  (_arguments _fdfind _ripgrep)\
+tags in context :completion::files-enhance:::\
+    globbed-files  (_files _files_enhance)
+fdd
+fdfind --\
+tags in context :completion::complete:fdfind::\
+    operand-argument-1 options  (_arguments _fdfind _ripgrep)\
+tags in context :completion::complete:fdfind:options:\
+    options  (_arguments _fdfind _ripgrep)\
+tags in context :completion::files-enhance:::\
+    globbed-files  (_files _files_enhance)
+source ~/.zshrc
+less .prettierrc.json Desktop
+less .prettierrc.json
+less --help
+strace less .prettierrc.json
+source ~/.zshrc
+C-x h
+enable-fzf-tab
+bindkey '^Xh' _complete_help
+source ~/.zshrc
+code .
+source ~/.zshrc
+px -u bleek42
+px --top  -o pid,%cpu,user,comm -w -w
+px --top  -o pid,%cpu
+px --top 
+source ~/.zshrc
+ps f
+source ~/.zshrc
+fzf --help
+source ~/.zshrc
+man fzf
+source ~/.zshrc
+rg
+sudo nala install ripgrep
+rg
+source ~/.zshrc
+strace fzf 
+source ~/.zshrc
+cd /usr/share/
+ls
+cd fzf
+cd zsh/
+ls
+ls functions
+ls help
+source ~/.zshrc
+cd site-functions/
+source ~/.zshrc
+cd ~
+source ~/.zshrc
+ls .local/share/pnpm/global/5/node_modules/prettier
+ls
+cd .local/share/pnpm/global/5/node_modules/prettier
+ls 
+cd ../../../
+ls
+ls -a
+source ~/.zshrc
+cd /
+fzf --help
+source ~/.zshrc
+ls Public
+source ~/.zshrc
+echo $FZF_DEFAULT_OPTS
+source ~/.zshrc
+echo $FZF_TAB_HOME
+
+source .config/shells.d/zsh
+source .config/shells.d/zsh/custom-keys.zsh
+source .config/shells.d/zsh/fzf-opts.zsh
+ps 
+source .config/shells.d/zsh/fzf-opts.zsh
+zstyle
+source .config/shells.d/zsh/fzf-opts.zsh
+zplug status
+source .config/shells.d/zsh/fzf-opts.zsh
+fzf Documents
+source .config/shells.d/zsh/fzf-opts.zsh
+fzf Documents/Web_Portfolio/bleek-dot-dev
+source .config/shells.d/zsh/fzf-opts.zsh
+exa --help
+source .config/shells.d/zsh/fzf-opts.zsh
+pnpm help 
+pnpm help -l
+runas.exe
+help pnpm
+echo $MANPATH
+sudo -e /etc/profile.d/kali.sh
+cat /etc/profile.d
+cat /etc/profile.d/kali.sh
+batcat --help
+source .config/shells.d/zsh/fzf-opts.zsh
+man pnpm
+source .config/shells.d/zsh/fzf-opts.zsh
+pnpm completion
+pnpm completions
+pnpm help -l
+pnpm help help
+pnpm help
+source .config/shells.d/zsh/fzf-opts.zsh
+run-help
+zstyle :fzf-tab:
+zstyle :fzf-tab: fzf-preview
+source .config/shells.d/zsh/fzf-opts.zsh
+run-help emulate
+
+zstyle
+zsh
+exit
+: 1690828318:0;zstyle
+: 1690828369:0;zplug load
+: 1690828441:0;zstyle
+: 1690830109:0;ls 
+: 1690830404:0;cp -r .z* /mnt/c/Users/brand/Documents/Projects/dev-env-bootstrap-config
+: 1690830480:0;ls 
+: 1690830498:0;rm ${ZCOMPDUMP}
+: 1690830501:0;ls
+: 1690830507:0;rm ${ZCOMPDUMP} -rf
+: 1690830508:0;ls
+: 1690830529:0;rm ./${ZCOMPDUMP}
+: 1690830544:0;rmdir \$\{ZCOMPDUMP\}
+: 1690830548:0;rmdir \$\{ZCOMPDUMP\} -rf
+: 1690830555:0;rm -rf \$\{ZCOMPDUMP\} -rf
+: 1690830560:0;rm -rf \$\{ZCOMPDUMP\}
+: 1690830561:0;ls
+: 0:1690830070;
+: 1690830716:0;mv /mnt/c/Users/brand/OneDrive/Desktop/.zcompdump .cache
+: 1690830737:0;mv .cache/.zcompdump .cache/zcompdump
+: 1690830738:0;ls
+: 1690830822:0;cp .config/shells.d /mnt/c/Users/brand/Documents/Projects/dev-env-bootstrap-config/src/WinNT/wsl -r

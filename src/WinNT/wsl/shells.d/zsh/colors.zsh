@@ -1,7 +1,14 @@
 #!/usr/bin/env zsh
 
-# change suggestion color
+autoload -Uz colors && colors
+
 typeset -gA ZSH_HIGHLIGHT_STYLES ZSH_HIGHLIGHT_PATTERNS
+
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
+# change suggestion color
+# Gray color for autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=247'
 
 ZSH_HIGHLIGHT_STYLES[default]='none'
 ZSH_HIGHLIGHT_STYLES[cursor]='fg=yellow'
@@ -37,9 +44,3 @@ ZSH_HIGHLIGHT_STYLES[assign]='none'
 ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=cyan,bold')
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor line)
-# Gray color for autosuggestions
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=247'
-
-# # fzf settings. Uses sharkdp/fd for a faster alternative to `find`.
-# FZF_CTRL_T_COMMAND='fd --type f --hidden --exclude .git --exclude .cache'
-# FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git']]']]']']'
