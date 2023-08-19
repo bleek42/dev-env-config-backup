@@ -5,6 +5,10 @@ if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init zsh --hook prompt --cmd zd)"
 fi
 
+if command -v fdfind >/dev/null 2>&1; then
+    alias fd='fdfind --hidden --no-ignore --exclude .git --follow --color always'
+fi
+
 if command -v exa >/dev/null 2>&1; then
     alias ls='exa -a --color-scale --icons'
     alias la='exa -al --color-scale --icons'

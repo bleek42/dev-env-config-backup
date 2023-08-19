@@ -9,7 +9,7 @@ export LANG="en_US"
 export MASTERPATH=$PATH
 
 if command -v nvm >/dev/null 2>&1; then
-    NODE_PRESERVE_SYMLINKS=1
+    # NODE_PRESERVE_SYMLINKS=1
     eval "$(nvm on)"
     eval "$(nvm use lts)"
     if [ -z "$NODE_PATH" ]; then
@@ -17,9 +17,9 @@ if command -v nvm >/dev/null 2>&1; then
     else
         NODE_PATH=$(which node):$NODE_PATH
     fi
-    NODE_PATH=$NODE_PATH:$NVM_SYMLINK
+    NODE_PATH="$NODE_PATH:$NVM_SYMLINK"
     NODE_EXE="$NODE_PATH/node.exe"
-    export NODE_PRESERVE_SYMLINKS
+    # export NODE_PRESERVE_SYMLINKS
     export NODE_PATH
     export NODE_EXE
 fi

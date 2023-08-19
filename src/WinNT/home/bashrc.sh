@@ -8,6 +8,8 @@ esac
 # # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
 shopt -s globstar
+# append to the history file, don't overwrite it
+shopt -s histappend
 # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 # removes .exe ending when using tab completions for any commands (example: type 'no' then press tab, normally on windows it would complete to 'node.exe' now it will just be 'node')
@@ -27,6 +29,7 @@ shopt -s histappend
 # HISTORY MANAGEMENT
 # ═══════════════════════════════════════
 # set length of command history rememebered
+# ? set a variable using your users default $HOME environment variable to a hidden "dotfolder" .config/ folder with this syntax
 HISTSIZE=5000
 HISTFILESIZE=5000
 
@@ -37,17 +40,24 @@ HISTCONTROL='ignoreboth'
 # Store timestamps in history file, and display them as 'Mon 2020-06-01 23:42:05'.
 HISTTIMEFORMAT='%a %Y-%m-%d %H:%M:%S'
 
-# # If this shell is connected to a tty, disable software flow control.
-# # In other words, prevent accidentally hitting ^S from freezing the entire terminal.
+# # If this interactive Bash shell session is connected to a terminal emulator (or a TTY "tele-typewriter"), disable software flow control.
+# # In other words, prevent accidentally hitting CTRL+S from freezing the terminal session.
 [ -t 0 ] && stty -ixon 2>/dev/null
 
-config_dir="$HOME/.config"
+# check if user home "~/" doesn't have dir called ".config", make it if so
+[[ ! -d ~/.config ]] && mkdir ~/.config
+# ? XDG_* env vars are a universal specification for Unix/Linux operating systems: Windows usually has own sort of spec to do this with $APPDATA, $LOCALAPPDATA, used for setting things like users for standard inital user folders like "MyDocuments" & other user specific start up stuff. We can still imitate this particular one, and often you may already have created it via some other software you use having done it
+XDG_CONFIG_DIR=~/.config
 
-if [ -d "$config_dir/bash" ]; then
-  for src in "$config_dir"/bash/**/*.sh; do
-    test -f "$src" && source "$src"
+if [[ -d "$XDG_CONFIG_DIR/bash/completions" ]]; then
+  for src in "${XDG_CONFIG_DIR}"/bash/completions/**/*.sh; do
+    source "$src"
   done
+  unset src
 fi
+
+[[ -d "$XDG_CONFIG_DIR/bash/aliases/aliases.sh" ]] && source "$XDG_CONFIG_DIR/bash/aliases/aliases.sh"
+
 
 # if command -v direnv >/dev/null 2>&1; then
 #   eval "$(

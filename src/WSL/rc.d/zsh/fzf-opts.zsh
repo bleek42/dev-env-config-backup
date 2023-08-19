@@ -35,13 +35,28 @@ export FZF_DEFAULT_OPTS="
 		-e \
 		--ansi \
 		--cycle \
+		--border \
         --layout reverse \
-        --inline-info \
 		--height 50% \
+		--line-range :50 \
+        --inline-less \
         --header '${__fzf_default_header}' \
         --header-first \
-		--preview-window right:30%:border-vertical
-		--prompt '${FZF_PROMPT_CHAR}'"
+		--preview-window down:40%:border-horizontal \
+		--prompt '${FZF_PROMPT_CHAR}' \
+		--pointer '' \
+		--less 'inline:  ' \
+		--bind '?:toggle-preview' \
+        --bind 'ctrl-space:toggle+down' \
+        --bind 'ctrl-a:toggle-all' \
+        --bind 'ctrl-x:deselect-all' \
+        --bind 'ctrl-e:execute(nvim {+} < /dev/tty > /dev/tty)' \
+        --bind 'ctrl-v:execute(code {+})' \
+        --bind 'alt-j:preview-down' \
+        --bind 'alt-k:preview-up' \
+        --bind 'ctrl-f:preview-page-down' \
+        --bind 'ctrl-b:preview-page-up' \
+        --bind 'ctrl-o:accept-non-empty'"
 
 # --pointer  \
 # --border \
@@ -55,18 +70,26 @@ export FZF_TAB_OPTS="
 		--inline-info \
 		--border \
 		--layout reverse \
-		--height 30% \
-		--pointer  \
-		--preview-window down:3:border-horizontal \
+		--height 40% \
+		--header '${__fzf_default_header}' \
+        --header-first \
+		--preview-window down:~4:border-horizontal \
+		--preview '([[ -f {} ]] && (batcat --style=numbers --color=always --line-range :50 {} || cat {})) || 
+            	   
+				   ([[ -d {} ]] && (treex {} | less -n -q || less)) || 
+            	   
+				   echo {} 2> /dev/null | head -10 || less -n -q {} || less {}' \
+		--prompt '${FZF_PROMPT_CHAR}' \
+		--pointer '' \
 		--exit-0 "
 
 # --preview '${FZF_PREVIEW}'
 
 # fzf settings. Uses fdfind for a faster alternative to `find`.
 # Preview file content using bat (https://github.com/sharkdp/bat)
-export FZF_CTRL_T_COMMAND='fdfind --hidden -exclude ".git" --follow --color=always'
+export FZF_CTRL_T_COMMAND='fdfind --hidden -exclude ".git" --follow --color=always '
 export FZF_CTRL_T_OPTS="
-		--preview 'batcat --color=always -n -p {}' \
+		--preview 'batcat --color=always -n -p {} || less ' \
 		--preview-window down:~4:wrap
   		--bind 'ctrl-/:change-preview-window(down|hidden|)' \
   		--color header:italic \
@@ -76,14 +99,18 @@ export FZF_CTRL_T_OPTS="
 
 # ? to toggle small preview window to see the full command
 # CTRL-Y to copy the command into clipboard using pbcopy
-export FZF_CTRL_R_OPTS="
-  		--preview 'echo {}' --preview-window down:~4:wrap \
-  		--bind '?:toggle-preview' \
-  		--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
-  		--color header:italic \
-  		--header 'Press CTRL-Y to copy command into clipboard'"
+# export FZF_CTRL_R_COMMAND
+# export FZF_CTRL_R_OPTS="
+#   		--preview 'echo {}' --preview-window down:~4:wrap \
+#   		--bind '?:toggle-preview' \
+#   		--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
+#   		--color header:italic \
+#   		--header 'Press CTRL-Y to copy command into clipboard'"
+
+# export FZF_CTRL_C_COMMAND=""
 
 # Print tree structure in the preview window
+export FZF_ALT_C_COMMAND=''
 export FZF_ALT_C_OPTS="--preview 'treex {} || tree -C {} | head -200'"
 
 zstyle ':fzf-tab:*' prefix "${FZF_PROMPT_CHAR}"

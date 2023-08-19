@@ -6,8 +6,8 @@ symlinks = false
 logallrefupdates = true
 longPaths = true
 protectNTFS = false
-editor = /usr/bin/micro
-visual = ""
+editor = /usr/bin/nano
+visual = /usr/bin/code
 
 [color]
 ui = auto
@@ -17,20 +17,18 @@ defaultBranch = main
 
 [merge]
 
-[user]
-name = bleek42
-email = brandonleek42@gmail.com
-
-[credential]
-helper = ""
 
 [user]
-name = bleek42
+name =
 email =
-
-[credential "helperselector"]
-selected = manager-core
 
 [user "https://gitlab.com"]
 name =
 email =
+
+[credential]
+helper = ""
+
+[credential "helperselector"]
+selected = manager-core
+
