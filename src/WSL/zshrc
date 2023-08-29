@@ -1,8 +1,9 @@
 #!/usr/bin/env zsh
 
-# ~/.zshrc file for zsh interactive rc.
+# ~/.zshrc file for zsh interactive shells.
 # see /usr/share/doc/zsh/examples/zshrc for examples
-export ZSH="/usr/share/zsh"
+ZSH="/usr/share/zsh"
+# export ZDOTDIR="${ZSH:}"
 ZSH_GIT_PROMPT_ENABLE_SECONDARY=1
 # ZPLUG
 ZPLUG_HOME="$HOME/.config/zplug"
@@ -40,7 +41,7 @@ if [ -f "$ZPLUG_HOME/init.zsh" ]; then
 
   zplug "/usr/share/zsh-autosuggestions", from:local, use:'zsh-autosuggestions.zsh', defer:2
 
-  zplug "/usr/share/zsh-syntax-highlighting", from:local, use:'zsh-syntax-highlighting.zsh', defer:2
+  zplug "/usr/share/zsh-syntax-highlighting", from:local, use:'zsh-syntax-highlighting.zsh', defer:3
 
   zplug "zsh-users/zsh-history-substring-search", use:'zsh-history-substring-search.zsh', defer:3
 
@@ -53,7 +54,8 @@ if [ -f "$ZPLUG_HOME/init.zsh" ]; then
   fi
 
   # Then, source plugins and add commands to $PATH
-  zplug load --verbose
+  zplug load
+  # --verbose
   # enable auto-suggestions based on the history
 fi
 
@@ -72,7 +74,6 @@ setopt extended_glob
 
 # History configurations
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share
@@ -95,7 +96,7 @@ zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
 # Enable run-help module
-autoload -Uz run-help
+autoload -z run-help
 alias help='run-help'
 
 # enable bracketed paste
@@ -124,12 +125,15 @@ autoload -z lspath bag fgb fgd fgl fz ineachdir psg vpaste evalcache compdefcach
 # (( ${+commands[man]} )) && autoload -z wrap_man
 
 # (( ${+commands[sudo]} )) && autoload -z wrap_sudo
-
+# uninstall by removing these lines
+# [[ -f "$HOME/.config/rc.d/zsh/compdefs/_pnpm" ]] && "$HOME/.config/rc.d/zsh/compdefs/_pnpm" || echo 'failed to load new compdefs'
 [[ -f "$HOME/.config/rc.d/zsh/colors.zsh" ]] && source "$HOME/.config/rc.d/zsh/colors.zsh"
 # enable completion features
 zmodload zsh/complist
 autoload -Uz compinit
 compinit
+# autoload -Uz bashcompinit
+# bashcompinit
 
 # Allow you to select in a menu
 zstyle ':completion:*' menu select
@@ -142,7 +146,7 @@ zstyle ':completion:*' complete true
 zstyle ':completion:*:*' sort true
 zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path '${ZCOMPDUMP}'
+zstyle ':completion:*' cache-path '$ZCOMPDUMP'
 zstyle ':completion:*' keep-prefix true
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
 # # Required for completion to be in good groups (named after the tags)
@@ -157,39 +161,38 @@ zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions co
 # Only display some tags for the command cd
 zstyle :completion':*:*:cd:*' tag-order local-directories directory-stack path-directories
 
-zle -C alias-expension complete-word _generic
-zstyle ':completion:*' completer _expand _complete
-zstyle ':completion:alias-expension:*' completer _alias _generic
-bindkey '^Xa' alias-expension
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 zstyle ':completion:*:kill:*' command 'ps -u ${USER} -o pid,%cpu,tty,cputime,cmd -w -w '
-zstyle ':completion:*:*:px:' command 'px --top '
+zstyle ':completion:*:px:' command 'px --top '
 
 # Initialize colors
 
-if zplug check "Aloxaf/fzf-tab" && [[ -f "$HOME/.config/rc.d/zsh/fzf-opts.zsh" ]]; then
-  source "$HOME/.config/rc.d/zsh/fzf-opts.zsh"
-fi
+if zplug check "Aloxaf/fzf-tab" && [[ -f "$HOME/.config/rc.d/zsh/fzf-config.zsh" ]]; then
+  source "$HOME/.config/rc.d/zsh/fzf-config.zsh"
 
-if ! command -v zplug >/dev/null 2>&1; then
-  # zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-
+else
+  zle -C alias-expension complete-word _generic
+  bindkey '^Xa' alias-expension
+  zstyle ':completion:alias-expension:*' completer _alias _generic
+  zstyle ':completion:*' completer _expand _complete
   zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
   zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+  # zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-  [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  [[ -f "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  [[ -f "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 fi
-
-autoload -Uz bashcompinit
-bashcompinit
 
 # configure key keybindings
 bindkey -e # emacs key bindings
 zmodload zsh/terminfo
 typeset -A key
+
+# # Keybindings for substring search plugin. Maps up and down arrows.
+bindkey -M main '^[OA' history-substring-search-up
+bindkey -M main '^[OB' history-substring-search-down
 
 bindkey '^Xh' _complete_help
 bindkey ' ' magic-space                        # do history expansion on space
@@ -203,10 +206,6 @@ bindkey '^[[6~' end-of-buffer-or-history       # page down
 bindkey '^[[H' forward-word                    # home
 bindkey '^[[F' end-of-line                     # end
 bindkey '^Z' undo                              # ctrl + Z undo last action
-
-# # Keybindings for substring search plugin. Maps up and down arrows.
-bindkey -M main '^[OA' history-substring-search-up
-bindkey -M main '^[OB' history-substring-search-down
 
 # Make dot key autoexpand "..." to "../.." and so on
 _zsh-dot() {
@@ -234,12 +233,12 @@ xterm-color | *-256color | alacritty) color_prompt=yes ;;
 esac
 
 configure_prompt() {
-  prompt_symbol='[ 󰨡   ]:( " )'
+  prompt_symbol='[ 󰨡  ]:( )'
   # Skull emoji for root terminal
-  [ "$EUID" -eq 0 ] && prompt_symbol=💀
+  [ "$EUID" -eq 0 ] && prompt_symbol='[ 󰨡   ]:{  󰚌 }'
   case "$PROMPT_ALTERNATIVE" in
   twoline)
-    PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]$(gitprompt) \n└─%B%(#.%F{red}#.%F{blue})%b%F{reset} '
+    PROMPT=$'%{$fg_bold[green]%}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]$reset_color$(gitprompt)\n%{$fg_bold[green]%}└─%B%(#.%F{green}#.%F{blue}λ)%b%F{reset} '
     # Right-side prompt with exit codes and background processes
     RPROMPT='%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
     ;;
@@ -303,3 +302,10 @@ fi
 if [ -f /etc/zsh_command_not_found ]; then
   source /etc/zsh_command_not_found
 fi
+
+export LIBGL_ALWAYS_INDIRECT=1      #GWSL
+export DISPLAY="${WSL_IPV4}":0      #GWSL
+export PULSE_SERVER="${WSL_IPV4}":1 #GWSL
+export GDK_SCALE=1                  #GWSL
+export GTK_THEME='Kali-Purple-Dark'
+export QT_SCALE_FACTOR=1 #GWSL
