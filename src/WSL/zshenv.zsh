@@ -8,11 +8,11 @@ export LESSOPEN="|~/.lessfilter %s 2>&-"
 export BROWSER='powershell.exe -command start'
 export MANROFFOPT=-c
 export MANPAGER=$'/bin/sh -c \'col -b | batcat -p -l man\''
-
-# export NODE_PRESERVE_SYMLINKS=1
+export WSL_IPV4="$(hostname -I | awk '{print $1}' | awk '{printf $0}')"
+export LIBGL_ALWAYS_INDIRECT=1      #GWSL
+export DISPLAY="${WSL_IPV4}":0      #GWSL
+export PULSE_SERVER="${WSL_IPV4}":1 #GWSL
+export GDK_SCALE=1                  #GWSL
+export GTK_THEME='Kali-Purple-Dark'
+export QT_SCALE_FACTOR=1 #GWSL
 export LS_COLORS="${LS_COLORS}:ow=30;44:" # fix ls color for folders with 777 permissions
-# export FD_FIND='fdfind --hidden --no-ignore --exclude .git --follow --color always'
-# LESS_TERMCAP_md="$(tput setaf 136)"
-# [ -e "$LESS_TERMCAP_md" ] && export LESS_TERMCAP_md
-# TREE_CMD="$(tree -aC -I '.git' --dirsfirst "$@" | batcat --plain)"
-# [ -e "$TREE_CMD" ] && alias tree="${TREE_CMD}"

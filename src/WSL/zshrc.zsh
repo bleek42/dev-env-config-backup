@@ -302,10 +302,3 @@ fi
 if [ -f /etc/zsh_command_not_found ]; then
   source /etc/zsh_command_not_found
 fi
-
-export LIBGL_ALWAYS_INDIRECT=1      #GWSL
-export DISPLAY="${WSL_IPV4}":0      #GWSL
-export PULSE_SERVER="${WSL_IPV4}":1 #GWSL
-export GDK_SCALE=1                  #GWSL
-export GTK_THEME='Kali-Purple-Dark'
-export QT_SCALE_FACTOR=1 #GWSL
