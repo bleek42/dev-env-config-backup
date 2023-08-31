@@ -4,6 +4,8 @@ My growing collection & point of reference to show for all the time I have spent
 
 |![Git-Bash, Windows w/ OhMyPosh & NeoFetch](/images/msys-git-bash-neofetch.png " Git-Bash For Windows (MSYS:MINGW6)") |
 
+===============================================================
+
 |  ![WSL-Kali-FZF-kill](/images/kali-zsh-fzf.png "WSL2/Kali-Linux ZSH Prompt w/ FZF integration, completions") |
 
 |				   |
