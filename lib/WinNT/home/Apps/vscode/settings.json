@@ -1,0 +1,317 @@
+{
+	/*
+	!!! WINDOW, WORKBENCH, EXPLORER SETTINGS
+	*/
+	"window.commandCenter": true, // ! EXPERIMENTAL WINDOW CONTROLS
+	"explorer.confirmDelete": false,
+	"explorer.confirmDragAndDrop": false,
+	"workbench.colorTheme": "Hyper Dark Material",
+	"workbench.iconTheme": "material-icon-theme",
+	"workbench.preferredDarkColorTheme": "Hacker X - Enhanced Material Hacker Theme",
+	"workbench.preferredHighContrastColorTheme": "Firefox Devtools Italic",
+	"workbench.sash.size": 20,
+	/*
+	!!! EDITOR SETTINGS
+	*/
+	"editor.fontFamily": "'CaskaydiaCove NF Mono', Consolas, 'Courier New', monospace",
+	"editor.inlayHints.fontFamily": "'ProFontWindows NF Mono', Consolas, 'Courier New', monospace",
+	"editor.codeLensFontFamily": "'BigBlue_Terminal Nerd Font Mono', Consolas, 'Courier New', monospace",
+	"debug.console.fontFamily": "'Hack NF', Consolas, 'Courier New', monospace",
+	"editor.fontSize": 16,
+	"editor.fontWeight": 600,
+	"editor.fontLigatures": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.inlayHints.fontSize": 12,
+	"editor.inlayHints.padding": true,
+	"editor.suggestSelection": "first",
+	"editor.formatOnSave": true,
+	"editor.wordWrap": "on",
+	"editor.wrappingStrategy": "simple",
+	"editor.guides.indentation": true,
+	"editor.detectIndentation": true,
+	"editor.autoIndent": "advanced",
+	"editor.guides.bracketPairs": true,
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.highlightActiveIndentation": true,
+	"editor.guides.highlightActiveBracketPair": true,
+	"editor.minimap.enabled": false,
+	"editor.cursorSmoothCaretAnimation": "on",
+	"editor.cursorStyle": "block-outline",
+	"editor.cursorBlinking": "phase",
+	"editor.cursorWidth": 64,
+	"editor.cursorSurroundingLines": 10,
+	"editor.cursorSurroundingLinesStyle": "all",
+	"editor.formatOnSaveMode": "modifications",
+	"editor.accessibilitySupport": "off",
+	"terminal.integrated.profiles.windows": {
+		"Git-Bash (v1.38)": {
+			"path": "${env:MS_GITBASH}\\bin\\bash.exe",
+			"args": [
+				"--login",
+				"-i"
+			],
+			"env": {
+				"WT_SESSION": null,
+				"WT_PROFILE_ID": null
+			},
+			"overrideName": true,
+			"icon": "terminal-bash",
+			"color": "terminal.ansiGreen"
+		},
+		"PowerShell (v7)": {
+			"path": "${env:PROGRAMFILES}\\PowerShell\\7\\pwsh.exe",
+			"args": [
+				"-Login",
+				"-Interactive"
+			],
+			"env": {
+				"WT_SESSION": null,
+				"WT_PROFILE_ID": null
+			},
+			"overrideName": true,
+			"icon": "terminal-powershell",
+			"color": "terminal.ansiCyan"
+		}
+	},
+	"terminal.integrated.defaultProfile.windows": "PowerShell (v7)",
+	"terminal.integrated.automationProfile.windows": {
+		"path": "${env:PROGRAMFILES}\\PowerShell\\7\\pwsh.exe",
+		"icon": "vm-active"
+	},
+	"terminal.integrated.fontFamily": "'ProFontIIx Nerd Font Mono'",
+	"terminal.integrated.cursorBlinking": true,
+	"terminal.integrated.cursorStyle": "block",
+	"terminal.integrated.smoothScrolling": true,
+	"terminal.integrated.rightClickBehavior": "paste",
+	"terminal.integrated.defaultLocation": "view",
+	"terminal.integrated.gpuAcceleration": "on",
+	"terminal.integrated.env.windows": {
+		"WT_SESSION": null
+	},
+	/*
+	!!!! EXTENSION-SPECIFIC SETTINGS
+	*/
+	"prettier.prettierPath": "C:\\Users\\brand\\AppData\\Local\\Volta\\bin\\prettier.exe",
+	"diffEditor.codeLens": true,
+	"editorconfig.template": "~/.editorconfig",
+	"vscode-edge-devtools.browserFlavor": "Dev",
+	"vscode-edge-devtools.hostname": "localhost",
+	"vscode-edge-devtools.port": 3000,
+	"vscode-edge-devtools.webRoot": "${workspaceFolder}",
+	"vscode-edge-devtools.showWorkers": true,
+	"vsintellicode.typescript.completionsEnabled": true,
+	"liveServer.settings.donotShowInfoMsg": true,
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"gitlens.defaultDateLocale": "system",
+	"gitlens.codeLens.scopes": [
+		"document",
+		"containers",
+		"blocks"
+	],
+	"npm-intellisense.packageSubfoldersIntellisense": true,
+	"npm-intellisense.scanDevDependencies": true,
+	"windowsTerminal.reuseExistingWindow": true,
+	"windowsTerminal.explorer.showOpenWithProfile": true,
+	"winopacity.opacity": 250,
+	"errorLens.enabled": true,
+	"errorLens.delay": 8000,
+	"errorLens.fontFamily": "BigBlue_Terminal Plus Nerd Font Mono Book",
+	"errorLens.enabledDiagnosticLevels": [
+		"error",
+		"warning",
+		"info"
+	],
+	"bashIde.explainshellEndpoint": "http://localhost:5000",
+	// ? "npm.packageManager": "pnpm",
+	// ? "eslint.packageManager": "pnpm",
+	// ? "eslint.debug": true,
+	// ? "eslint.nodePath": "",
+	// ? "eslint.runtime": "node",
+	// ? "eslint.trace.server": "verbose",
+	/*
+	!!! FILE BEHAVIOR & SETTINGS
+	*/
+	"files.autoSave": "off", // ? autosave messes up "hot-reloading" when using tools like live server & nodemon + it is for amateurs :P
+	"files.maxMemoryForLargeFilesMB": 6140, // ? a little higher since I have 32gb of RAM: default = 4096mb
+	"files.associations": {
+		"*.env": "env",
+		"*.env.**": "env",
+		"config": "env"
+	},
+	// "files."
+	/*
+	* JS & TS BASIC PREFS
+	*/
+	"javascript.suggest.paths": false, // ! TURNING OFF PATH SUGGESTION FOR NPM INTELLISENSE COMPLETION EXTENSION
+	"javascript.format.semicolons": "insert",
+	"javascript.inlayHints.enumMemberValues.enabled": true,
+	"javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"typescript.suggest.paths": false,
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"typescript.implementationsCodeLens.enabled": true,
+	"typescript.format.semicolons": "insert",
+	// ! IMPORTANT FOR LOCAL TS VERSION
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	// & "extensions.experimental.useUtilityProcess": true,
+	"[html]": {
+		"editor.suggest.insertMode": "replace",
+		"editor.defaultFormatter": "vscode.html-language-features",
+		"editor.fontFamily": "'FiraCode NF', Consolas, 'Courier New', monospace",
+		"editor.formatOnSaveMode": "modifications"
+	},
+	"[css]": {
+		"editor.suggest.insertMode": "replace",
+		"editor.defaultFormatter": "vscode.css-language-features",
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+	},
+	"[javascript]": {
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.suggest.insertMode": "replace",
+		"editor.fontFamily": "'BlexMono NF'",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 500,
+		"editor.detectIndentation": true,
+		"editor.codeLensFontFamily": "'CodeNewRoman Nerd Font Mono', Consolas, 'Courier New', monospace",
+		"javascript.suggest.enabled": true,
+		"javascript.suggest.jsdoc.generateReturns": true,
+		"javascript.preferences.quoteStyle": "single"
+	},
+	"[typescript]": {
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.suggest.insertMode": "replace",
+		"editor.fontFamily": "'CodeNewRoman Nerd Font Mono', Consolas, 'Courier New', monospace",
+		"editor.fontSize": 14,
+		"editor.fontWeight": 600,
+		"editor.detectIndentation": true,
+		"javascript.suggest.enabled": true,
+		"javascript.suggest.jsdoc.generateReturns": true,
+		"javascript.preferences.quoteStyle": "single",
+		"editor.quickSuggestions": {
+			"other": "on",
+			"comments": "on",
+			"strings": "on"
+		},
+		"gitlens.codeLens.scopes": [
+			"document",
+			"containers"
+		]
+	},
+	"[javascriptreact]": {
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.suggest.insertMode": "replace",
+		"editor.codeLensFontFamily": "SauceCodePro Nerd Font Mono",
+		"editor.detectIndentation": true,
+		"javascript.suggest.enabled": true,
+		"javascript.suggest.jsdoc.generateReturns": true,
+		"javascript.preferences.quoteStyle": "single",
+		"editor.quickSuggestions": {
+			"other": "on",
+			"comments": "on",
+			"strings": "on"
+		}
+	},
+	"[typescriptreact]": {
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.suggest.insertMode": "replace",
+		"editor.fontFamily": "'BlexMono NF'",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 500,
+		"editor.detectIndentation": true,
+		"editor.codeLensFontFamily": "'SauceCodePro Nerd Font Mono'",
+		"javascript.suggest.enabled": true,
+		"javascript.suggest.jsdoc.generateReturns": true,
+		"javascript.preferences.quoteStyle": "single",
+		"editor.quickSuggestions": {
+			"other": "on",
+			"comments": "on",
+			"strings": "on"
+		}
+	},
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features",
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.fontFamily": "'ProFontWindows Nerd Font Mono'",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 500,
+		"editor.fontVariations": true,
+		"editor.fontLigatures": true,
+		"editor.minimap.enabled": true,
+		"editor.minimap.maxColumn": 120,
+		"editor.wordWrap": "bounded",
+		"editor.wordWrapColumn": 150,
+		"editor.detectIndentation": true,
+		"editor.maxTokenizationLineLength": 30000,
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.suggest.insertMode": "replace",
+		"editor.quickSuggestions": {
+			"strings": true,
+			"comments": "on"
+		},
+	},
+	"[shellscript]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[dotenv]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[properties]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features",
+		"editor.fontFamily": "'ProFontWindows Nerd Font Mono'",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 800,
+		"editor.fontVariations": true,
+		"editor.fontLigatures": true,
+		"editor.formatOnSave": true,
+		"editor.minimap.enabled": true,
+		"editor.minimap.maxColumn": 120,
+		"editor.wordWrap": "bounded",
+		"editor.wordWrapColumn": 125,
+		"editor.detectIndentation": true,
+		"editor.maxTokenizationLineLength": 30000,
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.quickSuggestions": {
+			"strings": true,
+			"comments": "on"
+		},
+		"editor.suggest.insertMode": "replace",
+	},
+	"[scss]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+	},
+	"[fish]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 4
+	},
+	"[dockerfile]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[ignore]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"totalTypeScript.hiddenTips": [
+		"basic-types",
+		"union-type",
+		"variable-type-annotation",
+		"undefined-keyword"
+	],
+	"totalTypeScript.hideAllTips": false,
+	"totalTypeScript.hideBasicTips": false
+}
