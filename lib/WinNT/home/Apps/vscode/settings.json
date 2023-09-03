@@ -86,12 +86,12 @@
 	"terminal.integrated.defaultLocation": "view",
 	"terminal.integrated.gpuAcceleration": "on",
 	"terminal.integrated.env.windows": {
-		"WT_SESSION": null
+		"TERM_PROGRAM": "vscode"
 	},
 	/*
 	!!!! EXTENSION-SPECIFIC SETTINGS
 	*/
-	"prettier.prettierPath": "C:\\Users\\brand\\AppData\\Local\\Volta\\bin\\prettier.exe",
+	"prettier.prettierPath": "${env:APPDATA}\\AppData\\Local\\Volta\\bin\\prettier.exe",
 	"diffEditor.codeLens": true,
 	"editorconfig.template": "~/.editorconfig",
 	"vscode-edge-devtools.browserFlavor": "Dev",
