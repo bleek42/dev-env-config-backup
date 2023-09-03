@@ -1,3 +1,5 @@
+#!/usr/bin/env pwsh
+
 $extensions = @(
 # $vsCodeExec = ($Env:LOCALAPPDATA) + "\VSCodium Insiders\Bin\codium-insiders"
 "aperlman.mojo-theme"
@@ -77,12 +79,12 @@ $extensions = @(
 "zgm.vscode-fish"
 "ypresto.vscode-intelli-refactor"
 "Zignd.html-css-class-completion"
-# Open/Launch in Visual Studio cODIUM iNSIDERS
+# Open/Launch in Visual Studio
 ) | SORT
 
 $extensions | ForEach-Object {
     try {
-        Invoke-Expression "& codium-insiders.cmd --install-extension $_ --force"
+        Invoke-Expression "& code.cmd --install-extension $_ --force"
         Write-Host # New-Line
     } catch {
         $_
