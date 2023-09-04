@@ -3,7 +3,9 @@
 # ~/.zshrc file for zsh interactive shells.
 # see /usr/share/doc/zsh/examples/zshrc for examples
 ZSH="/usr/share/zsh"
-# export ZDOTDIR="${ZSH:}"
+# ZDOTDIR="/usr/share/zsh:${ZDOTDIR}"
+# ZDOTDIR="${ZDOTDIR:-$HOME}/.config/rc.d/zsh"
+
 ZSH_GIT_PROMPT_ENABLE_SECONDARY=1
 # ZPLUG
 ZPLUG_HOME="$HOME/.config/zplug"
@@ -41,7 +43,7 @@ if [ -f "$ZPLUG_HOME/init.zsh" ]; then
 
   zplug "/usr/share/zsh-autosuggestions", from:local, use:'zsh-autosuggestions.zsh', defer:2
 
-  zplug "/usr/share/zsh-syntax-highlighting", from:local, use:'zsh-syntax-highlighting.zsh', defer:3
+  zplug "zdharma-continuum/fast-syntax-highlighting", use:'fast-syntax-highlighting.plugin.zsh', defer:3
 
   zplug "zsh-users/zsh-history-substring-search", use:'zsh-history-substring-search.zsh', defer:3
 
@@ -54,7 +56,7 @@ if [ -f "$ZPLUG_HOME/init.zsh" ]; then
   fi
 
   # Then, source plugins and add commands to $PATH
-  zplug load
+  zplug load --verbose
   # --verbose
   # enable auto-suggestions based on the history
 fi
@@ -78,16 +80,17 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share
 
-HISTFILE="$HOME/.config/rc.d/zhistfile"
+HISTFILE="$HOME"/.cache/zhistfile
 HISTSIZE=8000
 SAVEHIST=8000
 
 alias history='history -50'
-[[ -f "$HOME/.config/rc.d/common/aliases.sh" ]] && source "$HOME/.config/rc.d/common/aliases.sh"
+
+[[ -f "$HOME"/.config/rc.d/common/aliases.sh ]] && source "$HOME"/.config/rc.d/common/aliases.sh
 
 WORDCHARS='*?_[]~=&;!#$%^(){}' # Don't consider certain characters part of the word
-# PROMPT_EOL_MARK=" "
-ZCOMPDUMP="$HOME/.cache/zcompdump"
+PROMPT_EOL_MARK=" "
+export ZCOMPDUMP="$HOME"/.cache/zcompdump
 # force zsh to show the complete history
 
 # Fullscreen command line edit
@@ -107,12 +110,6 @@ zle -N bracketed-paste bracketed-paste-url-magic
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-# Use default provided history search widgets
-autoload -Uz up-line-or-beginning-search
-zle -N up-line-or-beginning-search
-autoload -Uz down-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
 # Enable functions from archive plugin
 # fpath+="$ZDOTDIR/plugins/archive"
 autoload -Uz archive lsarchive unarchive
@@ -127,26 +124,29 @@ autoload -z lspath bag fgb fgd fgl fz ineachdir psg vpaste evalcache compdefcach
 # (( ${+commands[sudo]} )) && autoload -z wrap_sudo
 # uninstall by removing these lines
 # [[ -f "$HOME/.config/rc.d/zsh/compdefs/_pnpm" ]] && "$HOME/.config/rc.d/zsh/compdefs/_pnpm" || echo 'failed to load new compdefs'
-[[ -f "$HOME/.config/rc.d/zsh/colors.zsh" ]] && source "$HOME/.config/rc.d/zsh/colors.zsh"
+[[ -f "$HOME"/.config/rc.d/zsh/colors.zsh ]] && source "$HOME"/.config/rc.d/zsh/colors.zsh
+export LS_COLORS="${LS_COLORS}:ow=30;44:" # fix ls color for folders with 777 permissions
+
 # enable completion features
 zmodload zsh/complist
-autoload -Uz compinit
-compinit
-# autoload -Uz bashcompinit
-# bashcompinit
+autoload -Uz compinit bashcompinit
+compinit && bashcompinit
 
 # Allow you to select in a menu
 zstyle ':completion:*' menu select
 zstyle ':completion:*:descriptions' format '[%d]'
-
 zstyle ':completion:*:default' list-colors '${(s.:.)LS_COLORS}'
-
 zstyle ':completion:*' verbose true
 zstyle ':completion:*' complete true
 zstyle ':completion:*:*' sort true
 zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path '$ZCOMPDUMP'
+zstyle ':completion:*' cache-path '~/.cache/zcompdump'
+
+zle -C alias-expension complete-word _generic
+bindkey '^Xa' alias-expension
+zstyle ':completion:alias-expension:*' completer _alias _generic
+zstyle ':completion:*' completer _expand _complete
 zstyle ':completion:*' keep-prefix true
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
 # # Required for completion to be in good groups (named after the tags)
@@ -168,17 +168,12 @@ zstyle ':completion:*:px:' command 'px --top '
 
 # Initialize colors
 
-if zplug check "Aloxaf/fzf-tab" && [[ -f "$HOME/.config/rc.d/zsh/fzf-config.zsh" ]]; then
-  source "$HOME/.config/rc.d/zsh/fzf-config.zsh"
+if zplug check "Aloxaf/fzf-tab" && [[ -f "$HOME"/.config/rc.d/zsh/fzf-config.zsh ]]; then
+  source "$HOME"/.config/rc.d/zsh/fzf-config.zsh
 
 else
-  zle -C alias-expension complete-word _generic
-  bindkey '^Xa' alias-expension
-  zstyle ':completion:alias-expension:*' completer _alias _generic
-  zstyle ':completion:*' completer _expand _complete
   zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
   zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-  # zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
   [[ -f "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh"
   [[ -f "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
@@ -302,3 +297,11 @@ fi
 if [ -f /etc/zsh_command_not_found ]; then
   source /etc/zsh_command_not_found
 fi
+
+# export ZDOTDIR
+export LIBGL_ALWAYS_INDIRECT=1      #GWSL
+export DISPLAY="${WSL_IPV4}":0      #GWSL
+export PULSE_SERVER="${WSL_IPV4}":1 #GWSL
+export GDK_SCALE=1                  #GWSL
+export GTK_THEME='Kali-Purple-Dark'
+export QT_SCALE_FACTOR=1 #GWSL

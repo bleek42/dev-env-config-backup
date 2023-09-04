@@ -3,7 +3,6 @@ root = true
 [*]
 charset = utf-8
 end_of_line = lf
-tab_width = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
 
@@ -19,15 +18,6 @@ trim_trailing_whitespace = false
 insert_final_newline = false
 
 [*.{sh,bash,csh,zsh,nu,fish,ps1}]
-indent_size = 4
-indent_style = tab
-trim_trailing_whitespace = false
-
-[*.{js,ts,rs}]
-indent_size = 2
-indent_style = space
-
-[*.{jsx,tsx}]
 indent_size = 4
 indent_style = space
 
