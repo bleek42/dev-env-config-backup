@@ -62,6 +62,5 @@ alias .....="cd ../../../.."
 alias cd..='cd ..'
 
 alias gitadd='git add .' # for yous that forget about that space bar, add all changes in repo
-alias gitpush='git push' # add origin + branch/you-are-on NOT main
 
 alias gitpullmain='git pull origin main' # now you can just type that and make sure you all pull content team m8s merge to main so u all on the same page within own branch

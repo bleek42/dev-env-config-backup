@@ -93,7 +93,7 @@ if test -d "$ZSH_CUSTOM/plugins/zsh-autopair"; then
 fi
 
 if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init zsh --cmd cd)"
+  eval "$(zoxide init zsh --cmd zd)"
 else
   echo "failed"
 fi
@@ -111,7 +111,7 @@ if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR='vi'
   ;;
  esac
- 
+
 fi
 
 # Preferred editor for local and remote sessions
