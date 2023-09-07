@@ -2,7 +2,8 @@
 
 # ~/.zshrc file for zsh interactive shells.
 # see /usr/share/doc/zsh/examples/zshrc for examples
-ZSH="/usr/share/zsh"
+ZSH=/usr/share/zsh
+ZPLUG_ROOT=/usr/share/zplug/init.zsh
 # ZDOTDIR="/usr/share/zsh:${ZDOTDIR}"
 # ZDOTDIR="${ZDOTDIR:-$HOME}/.config/rc.d/zsh"
 
@@ -19,14 +20,19 @@ ZPLUG_PROTOCOL=HTTPS
 ZPLUG_FILTER=fzf:fzf-tmux
 ZPLUG_SUDO_PASSWORD=leekster
 
-if [ -f "$ZPLUG_HOME/init.zsh" ]; then
+# if command -v fzf >/dev/null 2>&1; then
+#   [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+#   [[ -f /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh
+# fi
 
-  source "/usr/share/zplug/init.zsh"
+if [ -f "$ZPLUG_ROOT" ]; then
+
+  source "$ZPLUG_ROOT"
 
   # Make sure to use double quotes
   zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
-  # zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1"C
+  # zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1;"
 
   # Set the priority when loading
   # e.g., zsh-syntax-highlighting must be loaded
@@ -37,15 +43,30 @@ if [ -f "$ZPLUG_HOME/init.zsh" ]; then
   # zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1"C
   # zplug "$HOME/.local/share/dragon", from:local, as:theme, use:'dragon.zsh-theme'
 
-  zplug "woefe/git-prompt.zsh", use:'git-prompt.plugin.zsh'
+  zplug "Aloxaf/fzf-tab", \
+    use:'fzf-tab.plugin.zsh' \
+    defer:2
 
-  zplug "Aloxaf/fzf-tab", use:'fzf-tab.plugin.zsh', defer:2
+  zplug "/usr/share/zsh-autosuggestions", \
+    from:local, \
+    use:'zsh-autosuggestions.zsh', \
+    defer:2
 
-  zplug "/usr/share/zsh-autosuggestions", from:local, use:'zsh-autosuggestions.zsh', defer:2
+  zplug "hlissner/zsh-autopair", \
+    use:'autopair.plugin.zsh', \
+    defer:2
 
-  zplug "zdharma-continuum/fast-syntax-highlighting", use:'fast-syntax-highlighting.plugin.zsh', defer:3
+  zplug "zdharma-continuum/fast-syntax-highlighting", \
+    use:'fast-syntax-highlighting.plugin.zsh', \
+    defer:2
 
-  zplug "zsh-users/zsh-history-substring-search", use:'zsh-history-substring-search.zsh', defer:3
+  zplug "zsh-users/zsh-history-substring-search", \
+    use:'zsh-history-substring-search.zsh', \
+    defer:3
+
+  zplug "woefe/git-prompt.zsh", \
+    use:'git-prompt.plugin.zsh', \
+    defer:3
 
   # Install plugins if there are plugins that have not been installed
   if ! zplug check; then
@@ -57,7 +78,7 @@ if [ -f "$ZPLUG_HOME/init.zsh" ]; then
 
   # Then, source plugins and add commands to $PATH
   zplug load --verbose
-  # --verbose
+
   # enable auto-suggestions based on the history
 fi
 
@@ -80,9 +101,10 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share
 
-HISTFILE="$HOME"/.cache/zhistfile
+HISTFILE="$HOME/.cache/zhistory"
 HISTSIZE=8000
 SAVEHIST=8000
+ZCOMPDUMP="$HOME/.cache/zcompdump"
 
 alias history='history -50'
 
@@ -90,8 +112,42 @@ alias history='history -50'
 
 WORDCHARS='*?_[]~=&;!#$%^(){}' # Don't consider certain characters part of the word
 PROMPT_EOL_MARK=" "
-export ZCOMPDUMP="$HOME"/.cache/zcompdump
-# force zsh to show the complete history
+
+zmodload zsh/terminfo
+# configure key keybindings
+bindkey -e # emacs key bindings
+# typeset -A key
+
+bindkey '^Xh' _complete_help
+bindkey ' ' magic-space                        # do history expansion on space
+bindkey '^U' backward-kill-line                # ctrl + U
+bindkey '^[[3;5~' kill-word                    # ctrl + Supr
+bindkey '^[[3~' delete-char                    # delete
+bindkey '^[[1;5C' end-of-line                  # ctrl + ->
+bindkey '^[[1;5D' beginning-of-line            # ctrl + <-
+bindkey '^[[5~' beginning-of-buffer-or-history # page up
+bindkey '^[[6~' end-of-buffer-or-history       # page down
+bindkey '^[[H' forward-word                    # home
+bindkey '^[[F' end-of-line                     # end
+bindkey '^Z' undo                              # ctrl + Z undo last action
+
+# # Keybindings for substring search plugin. Maps up and down arrows.
+bindkey -M main '^[OA' history-substring-search-up
+bindkey -M main '^[OB' history-substring-search-down
+
+# [[ -f /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh
+
+# Make dot key autoexpand "..." to "../.." and so on
+_zsh-dot() {
+  if [[ ${LBUFFER} = *.. ]]; then
+    LBUFFER+=/..
+  else
+    LBUFFER+=.
+  fi
+}
+zle -N _zsh-dot
+
+bindkey . _zsh-dot
 
 # Fullscreen command line edit
 autoload -Uz edit-command-line
@@ -125,12 +181,14 @@ autoload -z lspath bag fgb fgd fgl fz ineachdir psg vpaste evalcache compdefcach
 # uninstall by removing these lines
 # [[ -f "$HOME/.config/rc.d/zsh/compdefs/_pnpm" ]] && "$HOME/.config/rc.d/zsh/compdefs/_pnpm" || echo 'failed to load new compdefs'
 [[ -f "$HOME"/.config/rc.d/zsh/colors.zsh ]] && source "$HOME"/.config/rc.d/zsh/colors.zsh
-export LS_COLORS="${LS_COLORS}:ow=30;44:" # fix ls color for folders with 777 permissions
+
+autoload -Uz colors
+colors
 
 # enable completion features
 zmodload zsh/complist
-autoload -Uz compinit bashcompinit
-compinit && bashcompinit
+autoload -U compinit
+compinit -C
 
 # Allow you to select in a menu
 zstyle ':completion:*' menu select
@@ -141,7 +199,7 @@ zstyle ':completion:*' complete true
 zstyle ':completion:*:*' sort true
 zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path '~/.cache/zcompdump'
+zstyle ':completion:*' cache-path '${ZCOMPDUMP}'
 
 zle -C alias-expension complete-word _generic
 bindkey '^Xa' alias-expension
@@ -168,57 +226,24 @@ zstyle ':completion:*:px:' command 'px --top '
 
 # Initialize colors
 
-if zplug check "Aloxaf/fzf-tab" && [[ -f "$HOME"/.config/rc.d/zsh/fzf-config.zsh ]]; then
-  source "$HOME"/.config/rc.d/zsh/fzf-config.zsh
-
+if zplug check "Aloxaf/fzf-tab" && [[ -f "$HOME/.config/rc.d/zsh/fzf-config.zsh" ]]; then
+  source "$HOME/.config/rc.d/zsh/fzf-config.zsh"
 else
   zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
   zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+  # bindkey '^I' expand-or-complete-prefix # tab comp
 
   [[ -f "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh"
   [[ -f "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 fi
 
-# configure key keybindings
-bindkey -e # emacs key bindings
-zmodload zsh/terminfo
-typeset -A key
-
-# # Keybindings for substring search plugin. Maps up and down arrows.
-bindkey -M main '^[OA' history-substring-search-up
-bindkey -M main '^[OB' history-substring-search-down
-
-bindkey '^Xh' _complete_help
-bindkey ' ' magic-space                        # do history expansion on space
-bindkey '^U' backward-kill-line                # ctrl + U
-bindkey '^[[3;5~' kill-word                    # ctrl + Supr
-bindkey '^[[3~' delete-char                    # delete
-bindkey '^[[1;5C' end-of-line                  # ctrl + ->
-bindkey '^[[1;5D' beginning-of-line            # ctrl + <-
-bindkey '^[[5~' beginning-of-buffer-or-history # page up
-bindkey '^[[6~' end-of-buffer-or-history       # page down
-bindkey '^[[H' forward-word                    # home
-bindkey '^[[F' end-of-line                     # end
-bindkey '^Z' undo                              # ctrl + Z undo last action
-
-# Make dot key autoexpand "..." to "../.." and so on
-_zsh-dot() {
-  if [[ ${LBUFFER} = *.. ]]; then
-    LBUFFER+=/..
-  else
-    LBUFFER+=.
-  fi
-}
-zle -N _zsh-dot
-bindkey . _zsh-dot
-
 # autoload -Uz promptinit && promptinit
 # make less more friendly for non-text input files, see lesspipe(1)
 # [ -x /usr/bin/lesspipe ] && emulate sh -c 'lesspipe'
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+if [[ -z ${debian_chroot:-} ]] && [ -r /etc/debian_chroot ]; then
   debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -228,7 +253,7 @@ xterm-color | *-256color | alacritty) color_prompt=yes ;;
 esac
 
 configure_prompt() {
-  prompt_symbol='[ 󰨡  ]:( )'
+  prompt_symbol='[ 󰨡  ]:(  )'
   # Skull emoji for root terminal
   [ "$EUID" -eq 0 ] && prompt_symbol='[ 󰨡   ]:{  󰚌 }'
   case "$PROMPT_ALTERNATIVE" in
@@ -293,15 +318,20 @@ if command -v direnv >/dev/null 2>&1; then
   [[ -f "$HOME/.envrc" ]] && eval "$(direnv hook zsh)"
 fi
 
+if zplug check 'hlissner/zsh-autopair'; then
+  # source "$ZSH_CUSTOM/plugins/zsh-autopair/autopair.zsh"
+  typeset -gA AUTOPAIR_PAIRS
+  AUTOPAIR_PAIRS+=("<" ">")
+  AUTOPAIR_PAIRS+=("{" "}")
+  AUTOPAIR_PAIRS+=("[" "]")
+  AUTOPAIR_PAIRS+=("'" "'")
+  AUTOPAIR_PAIRS+=("(" ")")
+  AUTOPAIR_PAIRS+=('"' '"')
+  AUTOPAIR_PAIRS+=('`' '`')
+  eval "$(autopair-init)"
+fi
+
 # enable command-not-found if installed
 if [ -f /etc/zsh_command_not_found ]; then
   source /etc/zsh_command_not_found
 fi
-
-# export ZDOTDIR
-export LIBGL_ALWAYS_INDIRECT=1      #GWSL
-export DISPLAY="${WSL_IPV4}":0      #GWSL
-export PULSE_SERVER="${WSL_IPV4}":1 #GWSL
-export GDK_SCALE=1                  #GWSL
-export GTK_THEME='Kali-Purple-Dark'
-export QT_SCALE_FACTOR=1 #GWSL
