@@ -18,7 +18,6 @@ ZPLUG_ERROR_LOG="$ZPLUG_HOME/error_zplug.log"
 ZPLUG_REPOS="$ZPLUG_HOME/repos"
 ZPLUG_PROTOCOL=HTTPS
 ZPLUG_FILTER=fzf:fzf-tmux
-ZPLUG_SUDO_PASSWORD=leekster
 
 # if command -v fzf >/dev/null 2>&1; then
 #   [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
