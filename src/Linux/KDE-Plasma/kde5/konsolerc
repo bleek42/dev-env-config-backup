@@ -1,0 +1,30 @@
+[General]
+ConfigVersion=1
+
+[MainWindow]
+2 screens: Height=537
+2 screens: Width=793
+2 screens: Window-Maximized=true
+2 screens: XPosition=3404
+2 screens: YPosition=907
+2560x1440 screen: Height=526
+2560x1440 screen: Width=911
+2560x1440 screen: Window-Maximized=true
+2560x1440 screen: XPosition=824
+2560x1440 screen: YPosition=436
+2560x1600 screen: Height=526
+2560x1600 screen: Width=911
+2560x1600 screen: XPosition=824
+2560x1600 screen: YPosition=516
+2560x800 screen: Height=481
+2560x800 screen: Width=793
+2560x800 screen: XPosition=1381
+2560x800 screen: YPosition=118
+State=AAAA/wAAAAD9AAAAAQAAAAAAAAAAAAAAAPwCAAAAAvsAAAAcAFMAUwBIAE0AYQBuAGEAZwBlAHIARABvAGMAawAAAAAA/////wAAAOUA////+wAAACIAUQB1AGkAYwBrAEMAbwBtAG0AYQBuAGQAcwBEAG8AYwBrAAAAAAD/////AAABNQD///8AAAMZAAABpgAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAACAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABwAcwBlAHMAcwBpAG8AbgBUAG8AbwBsAGIAYQByAQAAAMD/////AAAAAAAAAAA=
+ToolBarsMovable=Disabled
+XWAYLAND0 XWAYLAND1=XWAYLAND0
+default=default
+rdp0=rdp0
+
+[UiSettings]
+ColorScheme=

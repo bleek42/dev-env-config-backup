@@ -18,8 +18,6 @@
 # export AG_DEFAULT_COMMAND='ag -i -l --hidden -g'
 # export RG_DEFAULT_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
 
-export FZF_DEFAULT_COMMAND='ag -i -l --hidden -g ""'
-
 if command -v ag >/dev/null 2>&1; then
     export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -i -g ""'
 elif command -v rg >/dev/null 2>&1; then

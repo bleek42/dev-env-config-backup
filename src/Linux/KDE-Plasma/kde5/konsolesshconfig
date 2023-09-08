@@ -1,0 +1,42 @@
+[Global plugin config]
+manageProfile=false
+
+[SSH Config][cdleek.myddns.me]
+hostname=cdleek.myddns.me
+identifier=cdleek.myddns.me
+importedFromSshConfig=true
+port=
+profileName=Kali-Dark
+sshkey=
+useSshConfig=true
+username=
+
+[SSH Config][github.com]
+hostname=github.com
+identifier=github.com
+importedFromSshConfig=true
+port=
+profileName=Kali-Dark
+sshkey=
+useSshConfig=true
+username=
+
+[SSH Config][gitlab.com]
+hostname=gitlab.com
+identifier=gitlab.com
+importedFromSshConfig=true
+port=
+profileName=Kali-Dark
+sshkey=
+useSshConfig=true
+username=
+
+[SSH Config][ssh.dev.azure.com]
+hostname=ssh.dev.azure.com
+identifier=ssh.dev.azure.com
+importedFromSshConfig=true
+port=
+profileName=
+sshkey=
+useSshConfig=true
+username=
