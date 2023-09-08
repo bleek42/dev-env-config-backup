@@ -2,11 +2,11 @@
 
 # ~/.zshrc file for zsh interactive shells.
 # see /usr/share/doc/zsh/examples/zshrc for examples
-ZSH=/usr/share/zsh
-ZPLUG_ROOT=/usr/share/zplug/init.zsh
 # ZDOTDIR="/usr/share/zsh:${ZDOTDIR}"
 # ZDOTDIR="${ZDOTDIR:-$HOME}/.config/rc.d/zsh"
 
+ZSH=/usr/share/zsh
+ZPLUG_ROOT=/usr/share/zplug/init.zsh
 ZSH_GIT_PROMPT_ENABLE_SECONDARY=1
 # ZPLUG
 ZPLUG_HOME="$HOME/.config/zplug"
@@ -26,59 +26,59 @@ ZPLUG_FILTER=fzf:fzf-tmux
 
 if [ -f "$ZPLUG_ROOT" ]; then
 
-  source "$ZPLUG_ROOT"
+    source "$ZPLUG_ROOT"
 
-  # Make sure to use double quotes
-  zplug "zplug/zplug", hook-build:'zplug --self-manage'
+    # Make sure to use double quotes
+    zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
-  # zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1;"
+    # zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1;"
 
-  # Set the priority when loading
-  # e.g., zsh-syntax-highlighting must be loaded
-  # after executing compinit command and sourcing other plugins
-  # (If the defer tag is given 2 or above, run after compinit command)
-  # zplug "zsh-users/zsh-syntax-highlighting", defer:2
-  # zplug "unixorn/docker-helpers", from:gh-r, use:'docker-helpers.plugin.zsh'
-  # zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1"C
-  # zplug "$HOME/.local/share/dragon", from:local, as:theme, use:'dragon.zsh-theme'
+    # Set the priority when loading
+    # e.g., zsh-syntax-highlighting must be loaded
+    # after executing compinit command and sourcing other plugins
+    # (If the defer tag is given 2 or above, run after compinit command)
+    # zplug "zsh-users/zsh-syntax-highlighting", defer:2
+    # zplug "unixorn/docker-helpers", from:gh-r, use:'docker-helpers.plugin.zsh'
+    # zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1"C
+    # zplug "$HOME/.local/share/dragon", from:local, as:theme, use:'dragon.zsh-theme'
 
-  zplug "Aloxaf/fzf-tab", \
-    use:'fzf-tab.plugin.zsh' \
-    defer:2
+    zplug "Aloxaf/fzf-tab", \
+        use:'fzf-tab.plugin.zsh' \
+        defer:2
 
-  zplug "/usr/share/zsh-autosuggestions", \
-    from:local, \
-    use:'zsh-autosuggestions.zsh', \
-    defer:2
+    zplug "/usr/share/zsh-autosuggestions", \
+        from:local, \
+        use:'zsh-autosuggestions.zsh', \
+        defer:2
 
-  zplug "hlissner/zsh-autopair", \
-    use:'autopair.plugin.zsh', \
-    defer:2
+    zplug "hlissner/zsh-autopair", \
+        use:'autopair.plugin.zsh', \
+        defer:2
 
-  zplug "zdharma-continuum/fast-syntax-highlighting", \
-    use:'fast-syntax-highlighting.plugin.zsh', \
-    defer:2
+    zplug "zdharma-continuum/fast-syntax-highlighting", \
+        use:'fast-syntax-highlighting.plugin.zsh', \
+        defer:2
 
-  zplug "zsh-users/zsh-history-substring-search", \
-    use:'zsh-history-substring-search.zsh', \
-    defer:3
+    zplug "zsh-users/zsh-history-substring-search", \
+        use:'zsh-history-substring-search.zsh', \
+        defer:3
 
-  zplug "woefe/git-prompt.zsh", \
-    use:'git-prompt.plugin.zsh', \
-    defer:3
+    zplug "woefe/git-prompt.zsh", \
+        use:'git-prompt.plugin.zsh', \
+        defer:3
 
-  # Install plugins if there are plugins that have not been installed
-  if ! zplug check; then
-    # printf "Install? [y/N]: "
-    # if read -q; then
-    #     echo
-    zplug install
-  fi
+    # Install plugins if there are plugins that have not been installed
+    if ! zplug check; then
+        # printf "Install? [y/N]: "
+        # if read -q; then
+        #     echo
+        zplug install
+    fi
 
-  # Then, source plugins and add commands to $PATH
-  zplug load --verbose
+    # Then, source plugins and add commands to $PATH
+    zplug load --verbose
 
-  # enable auto-suggestions based on the history
+    # enable auto-suggestions based on the history
 fi
 
 #setopt correct            # auto correct mistakes
@@ -138,11 +138,11 @@ bindkey -M main '^[OB' history-substring-search-down
 
 # Make dot key autoexpand "..." to "../.." and so on
 _zsh-dot() {
-  if [[ ${LBUFFER} = *.. ]]; then
-    LBUFFER+=/..
-  else
-    LBUFFER+=.
-  fi
+    if [[ ${LBUFFER} = *.. ]]; then
+        LBUFFER+=/..
+    else
+        LBUFFER+=.
+    fi
 }
 zle -N _zsh-dot
 
@@ -226,14 +226,14 @@ zstyle ':completion:*:px:' command 'px --top '
 # Initialize colors
 
 if zplug check "Aloxaf/fzf-tab" && [[ -f "$HOME/.config/rc.d/zsh/fzf-config.zsh" ]]; then
-  source "$HOME/.config/rc.d/zsh/fzf-config.zsh"
+    source "$HOME/.config/rc.d/zsh/fzf-config.zsh"
 else
-  zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-  zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-  # bindkey '^I' expand-or-complete-prefix # tab comp
+    zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+    zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+    # bindkey '^I' expand-or-complete-prefix # tab comp
 
-  [[ -f "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh"
-  [[ -f "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    [[ -f "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    [[ -f "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 fi
 
@@ -243,35 +243,35 @@ fi
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [[ -z ${debian_chroot:-} ]] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
+    debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
+case "${TERM}" in
 xterm-color | *-256color | alacritty) color_prompt=yes ;;
 esac
 
 configure_prompt() {
-  prompt_symbol='[ 󰨡  ]:(  )'
-  # Skull emoji for root terminal
-  [ "$EUID" -eq 0 ] && prompt_symbol='[ 󰨡   ]:{  󰚌 }'
-  case "$PROMPT_ALTERNATIVE" in
-  twoline)
-    PROMPT=$'%{$fg_bold[green]%}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]$reset_color$(gitprompt)\n%{$fg_bold[green]%}└─%B%(#.%F{green}#.%F{blue}λ)%b%F{reset} '
-    # Right-side prompt with exit codes and background processes
-    RPROMPT='%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
-    ;;
-  oneline)
-    PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{%(#.red.blue)}%n@%m%b%F{reset}:%B%F{%(#.blue.green)}%~%b%F{reset}%(#.#.$(gitprompt)) '
-    RPROMPT=
-    # $(__git_ps1 " %%F{cyan}%%f %s")
-    ;;
-  backtrack)
-    PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{red}%n@%m%b%F{reset}:%B%F{blue}%~%b%F{reset}%(#.#.$(gitprompt)) '
-    RPROMPT=
-    ;;
-  esac
-  unset prompt_symbol
+    prompt_symbol='[ 󰨡  ]:(  )'
+    # Skull emoji for root terminal
+    [ "$EUID" -eq 0 ] && prompt_symbol='[ 󰨡   ]:{  󰚌 }'
+    case "$PROMPT_ALTERNATIVE" in
+    twoline)
+        PROMPT=$'%{$fg_bold[green]%}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]$reset_color$(gitprompt)\n%{$fg_bold[green]%}└─%B%(#.%F{green}#.%F{blue}λ)%b%F{reset} '
+        # Right-side prompt with exit codes and background processes
+        RPROMPT='%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
+        ;;
+    oneline)
+        PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{%(#.red.blue)}%n@%m%b%F{reset}:%B%F{%(#.blue.green)}%~%b%F{reset}%(#.#.$(gitprompt)) '
+        RPROMPT=
+        # $(__git_ps1 " %%F{cyan}%%f %s")
+        ;;
+    backtrack)
+        PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{red}%n@%m%b%F{reset}:%B%F{blue}%~%b%F{reset}%(#.#.$(gitprompt)) '
+        RPROMPT=
+        ;;
+    esac
+    unset prompt_symbol
 }
 
 # The following block is surrounded by two delimiters.
@@ -282,55 +282,55 @@ PROMPT_ALTERNATIVE=twoline
 # STOP KALI CONFIG VARIABLES
 
 if [ "$color_prompt" = yes ]; then
-  # override default virtualenv indicator in prompt
-  VIRTUAL_ENV_DISABLE_PROMPT=1
+    # override default virtualenv indicator in prompt
+    VIRTUAL_ENV_DISABLE_PROMPT=1
 
-  configure_prompt
+    configure_prompt
 else
-  PROMPT='${debian_chroot:+($debian_chroot)}%n@%m:%~%(#.#.$) '
+    PROMPT='${debian_chroot:+($debian_chroot)}%n@%m:%~%(#.#.$) '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm* | rxvt* | Eterm | aterm | kterm | gnome* | alacritty)
-  TERM_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%n@%m: %~\a'
-  ;;
+    TERM_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%n@%m: %~\a'
+    ;;
 *) ;;
 esac
 
 precmd() {
-  # Print the previously configured title
-  print -Pnr -- "$TERM_TITLE"
+    # Print the previously configured title
+    print -Pnr -- "$TERM_TITLE"
 
-  # Print a new line before the prompt, but only if it is not the first line
-  if [ "$NEWLINE_BEFORE_PROMPT" = yes ]; then
-    if [ -z "$_NEW_LINE_BEFORE_PROMPT" ]; then
-      _NEW_LINE_BEFORE_PROMPT=1
-    else
-      print ""
+    # Print a new line before the prompt, but only if it is not the first line
+    if [ "$NEWLINE_BEFORE_PROMPT" = yes ]; then
+        if [ -z "$_NEW_LINE_BEFORE_PROMPT" ]; then
+            _NEW_LINE_BEFORE_PROMPT=1
+        else
+            print ""
+        fi
     fi
-  fi
 }
 
 if command -v direnv >/dev/null 2>&1; then
-  [[ -f "$HOME/.envrc" ]] && eval "$(direnv hook zsh)"
+    [[ -f "$HOME/.envrc" ]] && eval "$(direnv hook zsh)"
 fi
 
 if zplug check 'hlissner/zsh-autopair'; then
-  # source "$ZSH_CUSTOM/plugins/zsh-autopair/autopair.zsh"
-  typeset -gA AUTOPAIR_PAIRS
-  AUTOPAIR_PAIRS+=("<" ">")
-  AUTOPAIR_PAIRS+=("{" "}")
-  AUTOPAIR_PAIRS+=("[" "]")
-  AUTOPAIR_PAIRS+=("'" "'")
-  AUTOPAIR_PAIRS+=("(" ")")
-  AUTOPAIR_PAIRS+=('"' '"')
-  AUTOPAIR_PAIRS+=('`' '`')
-  eval "$(autopair-init)"
+    # source "$ZSH_CUSTOM/plugins/zsh-autopair/autopair.zsh"
+    typeset -gA AUTOPAIR_PAIRS
+    AUTOPAIR_PAIRS+=("<" ">")
+    AUTOPAIR_PAIRS+=("{" "}")
+    AUTOPAIR_PAIRS+=("[" "]")
+    AUTOPAIR_PAIRS+=("'" "'")
+    AUTOPAIR_PAIRS+=("(" ")")
+    AUTOPAIR_PAIRS+=('"' '"')
+    AUTOPAIR_PAIRS+=('`' '`')
+    eval "$(autopair-init)"
 fi
 
 # enable command-not-found if installed
 if [ -f /etc/zsh_command_not_found ]; then
-  source /etc/zsh_command_not_found
+    source /etc/zsh_command_not_found
 fi

@@ -1,9 +1,11 @@
-export EDITOR='micro'
-export VISUAL='code.exe'
+#!/usr/bin/env bash
+
+export EDITOR='/usr/bin/micro'
+export VISUAL='code'
 export PAGER='less'
 export BAT_PAGER='less -Rf'
 export MANPAGER='less -Rf'
-export BROWSER='powershell.exe -command start'
+export BROWSER='firefox.exe'
 export MANPAGER="sh -c 'col --no-backspaces --spaces | batcat --language=help --theme=ansi --plain'"
 export LS_COLORS="$LS_COLORS:ow=30;44:" # fix ls color for folders with 777 permissions
 export FD_FIND="fdfind --hidden --no-ignore --exclude .git --follow --color always"
