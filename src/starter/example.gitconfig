@@ -1,0 +1,13 @@
+[core]
+	autocrlf = input # ? input on MSWin, but off on MacOS: use .editorconfig to force line endings on windows to 'lf' like MacOS/Linus/Unix-like/the-rest-of-the-computing world use for line-endings
+	fscache = true
+	symlinks = true # ? symlinks = folders that refer to some other folder somewhere (this is how 'My Documents', 'Desktop', & other folders work across OS's)
+	fsmonitor = false #  ? newer feature unfamiliar with: turn off for now
+	editor = code # ! MAYBE code.exe on Git/Bash for MS Windows
+
+[user]
+	name = "<-" GITHUB USERNAME HERE "->"
+	email = "<-" NOW EMAIL "->"
+
+[init]
+	defaultBranch = main # ! change default branch cuz microsoft, parent co of github will call you racist if you don't change from master
