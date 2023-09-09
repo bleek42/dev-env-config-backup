@@ -10,15 +10,15 @@ export FZF_PROMPT_CHAR=' '
 # --color 'hl:${COL_FZF_HL},hl+:${COL_FZF_HL_PLUS},pointer:${COL_FZF_POINTER},marker:${COL_FZF_MARKER},bg+:${COL_FZF_BG_PLUS},header:${COL_FZF_HEADER},fg+:${COL_FZF_FG_PLUS}'
 # --marker '﫠'
 if command -v ag >/dev/null 2>&1; then
-        export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -i -g ""'
-    elif command -v rg >/dev/null 2>&1; then
-        export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git --files --no-ignore-vcs --glob "!.git/*"'
-    elif command -v fdfind >/dev/null 2>&1; then
-        export FZF_DEFAULT_COMMAND='fdfind --hidden --exclude .git --exclude .cache'
-    elif command -v fd >/dev/null 2>&1; then
-        export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .cache'
-    else
-        export FZF_DEFAULT_COMMAND='find . -path "*/\.*" -prune -o -type f -print -o -type l -print 2> /dev/null | sed 1d'
+    export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -i -g ""'
+elif command -v rg >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git --files --no-ignore-vcs --glob "!.git/*"'
+elif command -v fdfind >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='fdfind --hidden --exclude .git --exclude .cache'
+elif command -v fd >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .cache'
+else
+    export FZF_DEFAULT_COMMAND='find . -path "*/\.*" -prune -o -type f -print -o -type l -print 2> /dev/null | sed 1d'
 fi
 export FZF_DEFAULT_OPTS="
         -m

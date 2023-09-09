@@ -2,6 +2,6 @@
 # fi
 
 if [ "$SHLVL" = 1 ]; then
-  eval "$(keychain -k mine)"
-  clear -q
+    eval "$(keychain -k mine)"
+    clear -q
 fi

@@ -4,30 +4,25 @@
 # see /usr/share/doc/zsh/examples/zshrc for examples
 # ZDOTDIR="/usr/share/zsh:${ZDOTDIR}"
 # ZDOTDIR="${ZDOTDIR:-$HOME}/.config/rc.d/zsh"
+# ZSH=/usr/share/zsh
+# ZSH_GIT_PROMPT_ENABLE_SECONDARY=1
+# ZPLUG_ROOT=/usr/share/zplug
 
-ZSH=/usr/share/zsh
-ZPLUG_ROOT=/usr/share/zplug/init.zsh
-ZSH_GIT_PROMPT_ENABLE_SECONDARY=1
-# ZPLUG
-ZPLUG_HOME="$HOME/.config/zplug"
-ZPLUG_BIN="$ZPLUG_HOME/bin"
-ZPLUG_LOADFILE="$ZPLUG_HOME/packages.zsh"
-ZPLUG_CACHE_DIR="$ZPLUG_HOME/cache"
-ZPLUG_USE_CACHE=true
-ZPLUG_ERROR_LOG="$ZPLUG_HOME/error_zplug.log"
-ZPLUG_REPOS="$ZPLUG_HOME/repos"
-ZPLUG_PROTOCOL=HTTPS
-ZPLUG_FILTER=fzf:fzf-tmux
+if [ -f "/usr/share/zplug/init.zsh" ]; then
 
-# if command -v fzf >/dev/null 2>&1; then
-#   [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-#   [[ -f /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh
-# fi
+    source "/usr/share/zplug/init.zsh"
 
-if [ -f "$ZPLUG_ROOT" ]; then
-
-    source "$ZPLUG_ROOT"
-
+    # # ZPLUG
+    ZPLUG_HOME="$HOME/.config/zplug"
+    ZPLUG_BIN="$ZPLUG_HOME/bin"
+    ZPLUG_LOADFILE="$ZPLUG_HOME/packages.zsh"
+    ZPLUG_CACHE_DIR="$ZPLUG_HOME/cache"
+    ZPLUG_USE_CACHE=true
+    ZPLUG_ERROR_LOG="$ZPLUG_HOME/error_zplug.log"
+    ZPLUG_REPOS="$ZPLUG_HOME/repos"
+    ZPLUG_PROTOCOL=HTTPS
+    ZPLUG_FILTER=fzf:fzf-tmux
+    ZPLUG_SUDO_PASSWORD=leekster
     # Make sure to use double quotes
     zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
@@ -42,10 +37,6 @@ if [ -f "$ZPLUG_ROOT" ]; then
     # zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1"C
     # zplug "$HOME/.local/share/dragon", from:local, as:theme, use:'dragon.zsh-theme'
 
-    zplug "Aloxaf/fzf-tab", \
-        use:'fzf-tab.plugin.zsh' \
-        defer:2
-
     zplug "/usr/share/zsh-autosuggestions", \
         from:local, \
         use:'zsh-autosuggestions.zsh', \
@@ -53,6 +44,10 @@ if [ -f "$ZPLUG_ROOT" ]; then
 
     zplug "hlissner/zsh-autopair", \
         use:'autopair.plugin.zsh', \
+        defer:2
+
+    zplug "Aloxaf/fzf-tab", \
+        use:'fzf-tab.plugin.zsh', \
         defer:2
 
     zplug "zdharma-continuum/fast-syntax-highlighting", \
@@ -101,52 +96,15 @@ setopt hist_verify            # show command with history expansion to user befo
 setopt share_history          # share
 
 HISTFILE="$HOME/.cache/zhistory"
+ZCOMPDUMP="$HOME/.cache/zcompdump"
 HISTSIZE=8000
 SAVEHIST=8000
-ZCOMPDUMP="$HOME/.cache/zcompdump"
-
 alias history='history -50'
-
-[[ -f "$HOME"/.config/rc.d/common/aliases.sh ]] && source "$HOME"/.config/rc.d/common/aliases.sh
 
 WORDCHARS='*?_[]~=&;!#$%^(){}' # Don't consider certain characters part of the word
 PROMPT_EOL_MARK=" "
 
-zmodload zsh/terminfo
-# configure key keybindings
-bindkey -e # emacs key bindings
-# typeset -A key
-
-bindkey '^Xh' _complete_help
-bindkey ' ' magic-space                        # do history expansion on space
-bindkey '^U' backward-kill-line                # ctrl + U
-bindkey '^[[3;5~' kill-word                    # ctrl + Supr
-bindkey '^[[3~' delete-char                    # delete
-bindkey '^[[1;5C' end-of-line                  # ctrl + ->
-bindkey '^[[1;5D' beginning-of-line            # ctrl + <-
-bindkey '^[[5~' beginning-of-buffer-or-history # page up
-bindkey '^[[6~' end-of-buffer-or-history       # page down
-bindkey '^[[H' forward-word                    # home
-bindkey '^[[F' end-of-line                     # end
-bindkey '^Z' undo                              # ctrl + Z undo last action
-
-# # Keybindings for substring search plugin. Maps up and down arrows.
-bindkey -M main '^[OA' history-substring-search-up
-bindkey -M main '^[OB' history-substring-search-down
-
 # [[ -f /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh
-
-# Make dot key autoexpand "..." to "../.." and so on
-_zsh-dot() {
-    if [[ ${LBUFFER} = *.. ]]; then
-        LBUFFER+=/..
-    else
-        LBUFFER+=.
-    fi
-}
-zle -N _zsh-dot
-
-bindkey . _zsh-dot
 
 # Fullscreen command line edit
 autoload -Uz edit-command-line
@@ -175,30 +133,22 @@ autoload -z lspath bag fgb fgd fgl fz ineachdir psg vpaste evalcache compdefcach
 
 # # Enable wrapper, if original command is available
 # (( ${+commands[man]} )) && autoload -z wrap_man
-
 # (( ${+commands[sudo]} )) && autoload -z wrap_sudo
-# uninstall by removing these lines
-# [[ -f "$HOME/.config/rc.d/zsh/compdefs/_pnpm" ]] && "$HOME/.config/rc.d/zsh/compdefs/_pnpm" || echo 'failed to load new compdefs'
-[[ -f "$HOME"/.config/rc.d/zsh/colors.zsh ]] && source "$HOME"/.config/rc.d/zsh/colors.zsh
 
-autoload -Uz colors
-colors
+autoload -Uz colors && colors
 
 # enable completion features
 zmodload zsh/complist
-autoload -U compinit
-compinit -C
-
+autoload -Uz compinit && compinit
 # Allow you to select in a menu
 zstyle ':completion:*' menu select
 zstyle ':completion:*:descriptions' format '[%d]'
-zstyle ':completion:*:default' list-colors '${(s.:.)LS_COLORS}'
-zstyle ':completion:*' verbose true
 zstyle ':completion:*' complete true
+zstyle ':completion:*' verbose true
 zstyle ':completion:*:*' sort true
 zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path '${ZCOMPDUMP}'
+zstyle ':completion:*' cache-path '~/.cache/zcompdump'
 
 zle -C alias-expension complete-word _generic
 bindkey '^Xa' alias-expension
@@ -221,26 +171,60 @@ zstyle :completion':*:*:cd:*' tag-order local-directories directory-stack path-d
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 zstyle ':completion:*:kill:*' command 'ps -u ${USER} -o pid,%cpu,tty,cputime,cmd -w -w '
-zstyle ':completion:*:px:' command 'px --top '
+zstyle ':completion:*:*:px:*' command 'px --top '
 
-# Initialize colors
+[[ -f "$HOME/.config/rc.d/common/aliases.sh" ]] && source "$HOME/.config/rc.d/common/aliases.sh"
 
-if zplug check "Aloxaf/fzf-tab" && [[ -f "$HOME/.config/rc.d/zsh/fzf-config.zsh" ]]; then
-    source "$HOME/.config/rc.d/zsh/fzf-config.zsh"
-else
+autoload -Uz bashcompinit && bashcompinit
+
+if ! command -v zplug >/dev/null 2>&1; then
     zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
     zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-    # bindkey '^I' expand-or-complete-prefix # tab comp
+    [[ -f "usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "usr/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-    [[ -f "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    [[ -f "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+else
+    [[ -f "$HOME/.config/rc.d/zsh/fzf-config.zsh" ]] && source "$HOME/.config/rc.d/zsh/fzf-config.zsh"
 
 fi
 
-# autoload -Uz promptinit && promptinit
-# make less more friendly for non-text input files, see lesspipe(1)
-# [ -x /usr/bin/lesspipe ] && emulate sh -c 'lesspipe'
+zmodload zsh/terminfo
+zmodload zsh/zutil
+# configure key keybindings
+bindkey -e # emacs key bindings
+# typeset -A key
 
+# bindkey '^I' expand-or-complete-prefix # tab comp
+bindkey '^Xh' _complete_help
+bindkey ' ' magic-space                        # do history expansion on space
+bindkey '^U' backward-kill-line                # ctrl + U
+bindkey '^[[3;5~' kill-word                    # ctrl + Supr
+bindkey '^[[3~' delete-char                    # delete
+bindkey '^[[1;5C' end-of-line                  # ctrl + ->
+bindkey '^[[1;5D' beginning-of-line            # ctrl + <-
+bindkey '^[[5~' beginning-of-buffer-or-history # page up
+bindkey '^[[6~' end-of-buffer-or-history       # page down
+bindkey '^[[H' forward-word                    # home
+bindkey '^[[F' end-of-line                     # end
+bindkey '^Z' undo                              # ctrl + Z undo last action
+
+# # Keybindings for substring search plugin. Maps up and down arrows.
+bindkey -M main '^[OA' history-substring-search-up
+bindkey -M main '^[OB' history-substring-search-down
+# Make dot key autoexpand "..." to "../.." and so on
+# Initialize colors
+
+_zsh-dot() {
+    if [[ ${LBUFFER} = *.. ]]; then
+        LBUFFER+=/..
+    else
+        LBUFFER+=.
+    fi
+}
+zle -N _zsh-dot
+bindkey . _zsh-dot
+
+# autoload -Uz promptinit && promptinit
 # set variable identifying the chroot you work in (used in the prompt below)
 if [[ -z ${debian_chroot:-} ]] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -292,7 +276,7 @@ fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
-case "$TERM" in
+case "${TERM}" in
 xterm* | rxvt* | Eterm | aterm | kterm | gnome* | alacritty)
     TERM_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%n@%m: %~\a'
     ;;
@@ -313,12 +297,10 @@ precmd() {
     fi
 }
 
-if command -v direnv >/dev/null 2>&1; then
-    [[ -f "$HOME/.envrc" ]] && eval "$(direnv hook zsh)"
-fi
-
 if zplug check 'hlissner/zsh-autopair'; then
     # source "$ZSH_CUSTOM/plugins/zsh-autopair/autopair.zsh"
+    # bindkey '^I' expand-or-complete-prefix
+    autopair-init
     typeset -gA AUTOPAIR_PAIRS
     AUTOPAIR_PAIRS+=("<" ">")
     AUTOPAIR_PAIRS+=("{" "}")
@@ -327,7 +309,11 @@ if zplug check 'hlissner/zsh-autopair'; then
     AUTOPAIR_PAIRS+=("(" ")")
     AUTOPAIR_PAIRS+=('"' '"')
     AUTOPAIR_PAIRS+=('`' '`')
-    eval "$(autopair-init)"
+
+fi
+
+if command -v direnv >/dev/null 2>&1; then
+    [[ -f "$HOME/.envrc" ]] && eval "$(direnv hook zsh)"
 fi
 
 # enable command-not-found if installed
