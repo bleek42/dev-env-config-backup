@@ -8,12 +8,6 @@
 WSL_IPV4="$(hostname -I | awk '{print $1}' | awk '{printf $0}')"
 [[ -n "$WSL_IPV4" ]] && export WSL_IPV4
 
-[[ -f "$HOME/.config/rc.d/zsh/run-ssh-agent.zsh" ]] && source "$HOME/.config/rc.d/zsh/run-ssh-agent.zsh"
-zstyle ':omz:plugins:ssh-agent' agent-forwarding yes
-zstyle ':omz:plugins:ssh-agent' lazy yes
-# zstyle :omz:plugins:ssh-agent helper ksshaskpass
-
-
 PNPM_HOME="$HOME/.local/share/pnpm"
 # pnpmsyste
 case ":$path:" in
@@ -25,8 +19,6 @@ NODE_PATH="${NODE_PATH:-$PNPM_HOME}/node"
 
 export PNPM_HOME NODE_PATH
 
-# ensure PATH entries remain unique after shell reload
-typeset -gU PATH path FPATH fpath CDPATH cdpath MANPATH manpath
 # pnpm end
 
 #  LIBGL_ALWAYS_INDIRECT=1 #GWSL

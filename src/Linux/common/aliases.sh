@@ -11,11 +11,11 @@ if command -v fdfind >/dev/null 2>&1; then
 fi
 
 if command -v batcat >/dev/null 2>&1; then
-	alias bat='batcat --color always'
+	alias bat='batcat'
 fi
 
 if command -v ag >/dev/null 2>&1; then
-	alias ag='--hidden --ignore ".git" -i -g'
+	alias ags='ag --smart-case --hidden --glob "!.git"'
 fi
 
 if command -v rg >/dev/null 2>&1; then
@@ -34,7 +34,6 @@ else
 	alias la='ls -A'
 	alias l='ls -CF'
 fi
-alias ags='ag --smart-case --hidden --glob "!.git"'
 
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
@@ -54,7 +53,7 @@ function set-treex() {
 	if command -v exa >/dev/null 2>&1; then
 		exa --all --long --group --git --links --time-style=long-iso --header --group-directories-first --color-scale --icons --tree --ignore-glob ".git" --color=always "$@" | batcat --plain -n || cat
 	else
-		tree -aC -I '.git' --dirsfirst "$@" | batcat --plain || cat
+		tree -aC -I '.git' --dirsfirst "$@" | bat --plain
 	fi
 }
 

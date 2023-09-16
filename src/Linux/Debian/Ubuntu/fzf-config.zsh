@@ -6,7 +6,7 @@
 # export FZF_DEFAULT_COMMAND='fdfind --hidden -exclude ".git" --follow --color=always'
 # export AG_DEFAULT_COMMAND='ag -i -l --hidden -g'
 # export RG_DEFAULT_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
-# FZF_PREVIEW="([[ -f {} ]] && (bat --color=always -n -p {} || cat {}))
+# FZF_DEFAULT_PREVIEW="([[ -f {} ]] && (bat --color=always -n -p {} || cat {}))
 #               ||
 #             ([[ -d {} ]] && (exa -lT --color-scale --icons {} | head -50 | less))
 #               ||
@@ -17,6 +17,18 @@ __fzf_default_header="\
 ^A/^U: Select All/None| ^Y: Copy| ^O: Paste| \
 ^?: Show/Hide| Alt+J/K: ↑/↓| ^F/^B: Page↑/↓| \
 ^E/^V: Edit ${EDITOR}|VSCODE}"
+
+FZF_DEFAULT_PREVIEW="([[ -f {} ]] && (bat --color=always -n -p {} || cat {})) || 
+                     ([[ -d {} ]] && (tree -aCI {} | head -50)) ||
+                     echo {} 2> /dev/null | head -50 | less {}"
+
+FZF_HISTORY_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/fzf"
+
+FZF_DEFAULT_PROMPT=' '
+
+FZF_DEFAULT_POINTER=' '
+
+FZF_DEFAULT_MARKER=' '
 
 export FZF_DEFAULT_COMMAND='ag -i -l --hidden -g ""'
 
@@ -33,13 +45,9 @@ export FZF_DEFAULT_OPTS="
                   --header-first \
                   --header '${__fzf_default_header}' \
                   --preview-window=right,50%,border-vertical,hidden,wrap \
-                  --preview='([[ -f {} ]] && (bat --color=always -n -p {} || cat {})) 
-                              || 
-                            ([[ -d {} ]] && (tree -aCI {} | head -50)) 
-                              || 
-                            echo {} 2> /dev/null | head -50 | less {}' \
-                  --prompt '${FZF_PROMPT}' \
-                  --marker '* ' \
+                  --preview '${FZF_DEFAULT_PREVIEW}' \
+                  --prompt '${FZF_DEFAULT_PROMPT}' \
+                  --history '${FZF_HISTORY_DIR}'
                   --bind 'ctrl-/:toggle-preview' \
                   --bind 'ctrl-space:toggle+down' \
                   --bind 'ctrl-a:toggle-all' \
@@ -52,9 +60,9 @@ export FZF_DEFAULT_OPTS="
                   --bind 'ctrl-b:preview-page-up' \
                   --bind 'ctrl-o:accept-non-empty'"
 
-# fzf settings. Uses fdfind for a faster alternative to `find`.
-# Preview file content using bat (https://github.com/sharkdp/bat)
-export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+# fzf settings. Uses ripgrep for a faster alternative to `find`.
+# Preview file content using  bat (https://github.com/sharkdp/bat)
+export FZF_CTRL_T_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
 export FZF_CTRL_T_OPTS="
   	--bind 'ctrl-/:change-preview-window(down|hidden|)'
 		--preview-window down:wrap:hidden:~4'
@@ -65,7 +73,7 @@ export FZF_CTRL_T_OPTS="
   	--select-1
   	--exit-0"
 
-zstyle ':fzf-tab:*' prefix "${FZF_PROMPT}"
+zstyle ':fzf-tab:*' prefix "${FZF_DEFAULT_PROMPT}"
 zstyle ':fzf-tab:*' show-group full
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-bindings tab:accept
@@ -78,8 +86,8 @@ zstyle ':fzf-tab:complete:*' fzf-preview 'less ${realpath#-*=}'
 # zstyle ':fzf-tab:user-expand:' fzf-preview 'less $word'
 # zstyle ':fzf-tab:user-expand::' fzf-flags '-m -e -i --ansi --inline-info --border --layout reverse --height 50% --pointer  --marker *'
 zstyle ':fzf-tab:complete:*' fzf-bindings '~:accept' \
-  'ctrl-v:execute-silent(${_FTB_INIT_}code $realpath)' \
-  'ctrl-e:execute-silent(${_FTB_INIT_}nvim $realpath)'
+    'ctrl-v:execute-silent(${_FTB_INIT_}code $realpath)' \
+    'ctrl-e:execute-silent(${_FTB_INIT_}nvim $realpath)'
 
 # zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand)' fzf-flags '--preview-window=hidden,down,40%,wrap'
 # zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags '--preview-window=hidden,down,40%,wrap'
@@ -87,7 +95,7 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 zstyle ':fzf-tab:complete:less:*' fzf-preview 'bat --color=always -n=8 -p'
 
 zstyle ':fzf-tab:complete:(-equal-:|(\\|*/|)(sudo|proxychains|strace):argument-1|pudb:option--pre-run-1)' fzf-preview \
-  '[[ $group == 'external command' ]] && bat --color=always -p -n=6 $word'
+    '[[ $group == 'external command' ]] && bat --color=always -p -n=6 $word'
 
 # zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa --header --icons -l --only-dirs --group --all --links --color=always $realpath'
 
@@ -96,11 +104,11 @@ zstyle ':fzf-tab:complete:(-equal-:|(\\|*/|)(sudo|proxychains|strace):argument-1
 zstyle ':fzf-tab:complete:(z|zi|zd|zdi):*' fzf-preview 'exa --header --icons -l --only-dirs --group --all --links --color=always $realpath'
 
 zstyle ':fzf-tab:complete:((-parameter-|unset):|(export|typeset|declare|local):argument-rest)' fzf-preview \
-  'echo ${(P)word}'
+    'echo ${(P)word}'
 
 # # Command
 zstyle ':fzf-tab:complete:(-command-:|command:option-(v|V)-rest)' fzf-preview \
-  'case $group in
+    'case $group in
             "external command") less $word
             ;;
             "executable file") less ${realpath#--*=}
@@ -112,20 +120,20 @@ zstyle ':fzf-tab:complete:(-command-:|command:option-(v|V)-rest)' fzf-preview \
         esac'
 
 zstyle ':fzf-tab:complete:(\\|)bindkey:option-M-1' fzf-preview \
-  'case $group in
+    'case $group in
 		keymap) bindkey -M$word | bat --color=always -pltsv
 		;;
 	esac'
 
 zstyle ':fzf-tab:complete:(\\|*/|)curl:argument-rest' fzf-preview \
-  'curl -I $word 2>/dev/null | bat --color=always -plyaml'
+    'curl -I $word 2>/dev/null | bat --color=always -plyaml'
 
 zstyle ':fzf-tab:complete:(\\|*/|)du:argument-rest' fzf-preview \
-  'grc --colour=on du -sh $realpath'
+    'grc --colour=on du -sh $realpath'
 
 # give a preview of commandline arguments when completing `kill` or 'ps'
 zstyle ':fzf-tab:complete:(\\|*/|)(kill|ps):argument-rest' fzf-preview \
-  '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd,pid,user,comm -w -w'
+    '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd,pid,user,comm -w -w'
 
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 
@@ -142,27 +150,27 @@ zstyle ':fzf-tab:complete:pnpm:' fzf-preview 'pnpm run-help $word | bat --color=
 
 # Docker
 zstyle ':fzf-tab:complete:docker-container:argument-1' fzf-preview \
-  'docker container $word --help | bat --color=always -n=4 -p'
+    'docker container $word --help | bat --color=always -n=4 -p'
 
 zstyle ':fzf-tab:complete:docker-image:argument-1' fzf-preview \
-  'docker image $word --help | bat --color=always -n=4 -p'
+    'docker image $word --help | bat --color=always -n=4 -p'
 
 zstyle ':fzf-tab:complete:docker-inspect:' fzf-preview \
-  'docker inspect $word | bat --color=always -n=4 -p'
+    'docker inspect $word | bat --color=always -n=4 -p'
 
 zstyle ':fzf-tab:complete:docker-(run|images):argument-1' fzf-preview \
-  'docker images $word | bat --color=always -n=4 -p'
+    'docker images $word | bat --color=always -n=4 -p'
 
 zstyle ':fzf-tab:complete:((\\|*/|)docker|docker-help):argument-1' fzf-preview \
-  'docker help $word | bat --color=always -n=4 -p'
+    'docker help $word | bat --color=always -n=4 -p'
 
 # df completion
 zstyle ':fzf-tab:complete:(\\|*/|)df:argument-rest' fzf-preview \
-  '[[ $group != "[device label]" ]] && grc --colour=on -Th $word'
+    '[[ $group != "[device label]" ]] && grc --colour=on -Th $word'
 
 # scp
 zstyle ':fzf-tab:complete:(\\|*/|)(scp|rsync):argument-rest' fzf-preview \
-  'case $group in
+    'case $group in
             file) less ${realpath#--*=}
             ;;
             user) finger $word
@@ -173,16 +181,16 @@ zstyle ':fzf-tab:complete:(\\|*/|)(scp|rsync):argument-rest' fzf-preview \
         esac'
 
 zstyle ':fzf-tab:complete:git-(diff|restore):*' fzf-preview \
-  'git diff $word | bat --color=always -n=6 -p'
+    'git diff $word | bat --color=always -n=6 -p'
 
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-  'git log $word | bat --color=always -n=6 -p'
+    'git log $word | bat --color=always -n=6 -p'
 
 zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-  'git help $word | bat --color=always -n=6 -p'
+    'git help $word | bat --color=always -n=6 -p'
 
 zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
-  'case $group in
+    'case $group in
 	        "commit tag") git show  $word | bat --color=always -n=6 -p
             ;;
 	        *) git show $word | bat --color=always -n=6 -p
@@ -190,7 +198,7 @@ zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
 	    esac'
 
 zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
-  'case $group in
+    'case $group in
 	        "modified file") git diff $word | bat --color=always -n=6 -p
             ;;
 	        "recent commit object name") git show --color=always $word | bat --color=always -n=6 -p
