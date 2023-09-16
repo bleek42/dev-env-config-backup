@@ -82,7 +82,7 @@
 		"rtf"
 	],
 	"copyOnSelect": false,
-	"defaultProfile": "{22cf8483-2f1e-4eb2-b9d2-1459fdfc8b94}",
+	"defaultProfile": "",
 	"experimental.detectURLs": true,
 	"experimental.enableColorSelection": true,
 	"experimental.rendering.forceFullRepaint": true,
@@ -96,18 +96,31 @@
 	],
 	"profiles": {
 		"defaults": {
+			"guid": "{8f583553-8050-3d06-f2b8-4a92dad2d555}",
+			"backgroundImage": "%USERPROFILE%\\OneDrive\\Pictures\\art\\term-edit-src-code.jpg",
+			"backgroundImageStretchMode": "uniform",
+			"backgroundImageAlignment": "right",
+			"backgroundImageOpacity": 0.6,
 			"antialiasingMode": "cleartype",
-			"background": "#000000",
 			"bellStyle": "taskbar",
-			"closeOnExit": "never",
-			"cursorColor": "#0004FF",
 			"cursorShape": "emptyBox",
-			"experimental.autoMarkPrompts": true,
+			"cursorColor": "#00ff4c",
+			"background": "#000000",
+			"selectionBackground": "#5858e4",
+			"closeOnExit": "never",
+			"unfocusedAppearance": {
+				"experimental.retroTerminalEffect": true
+			},
+			"historySize": 10000,
 			"experimental.connection.passthroughMode": true,
 			"font": {
 				"face": "ProFontWindows Nerd Font Mono",
 				"size": 14.0,
-				"weight": 650
+				"weight": 500,
+				"features": {
+					"liga": 1,
+					"ss01": 1
+				}
 			},
 			"icon": "%USERPROFILE%\\/.config\\winterm-icos\\64_bash-shell.png",
 			"intenseTextStyle": "all",
@@ -125,7 +138,7 @@
 				"guid": "{8f583553-8050-3d06-f2b8-4a92dad2d555}",
 				"hidden": false,
 				"icon": "%USERPROFILE%\\.config\\winterm-icos\\64_windows.png",
-				"name": "PowerShell (v7)"
+				"name": "PowerShell 7"
 			},
 			{
 				"colorScheme": "WindowsXP",
@@ -133,12 +146,11 @@
 				"guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
 				"hidden": true,
 				"icon": "%USERPROFILE%\\/.config\\winterm-icos\\64_windows.png",
-				"name": "PowerShell (v6)"
+				"name": "PowerShell 6"
 			},
 			{
 				"antialiasingMode": "cleartype",
 				"background": "#151515",
-				"backgroundImage": "%USERPROFILE%\\OneDrive\\Pictures\\art\\term-edit-src-code.jpg",
 				"backgroundImageAlignment": "bottomRight",
 				"backgroundImageOpacity": 0.7,
 				"backgroundImageStretchMode": "none",
@@ -148,7 +160,7 @@
 					"face": "TerminessTTF Nerd Font Mono",
 					"features": {
 						"liga": 1,
-						"ss01": 0
+						"ss01": 1
 					},
 					"size": 14.0,
 					"weight": "semi-bold"
@@ -156,34 +168,17 @@
 				"guid": "{22cf8483-2f1e-4eb2-b9d2-1459fdfc8b94}",
 				"hidden": false,
 				"icon": "%MSYS_DIR%\\mingw64\\share\\git\\git-for-windows.ico",
-				"name": "Git-Bash (v1.38)",
+				"name": "Git-Bash(v1.38)",
 				"selectionBackground": "#40E48A"
 			},
 			{
-				"colorScheme": "HackTheBox",
-				"commandline": "wsl.exe -u bleek42 -d kali-linux",
-				"font": {
-					"face": "Hack Nerd Font",
-					"features": {
-						"liga": 1,
-						"ss01": 0
-					},
-					"size": 12.0,
-					"weight": 650
-				},
-				"guid": "{76632721-9a03-4340-b914-968f1c9ef183}",
-				"hidden": false,
-				"icon": "%USERPROFILE%\\.config\\winterm-icos\\wt_kali.png",
-				"name": "Kali-Linux"
-			},
-			{
-				"colorScheme": "MonokaiProFilter",
+				"colorScheme": "FireFoxDevDark",
 				"commandline": "wsl.exe -u bleek42 -d Ubuntu",
 				"font": {
-					"face": "Hack Nerd Font",
+					"face": "FiraCode Nerd Font Mono",
 					"features": {
 						"liga": 1,
-						"ss01": 0
+						"ss01": 1
 					},
 					"size": 12.0,
 					"weight": 550
@@ -192,6 +187,23 @@
 				"hidden": false,
 				"icon": "%USERPROFILE%\\.config\\winterm-icos\\wt_ubuntu.png",
 				"name": "Ubuntu(v22.04:LTS)"
+			},
+			{
+				"colorScheme": "HackTheBox",
+				"commandline": "wsl.exe -u bleek42 -d kali-linux",
+				"font": {
+					"face": "FiraCode Nerd Font Mono",
+					"features": {
+						"liga": 1,
+						"ss01": 1
+					},
+					"size": 12.0,
+					"weight": 450
+				},
+				"guid": "{76632721-9a03-4340-b914-968f1c9ef183}",
+				"hidden": false,
+				"icon": "%USERPROFILE%\\.config\\winterm-icos\\wt_kali.png",
+				"name": "Kali-Linux"
 			},
 			{
 				"colorScheme": "AuraDarkTheme",
@@ -203,8 +215,7 @@
 				},
 				"guid": "{4ebdc201-93f2-5914-a6fa-6f6bf882cbea}",
 				"hidden": false,
-				"name": "OracleLinux(v9.1)",
-				"source": "Windows.Terminal.Wsl"
+				"name": "OracleLinux(v9.1)"
 			},
 			{
 				"colorScheme": "BlueFlame",
@@ -232,19 +243,18 @@
 				"colorScheme": "WindowsXP",
 				"commandline": "mysqlsh bleek42@localhost",
 				"guid": "{94560fd9-a53e-45d0-b1c4-94ead1479c8d}",
-				"hidden": false,
+				"hidden": true,
 				"name": "MySQLsh(v8.0)",
 				"selectionBackground": "#8A8686"
 			},
 			{
-				"colorScheme": "RetroHacker",
 				"commandline": "%PROGRAMFILES%\\Far Manager\\Far.exe",
 				"cursorColor": "#02FAD9",
 				"cursorShape": "vintage",
 				"font": {
 					"face": "CodeNewRoman Nerd Font Mono",
 					"size": 14.0,
-					"weight": "normal"
+					"weight": 450
 				},
 				"guid": "{4ba94dfb-4c68-4fe8-91f6-8f4f15d38d05}",
 				"hidden": false,
@@ -910,9 +920,7 @@
 	],
 	"showTerminalTitleInTitlebar": true,
 	"startOnUserLogin": true,
-	"startupActions": null,
-	"tabWidthMode": "compact",
-	"theme": "dark",
+	"tabWidthMode": "titleLength",
 	"themes": [
 		{
 			"name": "legacyDark",
