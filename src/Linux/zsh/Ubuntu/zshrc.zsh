@@ -29,11 +29,6 @@ if command -v zplug >/dev/null 2>&1; then
 
     zplug "plugins/systemd", from:oh-my-zsh
 
-    zplug "~/.config/rc.d/zsh/themes", \
-        from:local, \
-        as:theme, \
-        use:'strug.zsh-theme'
-
     zplug "Aloxaf/fzf-tab", \
         use:'fzf-tab.plugin.zsh', \
         defer:2
@@ -53,6 +48,12 @@ if command -v zplug >/dev/null 2>&1; then
 
     zplug "zsh-users/zsh-history-substring-search", \
         use:'zsh-history-substring-search.plugin.zsh', \
+        defer:3
+
+    zplug "~/.config/rc.d/zsh/themes", \
+        from:local, \
+        as:theme, \
+        use:'strug.zsh-theme', \
         defer:3
 
     # Install plugins if there are plugins that have not been installed
@@ -78,7 +79,7 @@ setopt prompt_subst      # enable command substitution in prompt
 setopt sh_word_split     # split fields on unquoted parameter expansions (bash compatibility)
 setopt numeric_glob_sort # sort filenames numerically when it makes sense
 setopt flow_control      # use Ctrl+S / Ctrl+Q to stop and continue flow
-
+setopt prompt_subst
 setopt null_glob
 setopt extended_glob
 
@@ -239,7 +240,20 @@ precmd() {
     # export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $(fzf_sizer_preview_window_settings)"
 }
 
-if zplug check '/usr/share/zsh-autosuggestions/zsh-autopair'; then
+# Determines prompt modifier if and when a conda environment is active
+precmd_conda_info() {
+    if [[ -n $CONDA_DEFAULT_ENV ]]; then
+        CONDA_ENV="($CONDA_DEFAULT_ENV)"
+        RPROMPT="%B%F{cyan}$CONDA_ENV%b%f"
+    # When no conda environment is active, don't show anything
+    else
+        CONDA_ENV=""
+    fi
+}
+
+precmd_functions+=(precmd precmd_conda_info)
+
+if zplug check '/usr/share/zsh-autosuggestions'; then
     ZSH_AUTOSUGGEST_STRATEGY=(history completion)
     ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=247'
@@ -268,3 +282,18 @@ fi
 if [ -f /etc/zsh_command_not_found ]; then
     source /etc/zsh_command_not_found
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/conda/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+        . "/opt/conda/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/conda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

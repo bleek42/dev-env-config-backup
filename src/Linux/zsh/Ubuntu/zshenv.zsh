@@ -2,7 +2,6 @@
 
 # ZDOTDIR="/usr/share/zsh:${ZDOTDIR}"
 # ZDOTDIR="${ZDOTDIR:-$HOME}/.config/rc.d/zsh"
-# ZSH=/usr/share/zsh
 
 export ZPLUG_ROOT=/usr/share/zplug
 export ZPLUG_HOME="$HOME/.config/zplug"
@@ -16,6 +15,8 @@ export ZPLUG_FILTER=fzf:fzf-tmux
 export ZPLUG_USE_CACHE=true
 export ZPLUG_THREADS=16
 
+# export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 export LESS='-R -F -i -J -M -W -x4 -z4'
 export PAGER='/usr/bin/less'
 export LESSOPEN="| lesspipe |~/.lessfilter %s 2>&-"
@@ -26,6 +27,6 @@ export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
 export MANPAGER=$'/bin/sh -c \'col -b | batcat -p -l man\''
 # export MANPAGER="/bin/sh -c 'col -bx |bat --language=help -n man -p'"
 export MANROFFOPT=-c
-export EDITOR='nvim'
-export VISUAL='code'
-export BROWSER='firefox-developer-edition'
+export EDITOR='/usr/bin/nvim'
+export VISUAL='code.exe'
+export BROWSER='/mnt/c/Program Files/Firefox Developer Edition/firefox.exe'
