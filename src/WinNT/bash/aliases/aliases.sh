@@ -1,58 +1,64 @@
 #!/usr/bin/env bash
 
-# cd into usr home, sys root dir
-alias gohome='cd ~'
-alias goroot='cd /'
-
 # the '-' is for opt flags; not the actual cmd...
-
 # much easier to type out that...
-alias winupd='winget upgrade --all'
-alias scoopupd='scoop update --all'
-alias printpath='echo $PATH | sed "s/:/\n/g" | sort | uniq -c'
+alias winupd='winget upgrade -r'
+alias lspath='echo $PATH | sed "s/:/\n/g" | sort | uniq -c'
 alias wslupd='wsl --update --web-download'
 alias wslshutd='wsl --shutdown'
+alias ag='ag -i -l --hidden -g'
 
+if command -v NETSTAT >/dev/null 2>&1; then
+	alias netstat='NETSTAT'
+	alias netstatp='NETSTAT -p'
+	alias netstata='NETSTAT -a'
+fi
+
+# ## GIT ALIASES
+# alias git
+
+### Check if shell has command, is successful before assigning alias
 if command -v codium-insiders >/dev/null 2>&1; then
   alias codiumins='codium-insiders'
 fi
 
-### Check if shell has commands before assigning alias
+if command -v lsd >/dev/null 2>&1; then
+  alias ls='lsd -A -F -X --color=always --icon-theme=fancy --size=short --group-dirs=first'
+  alias ll='lsd -a -F -X -d -1 --color=always --icon-theme=fancy --group-dirs=last'
+  # alias la='ls'
+  # Show hidden files too
+  # Show file size, permissions, date, etc.
+  alias la='lsd -A -v -h -1 --color=always --icon-theme=fancy --group-dirs-first --size=short'
+
+  # Show only directories
+  alias ldir='lsd -d */'
+  # sort files by size, showing biggest at the bottom
+  alias lsort="lsd -a -l -S -r | tr -s ' ' | cut -d ' ' -f 5,9"
+  alias paths='lsd -d $PWD/*'
+fi
+  # --show-control-chars: help showing Korean or accented characters
+  # alias ls='lsd --show-control-chars'
+
 
 # list more than the default repositories with GH CLI
 if command -v gh >/dev/null 2>&1; then
-  alias lsrepos='gh repo list --limit=150'
+  alias lsrepos='gh repo list --limit=100'
 fi
 
 if command -v bat >/dev/null 2>&1; then
   alias cat='bat'
 fi
 
+# if command -v pnpm >/dev/null 2>&1; then
+#   alias npm='pnpm'
+# fi
+
 # Show full paths of files in current directory
-alias paths='ls -d $PWD/*'
 
-if command -v exa >/dev/null 2>&1; then
-  printf "exa cmd exists in PATH: exa is the new ls"
-  eval "$(zoxide init bash --cmd cd --hook pwd)"
-else
-  # --show-control-chars: help showing Korean or accented characters
-  alias ls='ls -F --color=auto --show-control-chars'
-  alias ll='ls -l'
 
-  # Show hidden files too
-  alias la='ls -A'
-  # Show file size, permissions, date, etc.
-  alias ll='ls -lvhs'
-  alias lll='ls -alvhs'
-  # Show only directories
-  alias l.='ls -d */'
-  # sort files by size, showing biggest at the bottom
-  alias lsort="ls -alSr | tr -s ' ' | cut -d ' ' -f 5,9"
-fi
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init bash --cmd zd)"
 
-if command -v pnpm >/dev/null 2>&1; then
-  alias npm='pnpm'
-  alias npx='pnpx'
 fi
 
 alias unicode=getunicodec
@@ -64,7 +70,7 @@ alias unicode=getunicodec
 # don't clobber files or ruin the OS
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm="rm -i --preserve-root"
+alias rm="rm -I --preserve-root"
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
@@ -145,16 +151,16 @@ alias wget="wget -c"
 # use to get current directory with spaces escaped
 alias qwd='printf "%q\n" "$(pwd)"'
 
-case "$TERM" in
-xterm*)
-  # The following programs are known to require a Win32 Console
-  # for interactive usage, therefore let's launch them through winpty
-  # when run inside `mintty`.
-  for name in node ipython php php5 psql python2.7; do
-    case "$(type -p "$name".exe 2>/dev/null)" in
-    '' | /usr/bin/*) continue ;;
-    esac
-    alias $name='winpty $name.exe'
-  done
-  ;;
-esac
+# case "$TERM" in
+#xterm*)
+# The following programs are known to require a Win32 Console
+# for interactive usage, therefore let's launch them through winpty
+# when run inside `mintty`.
+# for name in node ipython php php5 psql python2.7; do
+# 	case "$(type -p "$name".exe 2>/dev/null)" in
+# 	'' | /usr/bin/*) continue ;;
+# 	esac
+# 	alias $name="winpty $name.exe"
+#	done
+# ;;
+# esac

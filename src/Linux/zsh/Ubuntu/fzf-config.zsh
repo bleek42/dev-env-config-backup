@@ -74,12 +74,13 @@ export FZF_CTRL_T_OPTS="
   	--exit-0"
 
 zstyle ':fzf-tab:*' prefix "${FZF_DEFAULT_PROMPT}"
+zstyle ':fzf-tab:*' fzf-command fzf:fzf-tmux
 zstyle ':fzf-tab:*' show-group full
 zstyle ':fzf-tab:*' switch-group '<' '>'
-zstyle ':fzf-tab:*' fzf-bindings tab:accept
 zstyle ':fzf-tab:*' accept-line enter
-zstyle ':fzf-tab:*' continuous-trigger space
-zstyle ':fzf-tab:*' fzf-command fzf
+zstyle ':fzf-tab:*' continuous-trigger 'ctrl-_'
+zstyle ':fzf-tab:*' fzf-bindings space:accept
+
 zstyle ':fzf-tab:complete:*' disabled-on none
 zstyle ':fzf-tab:complete:*' fzf-preview 'less ${realpath#-*=}'
 

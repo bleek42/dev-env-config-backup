@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env sh
 has_cmd() {
   for opt in "$@"; do
     command -v "$opt" >/dev/null

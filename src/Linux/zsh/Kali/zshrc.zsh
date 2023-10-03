@@ -6,20 +6,7 @@
 # ZDOTDIR="${ZDOTDIR:-$HOME}/.config/rc.d/zsh"
 # ZSH=/usr/share/zsh
 # ZSH_GIT_PROMPT_ENABLE_SECONDARY=1
-# ZPLUG_ROOT=/usr/share/zplug
 
-# [[ -o interactive ]] || return
-
-# # ZPLUG
-ZPLUG_HOME="$HOME/.config/zplug"
-ZPLUG_BIN="$ZPLUG_HOME/bin"
-ZPLUG_LOADFILE="$ZPLUG_HOME/packages.zsh"
-ZPLUG_CACHE_DIR="$ZPLUG_HOME/cache"
-ZPLUG_USE_CACHE=true
-ZPLUG_ERROR_LOG="$ZPLUG_HOME/error_zplug.log"
-ZPLUG_REPOS="$ZPLUG_HOME/repos"
-ZPLUG_PROTOCOL=HTTPS
-ZPLUG_FILTER=fzf:fzf-tmux
 
 if [ -f "$HOME/.config/zplug/init.zsh" ]; then
 
@@ -75,7 +62,6 @@ if [ -f "$HOME/.config/zplug/init.zsh" ]; then
     # Then, source plugins and add commands to $PATH
     zplug load --verbose
 
-    # enable auto-suggestions based on the history
 fi
 
 #setopt correct            # auto correct mistakes
@@ -92,6 +78,7 @@ setopt null_glob
 setopt extended_glob
 
 # History configurations
+# enable auto-suggestions based on the history
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
@@ -317,9 +304,7 @@ if command -v direnv >/dev/null 2>&1; then
     [[ -f "$HOME/.envrc" ]] && eval "$(direnv hook zsh)"
 fi
 
-command -v neofetch >/dev/null 2>&1 && [[ $(tty) = "/dev/pts/0" ]] && neofetch
+[[ $(command -v neofetch) ]] && [[ $(tty) = "/dev/pts/0" ]] && neofetch
 
 # enable command-not-found if installed
-if [ -f /etc/zsh_command_not_found ]; then
-    source /etc/zsh_command_not_found
-fi
+[[ -f /etc/zsh_command_not_found ]] && source /etc/zsh_command_not_found

@@ -28,16 +28,16 @@ if command -v keychain >/dev/null 2>&1; then
 #   source "$HOME/.config/shells.d/zsh/run-ssh-agent.zsh"
 fi
 
-PNPM_HOME="$HOME/.local/share/pnpm"
-# pnpmsyste
-case ":$path:" in
-*":$PNPM_HOME:"*) ;;
-*) path=($PNPM_HOME $path) ;;
-esac
+# PNPM_HOME="$HOME/.local/share/pnpm"
+# # pnpmsyste
+# case ":$path:" in
+# *":$PNPM_HOME:"*) ;;
+# *) path=($PNPM_HOME $path) ;;
+# esac
 
-NODE_PATH="${NODE_PATH:-$PNPM_HOME}/node"
-echo $NODE_PATH
-export PNPM_HOME NODE_PATH
+# NODE_PATH="${NODE_PATH:-$PNPM_HOME/node}"
+# echo $NODE_PATH
+# export PNPM_HOME NODE_PATH
 
 # pnpm end
 

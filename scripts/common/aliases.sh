@@ -18,16 +18,6 @@ alias pack='tar --create --gzip --verbose --file'
 alias unpack='tar --extract --gunzip --verbose --file'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-function set-treex() {
-	if command -v exa >/dev/null 2>&1; then
-		exa --all --long --group --git --links --time-style=long-iso --header --group-directories-first --color-scale --icons --tree --ignore-glob ".git" --color=always "$@" | batcat --plain -n || cat
-	else
-		tree -aC -I '.git' --dirsfirst "$@" | batcat --plain || cat
-	fi
-}
-
-alias treex='set-treex'
-
 if command -v zoxide >/dev/null 2>&1; then
 	eval "$(zoxide init zsh --hook prompt --cmd zd)"
 fi

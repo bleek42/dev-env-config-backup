@@ -9,31 +9,63 @@
 #         ([[ -d {} ]] && (tree \"\.git\" {} || tree -aCI \"\.git\" {} | less info -n -q)) {}'
 
 # export FZF_DEFAULT_COMMAND='fdfind --hidden -exclude ".git" --follow --color=always'
-
+# FZF_TAB_OPTS="
+# 		-m	\
+# 		+i \
+# 		-e \
+# 		--ansi \
+# 		--cycle \
+# 		--border \
+# 		--height ~30% \
+#         --reverse \
+#         --inline-info \
+#         --header-first \
+#         --header '${__fzf_default_header}' \
+# 		--preview-window 'down,~4,border-vertical' \
+# 		--preview '([[ -f {} ]] && (batcat -n --color=always {} || cat {}))
+# 						||
+# 					([[ -d {} ]] && (treex \"\.git\" {} || tree -aCI \"\.git\" {} | less info -n -q ||))
+# 						||
+# 					echo {} 2> /dev/null | head -10 | less {}' \
+# 		--prompt '${FZF_PROMPT}'
+# 		--pointer '' \
+# 		--marker '*' \
+# 		--select-1 \
+# 		--exit-0 \
+# 		--bind '?:toggle-preview' \
+#         --bind 'ctrl-space:toggle+down' \
+#         --bind 'ctrl-a:toggle-all' \
+#         --bind 'ctrl-x:deselect-all' \
+#         --bind 'ctrl-e:execute(nvim {+} < /dev/tty > /dev/tty)' \
+#         --bind 'ctrl-v:execute(code {+})' \
+#         --bind 'alt-j:preview-down' \
+#         --bind 'alt-k:preview-up' \
+#         --bind 'ctrl-f:preview-page-down' \
+#         --bind 'ctrl-b:preview-page-up' \
+#         --bind 'ctrl-o:accept-non-empty'"
 # export AG_DEFAULT_COMMAND='ag -i -l --hidden -g'
 # export RG_DEFAULT_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
 export FZF_DEFAULT_COMMAND='ag -i -l --hidden -g ""'
 
-# if command -v rg >/dev/null 2>&1; then
-# 	export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -i -g ""'
-# elif command -v ag >/dev/null 2>&1; then
-# elif command -v fdfind >/dev/null 2>&1; then
-# 	export FZF_DEFAULT_COMMAND='fdfind --hidden --exclude .git --exclude .cache ""'
-# elif command -v fd >/dev/null 2>&1; then
-# 	export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .cache ""'
-# else
-# 	export FZF_DEFAULT_COMMAND='find . -path "*/\.*" -prune -o -type f -print -o -type l -print 2> /dev/null | sed 1d ""'
-# fi
+function dirs-treexa-bat() {
+    if command -v exa >/dev/null 2>&1; then
+        exa --all --long --group --links --time-style=long-iso --header --group-directories-first --color-scale --icons --tree --ignore-glob ".git" --color=always "$@" | batcat --plain -n=6 --color=always
+    else
+        tree -aC -I '.git' --dirsfirst "$@" | batcat --plain -n=6 --color=always
+    fi
+}
+
+alias treex='dirs-treexa-bat'
 
 __fzf_default_header="\
-^G: Back | ^W: Reset filter | ^Space: Toggle mark | \
-^A/^U: Toogle/unselect all marks | ^Y: Copy | ^O: Paste | \
-?: Toggle Preview | Alt+J/K: Preview ↑/↓ | ^F/^B: Preview Page↑/↓ | \
-^E/^V: Open in ${EDITOR} | VS ${VISUAL}"
+^G: BACK | ^W: RESET | ^Space: SELECT/UNSEL | \
+^A/^U: SELECT/UNSEL ALL | ^Y: COPY | ^O: PASTE | \
+^?: TOGGLE | Alt+J/K: PREVIEW ↑/↓ | ^F/^B: PAGE ↑/↓ | \
+^E/^V: LAUNCH ${EDITOR} | VS${VISUAL}"
 
 FZF_PROMPT=' '
 
-FZF_PREVIEW="([[ -f {} ]] && (batcat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (treex {} || tree -aCI \"\.git\" {} | less -n -q || less {})) || echo {} 2> /dev/null | head -10"
+FZF_PREVIEW="([[ -f {} ]] && (batcat --plain -n --color=always {} || cat {})) || ([[ -d {} ]] && (treexa {} | less -n -q)) || echo {} 2> /dev/null | head -40 | less {}"
 
 export FZF_DEFAULT_OPTS="
 		-i \
@@ -48,12 +80,14 @@ export FZF_DEFAULT_OPTS="
         --header-first \
         --header '${__fzf_default_header}' \
 		--border \
-		--preview-window right:50%:hidden:border-horizontal:~4 \
+		--preview-window 'right,hidden,border-horizontal,wrap' \
 		--preview '${FZF_PREVIEW}' \
 		--prompt '${FZF_PROMPT}' \
 		--pointer ' ' \
 		--marker '* ' \
-		--bind '?:toggle-preview' \
+        --select-1 \
+        --exit-0 \
+		--bind 'ctrl-?:toggle-preview' \
         --bind 'ctrl-space:toggle+down' \
         --bind 'ctrl-a:toggle-all' \
         --bind 'ctrl-x:deselect-all' \
@@ -64,51 +98,13 @@ export FZF_DEFAULT_OPTS="
         --bind 'ctrl-f:preview-page-down' \
         --bind 'ctrl-b:preview-page-up' \
         --bind 'ctrl-o:accept-non-empty'"
-
-# --pointer  \
-
-FZF_TAB_OPTS="
-		-m	\
-		+i \
-		-e \
-		--ansi \
-		--cycle \
-		--border \
-		--height ~30% \
-        --reverse \
-        --inline-info \
-        --header-first \
-        --header '${__fzf_default_header}' \
-		--preview-window 'down,~4,border-vertical' \
-		--preview '([[ -f {} ]] && (batcat -n --color=always {} || cat {}))
-						||
-					([[ -d {} ]] && (treex \"\.git\" {} || tree -aCI \"\.git\" {} | less info -n -q ||))
-						||
-					echo {} 2> /dev/null | head -10 | less {}' \
-		--prompt '${FZF_PROMPT}'
-		--pointer '' \
-		--marker '*' \
-		--select-1 \
-		--exit-0 \
-		--bind '?:toggle-preview' \
-        --bind 'ctrl-space:toggle+down' \
-        --bind 'ctrl-a:toggle-all' \
-        --bind 'ctrl-x:deselect-all' \
-        --bind 'ctrl-e:execute(nvim {+} < /dev/tty > /dev/tty)' \
-        --bind 'ctrl-v:execute(code {+})' \
-        --bind 'alt-j:preview-down' \
-        --bind 'alt-k:preview-up' \
-        --bind 'ctrl-f:preview-page-down' \
-        --bind 'ctrl-b:preview-page-up' \
-        --bind 'ctrl-o:accept-non-empty'"
-
 # fzf settings. Uses fdfind for a faster alternative to `find`.
 # Preview file content using batcat (https://github.com/sharkdp/batcat)
-export FZF_CTRL_T_COMMAND='fdfind --hidden -exclude ".git" --follow --color=always'
+export FZF_CTRL_T_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
 export FZF_CTRL_T_OPTS="
 		--preview 'batcat --color=always -n -p {}' \
-		--preview-window 'down,wrap,~4' \
-  		--bind 'ctrl-/:change-preview-window(down|hidden|)' \
+		--preview-window 'right:~30%:wrap' \
+  		--bind 'ctrl-?:change-preview-window(right|hidden|)' \
   		--color header:italic \
   		--header '${__fzf_default_header}' \
 		--header-first \
@@ -116,10 +112,10 @@ export FZF_CTRL_T_OPTS="
   		--exit-0 "
 
 # ? to toggle small preview window to see the full command
-# CTRL-Y to copy the command into clipboard using pbcopy
+export FZF_CTRL_R_COMMAND="${FZF_DEFAULT_COMMAND}"
 export FZF_CTRL_R_OPTS="
-  		--preview 'echo {}' --preview-window down:~4:wrap \
-  		--bind '?:toggle-preview' \
+  		--preview 'echo {}' --preview-window 'right,hidden,~4,wrap' \
+  		--bind 'ctrl-?:toggle-preview' \
   		--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
   		--color header:italic \
   		--header 'Press CTRL-Y to copy command into clipboard'"
@@ -131,7 +127,9 @@ export FZF_CTRL_R_OPTS="
 # export FZF_EDIT_FILES_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Print tree structure in the preview window
-export FZF_ALT_C_OPTS="--preview 'treex {} || tree -C {} | head -200'"
+export FZF_ALT_C_COMMAND="${FZF_DEFAULT_COMMAND}"
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS="--preview 'treex {}'"
 
 zstyle ':fzf-tab:*' prefix "${FZF_PROMPT}"
 zstyle ':fzf-tab:*' show-group full
@@ -221,19 +219,19 @@ zstyle ':fzf-tab:complete:pnpm:' fzf-preview 'pnpm help $word | batcat --color=a
 
 # Docker
 zstyle ':fzf-tab:complete:docker-container:argument-1' fzf-preview \
-    'docker container $word --help | batcat --color=always'
+    'docker container $word --help | batcat --color=always -p'
 
 zstyle ':fzf-tab:complete:docker-image:argument-1' fzf-preview \
-    'docker image $word --help | batcat --color=always'
+    'docker image $word --help | batcat --color=always -p'
 
 zstyle ':fzf-tab:complete:docker-inspect:' fzf-preview \
-    'docker inspect $word | batcat --color=always'
+    'docker inspect $word | batcat --color=always -p'
 
 zstyle ':fzf-tab:complete:docker-(run|images):argument-1' fzf-preview \
-    'docker images $word batcat --color=always -n=4'
+    'docker images $word batcat --color=always -p'
 
 zstyle ':fzf-tab:complete:((\\|*/|)docker|docker-help):argument-1' fzf-preview \
-    'docker help $word | batcat --color=always -n=4'
+    'docker help $word | batcat --color=always -p'
 
 # df completion
 zstyle ':fzf-tab:complete:(\\|*/|)df:argument-rest' fzf-preview \
@@ -252,27 +250,27 @@ zstyle ':fzf-tab:complete:(\\|*/|)(scp|rsync):argument-rest' fzf-preview \
         esac'
 
 zstyle ':fzf-tab:complete:git-(diff|restore):*' fzf-preview \
-    'git diff $word | batcat --color=always -n=6'
+    'git diff $word | batcat --color=always -n'
 
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-    'git log $word | batcat --color=always -n=6'
+    'git log $word | batcat --color=always -n'
 
 zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-    'git help $word | batcat --color=always -n=6'
+    'git help $word | batcat --color=always -n'
 
 zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
     'case $group in
 	        "commit tag") git show  $word | batcat --color=always
             ;;
-	        *) git show $word | batcat --color=always -n=6
+	        *) git show $word | batcat --color=always -n
             ;;
 	    esac'
 
 zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
     'case $group in
-	        "modified file") git diff $word | batcat --color=always -n=6
+	        "modified file") git diff $word | batcat --color=always -n
             ;;
-	        "recent commit object name") git show --color=always $word | batcat --color=always -n=6
+	        "recent commit object name") git show --color=always $word | batcat --color=always -n
             ;;
 	        *) git log --color=always $word | batcat --color=always -n=6
             ;;
@@ -288,10 +286,10 @@ fz() {
         cmd="${cmd} . ${location}"
     fi
     eval "${cmd}" |
-        ~/dotfiles/lib/fzf/fzf-tmux-digdown -p90% \
-            --bind "enter:execute([[ -f {} ]] && LESS='--RAW-CONTROL-CHARS' batcat --paging=always {})" \
+        fzf-tmux-digdown -p90% \
+            --bind "enter:execute([[ -f {} ]] && LESS='--RAW-CONTROL-CHARS' batcat --color=auto --paging=always {})" \
             --bind "ctrl-r:reload(${cmd})" \
-            --header 'Enter: View with batcat | ^R: Reload'
+            --header 'Enter: VIEW | ^R: RELOAD'
     return 0
 }
 
@@ -304,9 +302,9 @@ fzd() {
             --preview 'docker logs ${get_id}'
             --preview-window right:80%:hidden
             --bind 'ctrl-e:execute(docker exec --interactive --tty ${get_id} bash < /dev/tty > /dev/tty)'
-            --bind 'alt-i:execute(docker inspect ${get_id} | batcat --language cjson --style numbers)'
+            --bind 'alt-i:execute(docker inspect ${get_id} | batcat -n --color=always --language=cjson )'
             --bind 'alt-e:execute(docker exec --user root ${get_id} bash -c \"apt-get update \
-                                    && apt-get install --yes curl micro telnet\" \
+                                    && apt-get install --yes curl telnet\" \
                                     | bash && exec bash --login\")'
             --bind 'enter:execute(docker logs ${get_id} | LESS=\"--RAW-CONTROL-CHARS\" less --LINE-NUMBERS +G)'
             --bind 'alt-enter:execute(echo {} \
@@ -315,8 +313,8 @@ fzd() {
                                         | xargs dive)'
             --bind 'ctrl-r:reload(docker ps --format \"table {{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Ports}}\")'
             --query='$*'
-            --header '^E: Exec Bash | Alt+E: Install min apt pkgs | ^R: Reload | Alt+I: Inspect | Enter: Log | Alt+Enter: Dive'
-            --header-lines 1"
+            --header ' ^E: EXEC | Alt+E: PKGS | ^R: RELOAD | Alt+I: INSPECT | Enter: LOGS | Alt+Enter: DIVE'
+            --header-lines 2"
     # ~/dotfiles/lib/fzf/fzf-tmux-digdown -p90%
     docker-ps-format | FZF_DEFAULT_OPTS="${opts}"
     return 0
