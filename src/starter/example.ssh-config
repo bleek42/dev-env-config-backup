@@ -85,17 +85,16 @@ Host \*
 	EscapeChar ~
 	PasswordAuthentication no
 
-Host 127.0.0.1
-	HostName <localhost-name>
+Host 192.168.1.0/255
+	HostName <username.myddns.me>
 	ForwardX11 <yes/no>
 	ForwardAgent <yes/no>
 	AddKeysToAgent <yes/no>
-	IdentityFile ~/.ssh/id_ed25519_gh.ppk
+	IdentityFile ~/.ssh/id_rsa
 	PreferredAuthentications publickey
 	PasswordAuthentication yes
-	IdentitiesOnly no
 
-Host \*.github.com
+Host github.com *.github.com
 	User git
   	HostName github.com
 	ForwardAgent yes
@@ -103,7 +102,7 @@ Host \*.github.com
 	PreferredAuthentications publickey
 	IdentitiesOnly yes
 
-Host \*.gitlab.com
+Host gitlab.com *.gitlab.com
 	User git
   	HostName gitlab.com
 	ForwardAgent yes
