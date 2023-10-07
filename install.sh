@@ -3,7 +3,7 @@
 ## ? This script is meant to be run from the root of the repo to install & bootstrap all the config/dotfiles for the current user based on the OS/environment.
 op_sys="$(uname -s)"
 echo "Operating System/Shell Environment: ${op_sys}:(${SHELL})"
-echo ""
+
 case "${op_sys}" in
 Linux*)
     op_sys_short="Linux"

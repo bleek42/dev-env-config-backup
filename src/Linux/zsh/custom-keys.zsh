@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # configure key keybindings
 bindkey -e # emacs key bindings
 zmodload zsh/terminfo
