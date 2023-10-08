@@ -6,7 +6,8 @@ alias winupd='winget upgrade -r'
 alias lspath='echo $PATH | sed "s/:/\n/g" | sort | uniq -c'
 alias wslupd='wsl --update --web-download'
 alias wslshutd='wsl --shutdown'
-alias ag='ag -i -l --hidden -g'
+
+### ! Check if shell has command, is successful before assigning alias
 
 if command -v NETSTAT >/dev/null 2>&1; then
 	alias netstat='NETSTAT'
@@ -14,50 +15,45 @@ if command -v NETSTAT >/dev/null 2>&1; then
 	alias netstata='NETSTAT -a'
 fi
 
-# ## GIT ALIASES
-# alias git
+if command -v ag >/dev/null 2>&1; then
+	alias ag='ag -i -l --hidden -g ""'
+fi
 
-### Check if shell has command, is successful before assigning alias
 if command -v codium-insiders >/dev/null 2>&1; then
-  alias codiumins='codium-insiders'
+	alias codiumins='codium-insiders'
 fi
 
 if command -v lsd >/dev/null 2>&1; then
-  alias ls='lsd -A -F -X --color=always --icon-theme=fancy --size=short --group-dirs=first'
-  alias ll='lsd -a -F -X -d -1 --color=always --icon-theme=fancy --group-dirs=last'
-  # alias la='ls'
-  # Show hidden files too
-  # Show file size, permissions, date, etc.
-  alias la='lsd -A -v -h -1 --color=always --icon-theme=fancy --group-dirs-first --size=short'
+	alias ls='lsd -F -X --system-protected --header'
+	alias ll='lsd -l -F -X -1 --system-protected --group-dirs=last'
+	# alias la='ls'
+	# Show hidden files too
+	# Show file size, permissions, date, etc.
+	alias la='lsd -A -v -h -1 --group-dirs=first'
 
-  # Show only directories
-  alias ldir='lsd -d */'
-  # sort files by size, showing biggest at the bottom
-  alias lsort="lsd -a -l -S -r | tr -s ' ' | cut -d ' ' -f 5,9"
-  alias paths='lsd -d $PWD/*'
+	# Show only directories
+	alias ld='lsd --system-protected --tree -d'
+	alias lt='ls --system-protected --tree'
+	# sort files by size, showing biggest at the bottom
+	alias lsort="lsd -A -l -r --sizesort --group-dirs=first"
+	alias lpath='lsd -A -l --tree -d "$PWD"/*'
 fi
-  # --show-control-chars: help showing Korean or accented characters
-  # alias ls='lsd --show-control-chars'
+# --show-control-chars: help showing Korean or accented characters
+# alias ls='lsd --show-control-chars'
 
-
-# list more than the default repositories with GH CLI
+# ? list more than the default repositories with GH CLI
 if command -v gh >/dev/null 2>&1; then
-  alias lsrepos='gh repo list --limit=100'
+	alias lsrepos='gh repo list --limit=100'
 fi
 
-if command -v bat >/dev/null 2>&1; then
-  alias cat='bat'
+if command -v batcat >/dev/null 2>&1; then
+	alias bat='bat'
 fi
 
-# if command -v pnpm >/dev/null 2>&1; then
-#   alias npm='pnpm'
-# fi
-
-# Show full paths of files in current directory
-
+# ? Show full paths of files in current directory
 
 if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init bash --cmd zd)"
+	eval "$(zoxide init bash --cmd zd)"
 
 fi
 
@@ -120,7 +116,7 @@ alias dt='date "+%F %T"'
 # PRETTY THINGS
 # ═══════════════════════════════════════
 # custom cmatrix
-alias cmatrix="cmatrix -bC yellow"
+alias cmatrix="cmatrix -bl -C green"
 
 # ═══════════════════════════════════════
 # PROCESS MANAGEMENT
