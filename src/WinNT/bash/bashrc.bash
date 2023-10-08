@@ -7,7 +7,9 @@ esac
 
 # # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
+shopt -s extglob
 shopt -s globstar
+shopt -s nullglob
 # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 # removes .exe ending when using tab completions for any commands (example: type 'no' then press tab, normally on windows it would complete to 'node.exe' now it will just be 'node')
@@ -28,33 +30,34 @@ shopt -s histappend
 # ═══════════════════════════════════════
 # set length of command history rememebered
 # ? set a variable using your users default $HOME environment variable to a hidden "dotfolder" .config/ folder with this syntax
-HISTSIZE=5000
-HISTFILESIZE=5000
+HISTSIZE=8000
+HISTFILESIZE=8000
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 # Don't store lines starting with a space in the history, or lines identical to the one before.
-HISTCONTROL='ignoreboth'
+HISTCONTROL='ignoreboth:erasedups'
 # Store timestamps in history file, and display them as 'Mon 2020-06-01 23:42:05'.
 HISTTIMEFORMAT='%a %Y-%m-%d %H:%M:%S'
+
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
 
 # # If this interactive Bash shell session is connected to a terminal emulator (or a TTY "tele-typewriter"), disable software flow control.
 # # In other words, prevent accidentally hitting CTRL+S from freezing the terminal session.
 [ -t 0 ] && stty -ixon 2>/dev/null
 
-if [[ -d "${CONFIG_DIR}"/bash/completions ]]; then
-  for src in "${CONFIG_DIR}"/bash/completions/**/*.sh; do
-    source "$src"
-  done
-  unset src
+if test -d "${XDG_CONFIG_HOME}"/bash/completions; then
+	USER_COMPLETIONS="${XDG_CONFIG_HOME}"/bash/completions
+	echo "$USER_COMPLETIONS"
+	COMPLETION_PATH="${COMPLETION_PATH}:${USER_COMPLETIONS}"
+	echo "$COMPLETION_PATH"
+
+	for cmp in "${USER_COMPLETIONS}"/**/*.sh; do
+		source "$cmp"
+	done
+	unset cmp
 fi
 
-test -f "${CONFIG_DIR}"/bash/aliases/aliases.sh && source "${CONFIG_DIR}"/bash/aliases/aliases.sh
-test -f "${CONFIG_DIR}"/bash/fzf-config.sh && source "${CONFIG_DIR}"/bash/fzf-config.sh
-
-# if command -v direnv >/dev/null 2>&1; then
-#   eval "$(
-#     direnv hook bash
-#     direnv allow
-#   )"
-# fi
+test -f "${XDG_CONFIG_HOME}"/bash/aliases/aliases.sh && source "${XDG_CONFIG_HOME}"/bash/aliases/aliases.sh
+test -f "${XDG_CONFIG_HOME}"/bash/fzf-config.sh && source "${XDG_CONFIG_HOME}"/bash/fzf-config.sh
