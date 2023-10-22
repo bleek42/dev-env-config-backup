@@ -75,44 +75,34 @@
 			"keys": "ctrl+shift+p"
 		}
 	],
-	"alwaysShowNotificationIcon": true,
-	"centerOnLaunch": true,
-	"copyFormatting": [
-		"html",
-		"rtf"
-	],
-	"copyOnSelect": false,
-	"defaultProfile": "",
-	"experimental.detectURLs": true,
-	"experimental.enableColorSelection": true,
-	"experimental.rendering.forceFullRepaint": true,
+	"minimizeToNotificationArea": true,
+	"defaultProfile": "{22cf8483-2f1e-4eb2-b9d2-1459fdfc8b94}",
 	"initialCols": 132,
 	"initialRows": 48,
-	"minimizeToNotificationArea": true,
 	"newTabMenu": [
 		{
 			"type": "remainingProfiles"
 		}
 	],
+	"alwaysShowNotificationIcon": true,
+	"centerOnLaunch": true,
+	"copyOnSelect": false,
+	"copyFormatting": [
+		"html",
+		"rtf"
+	],
+	"experimental.detectURLs": true,
+	"experimental.enableColorSelection": true,
+	// "experimental.rendering.forceFullRepaint": true,
+	// "experimental.rendering.software": true,
 	"profiles": {
 		"defaults": {
 			"guid": "{8f583553-8050-3d06-f2b8-4a92dad2d555}",
-			// "backgroundImage": "%USERPROFILE%\\OneDrive\\Pictures\\art\\term-edit-src-code.jpg",
-			"backgroundImageStretchMode": "uniform",
-			"backgroundImageAlignment": "right",
-			"backgroundImageOpacity": 0.6,
-			"antialiasingMode": "cleartype",
-			"bellStyle": "taskbar",
+			"icon": "%USERPROFILE%\\.config\\winterm-icos\\64_bash-shell.png",
 			"cursorShape": "emptyBox",
-			"cursorColor": "#00ff4c",
-			"background": "#000000",
-			"selectionBackground": "#5858e4",
+			"antialiasingMode": "cleartype",
 			"closeOnExit": "never",
-			"unfocusedAppearance": {
-				"experimental.retroTerminalEffect": true
-			},
 			"historySize": 16000,
-			"experimental.connection.passthroughMode": true,
 			"font": {
 				"face": "ProFontWindows Nerd Font Mono",
 				"size": 14.0,
@@ -122,9 +112,13 @@
 					"ss01": 1
 				}
 			},
-			"icon": "%USERPROFILE%\\.config\\winterm-icos\\64_bash-shell.png",
+			"bellStyle": "taskbar",
 			"intenseTextStyle": "all",
-			"opacity": 95,
+			"experimental.connection.passthroughMode": true,
+			"unfocusedAppearance": {
+				"experimental.retroTerminalEffect": true
+			},
+			"opacity": 90,
 			"padding": "6, 8, 6, 8",
 			"snapOnInput": true,
 			"startingDirectory": "~",
@@ -133,19 +127,19 @@
 		},
 		"list": [
 			{
-				"colorScheme": "WindowsXPDark",
-				"commandline": "%PROGRAMFILES%\\PowerShell\\7\\pwsh.exe",
 				"guid": "{8f583553-8050-3d06-f2b8-4a92dad2d555}",
-				"hidden": false,
+				"name": "PowerShell 7",
+				"commandline": "%PROGRAMFILES%\\PowerShell\\7\\pwsh.exe",
 				"icon": "%USERPROFILE%\\.config\\winterm-icos\\64_windows.png",
-				"name": "PowerShell 7"
+				"colorScheme": "WindowsXPDark",
+				"hidden": false
 			},
 			{
+				"guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
 				"colorScheme": "WindowsXP",
 				"commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-				"guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
 				"hidden": true,
-				"icon": "%USERPROFILE%\\/.config\\winterm-icos\\64_windows.png",
+				"icon": "%USERPROFILE%\\.config\\winterm-icos\\64_windows.png",
 				"name": "PowerShell 6"
 			},
 			{
@@ -153,11 +147,11 @@
 				"guid": "{22cf8483-2f1e-4eb2-b9d2-1459fdfc8b94}",
 				"commandline": "%MSYS_DIR%\\bin\\bash.exe --login -i",
 				"icon": "%MSYS_DIR%\\mingw64\\share\\git\\git-for-windows.ico",
-				"hidden": false,
-				"colorScheme": "RailgunTheme",
-				"backgroundImageAlignment": "bottomLeft",
-				"backgroundImageOpacity": 0.8,
-				"backgroundImageStretchMode": "none",
+				"colorScheme": "MaterialMonokai",
+				"backgroundImage": "%USERPROFILE%\\OneDrive\\Pictures\\ms-win-vaporwave-clouds-bg.jpg",
+				"backgroundImageAlignment": "center",
+				"backgroundImageOpacity": 0.1,
+				"backgroundImageStretchMode": "uniform",
 				"antialiasingMode": "cleartype",
 				"font": {
 					"face": "TerminessTTF Nerd Font Mono",
@@ -166,7 +160,7 @@
 						"ss01": 1
 					},
 					"size": 14.0,
-					"weight": "semi-bold"
+					"weight": 600
 				}
 			},
 			{
@@ -228,7 +222,7 @@
 				"commandline": "%SystemRoot%\\System32\\cmd.exe",
 				"guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
 				"hidden": false,
-				"name": "CMD.exe"
+				"name": "cmd.exe"
 			},
 			{
 				"colorScheme": "BlueFlame",
@@ -342,32 +336,32 @@
 		},
 		{
 			"name": "MaterialMonokai",
-			"background": "#263238",
-			"foreground": "#cccccc",
-			"cursorColor": "#ffffff",
-			"black": "#000000",
+			"background": "#14191b",
+			"foreground": "#00ffff",
+			"cursorColor": "#00ff15",
+			"selectionBackground": "#7affe2",
+			"black": "#0f0e0e",
 			"blue": "#82aaff",
-			"brightBlack": "#5f7a87",
-			"brightBlue": "#82aaff",
+			"brightBlack": "#3d3f41",
+			"brightBlue": "#4f81ee",
 			"brightCyan": "#2edcff",
 			"brightGreen": "#9dff00",
-			"brightPurple": "#b78aff",
-			"brightRed": "#ff2c96",
+			"brightPurple": "#8d46ff",
+			"brightRed": "#fc4ea5",
 			"brightWhite": "#ffffff",
-			"brightYellow": "#e6db74",
+			"brightYellow": "#eeff04",
 			"cyan": "#2edcff",
 			"green": "#9dff00",
-			"purple": "#b78aff",
+			"purple": "#a064ff",
 			"red": "#ff2c96",
 			"white": "#ffffff",
-			"yellow": "#e6db74",
-			"selectionBackground": "#5f7a87"
+			"yellow": "#e6db74"
 		},
 		{
 			"name": "RailgunTheme",
-			"background": "#1d1d1d",
-			"foreground": "#cccccc",
-			"cursorColor": "#aeafad",
+			"background": "#131212",
+			"foreground": "#00fff2",
+			"cursorColor": "#07ff6e",
 			"black": "#000000",
 			"blue": "#2472c8",
 			"brightBlack": "#666666",

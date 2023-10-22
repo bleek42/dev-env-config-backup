@@ -6,7 +6,7 @@ alias winupd='winget upgrade -r'
 alias lspath='echo $PATH | sed "s/:/\n/g" | sort | uniq -c'
 alias wslupd='wsl --update --web-download'
 alias wslshutd='wsl --shutdown'
-
+alias explore='explorer .'
 ### ! Check if shell has command, is successful before assigning alias
 
 if command -v NETSTAT >/dev/null 2>&1; then
