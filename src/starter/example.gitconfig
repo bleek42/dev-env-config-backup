@@ -4,10 +4,14 @@
 	symlinks = true # ? symlinks = folders that refer to some other folder somewhere (this is how 'My Documents', 'Desktop', & other folders work across OS's)
 	fsmonitor = false #  ? newer feature unfamiliar with: turn off for now
 	editor = code # ! MAYBE code.exe on Git/Bash for MS Windows
+	sshCommand = ssh -i ~/.ssh/id_ed25519_gh -F /dev/null
 
 [user]
-	name = "<-" GITHUB USERNAME HERE "->"
-	email = "<-" NOW EMAIL "->"
+	name = 
+	email = 
 
 [init]
 	defaultBranch = main # ! change default branch cuz microsoft, parent co of github will call you racist if you don't change from master
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
