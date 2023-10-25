@@ -5,10 +5,10 @@
 
 # [[ -o interactive ]] || return 0
 
-if [ -f "$ZPLUG_HOME/.config/zplug/init.zsh" ]; then
-    source "$ZPLUG_HOME/.config/zplug/init.zsh"
-elif [ -f "$ZPLUG_ROOT/init.zsh" ]; then
-    source /usr/share/zplug/init.zsh
+if [ -f "${ZPLUG_HOME}/.config/zplug/init.zsh" ]; then
+    source "${ZPLUG_HOME}/.config/zplug/init.zsh"
+elif [ -f "${ZPLUG_ROOT}/init.zsh" ]; then
+    source "${ZPLUG_ROOT}/init.zsh"
 else
     echo "zplug not found..."
 fi
@@ -25,10 +25,8 @@ if command -v zplug >/dev/null 2>&1; then
     ## ? zplug "unixorn/docker-helpers", from:gh-r, use:'docker-helpers.plugin.zsh'
     ## ? zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1"C
 
-
-    zplug "Aloxaf/fzf-tab", \
-        use:'fzf-tab.plugin.zsh', \
-        defer:2
+    zplug "plugins/systemd", from:oh-my-zsh
+    zplug "plugins/systemadmin", from:oh-my-zsh
 
     zplug "/usr/share/zsh-autosuggestions", \
         from:local, \
@@ -39,28 +37,23 @@ if command -v zplug >/dev/null 2>&1; then
         use:'autopair.plugin.zsh', \
         defer:2
 
+    zplug "Aloxaf/fzf-tab", \
+        use:'fzf-tab.plugin.zsh', \
+        defer:2
+
     zplug "zdharma-continuum/fast-syntax-highlighting", \
         use:'fast-syntax-highlighting.plugin.zsh', \
-        defer:3
+        defer:2
 
     zplug "zsh-users/zsh-history-substring-search", \
         use:'zsh-history-substring-search.plugin.zsh', \
         defer:3
 
-    zplug "~/.config/rc.d/zsh/themes", \
-        from:local, \
+    zplug "themes/strug", \
+        from:oh-my-zsh, \
         as:theme, \
-        use:'strug.zsh-theme', \
+        use:'lambda.zsh-theme', \
         defer:3
-
-    zplug "plugins/systemd", \
-        from:oh-my-zsh, \
-        defer:3
-        
-    zplug "plugins/systemadmin", \
-        from:oh-my-zsh, \
-        defer:3
-
 
     # Install plugins if there are plugins that have not been installed
     if ! zplug check; then
@@ -104,6 +97,23 @@ alias history='history -50'
 WORDCHARS='*?_[]~=&;!#$%^(){}' # Dont consider certain characters part of the word
 PROMPT_EOL_MARK=" "
 
+# typeset -A key
+# configure key keybindings
+bindkey -e # emacs key bindings
+# bindkey '^I' expand-or-complete-prefix # tab comp
+bindkey '^Xh' _complete_help
+bindkey ' ' magic-space                        # do history expansion on space
+bindkey '^U' backward-kill-line                # ctrl + U
+bindkey '^[[3;5~' kill-word                    # ctrl + Supr
+bindkey '^[[3~' delete-char                    # delete
+bindkey '^[[1;5C' end-of-line                  # ctrl + ->
+bindkey '^[[1;5D' beginning-of-line            # ctrl + <-
+bindkey '^[[5~' beginning-of-buffer-or-history # page up
+bindkey '^[[6~' end-of-buffer-or-history       # page down
+bindkey '^[[H' forward-word                    # home
+bindkey '^[[F' end-of-line                     # end
+bindkey '^Z' undo                              # ctrl + Z undo last action
+# Make dot key autoexpand "..." to "../.." and so on
 # Fullscreen command line edit
 autoload -Uz edit-command-line
 zle -N edit-command-line
@@ -139,23 +149,18 @@ zmodload zsh/terminfo
 zmodload zsh/zutil
 zmodload zsh/complist
 
-# enable completion features
 autoload -Uz compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
 
+zstyle ':completion:*' menu yes select search
 zstyle ':completion:*' complete true
 zstyle ':completion:*' verbose true
-zstyle ':completion:*:*' sort true
-zstyle ':completion:*' list-dirs-first true
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' completer _expand _complete
 
 zle -C alias-expension complete-word _generic
 bindkey '^Xa' alias-expension
 zstyle ':completion:alias-expension:*' completer _alias _generic
-zstyle ':completion:*' completer _expand _complete
-zstyle ':completion:*' keep-prefix true
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
 # # Required for completion to be in good groups (named after the tags)
 zstyle ':completion:*' group-name ''
 zstyle ':completion:complete:*:options' sort false
@@ -171,38 +176,29 @@ zstyle :completion':*:*:cd:*' tag-order local-directories directory-stack path-d
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 zstyle ':completion:*:kill:*' command 'ps -u ${USER} -o pid,%cpu,tty,cputime,cmd -w -w '
+zstyle ':completion:*:*:px:*' command 'px --top '
+# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
 [[ -f "$HOME/.config/rc.d/common/aliases.sh" ]] && source "$HOME/.config/rc.d/common/aliases.sh"
 
 if command -v fzf >/dev/null 2>&1; then
-    # [[ -d /usr/share/doc/fzf/examples ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh && source /usr/share/doc/fzf/examples/completions.zsh
+    [[ -f "usr/share/doc/fzf/examples/key-bindings.zsh" ]] && source "/usr/share/doc/fzf/examples/key-bindings.zsh"
+    [[ -f "/usr/share/doc/fzf/examples/completion.zsh" ]] && source "/usr/share/doc/fzf/examples/completion.zsh"
     [[ -f "$HOME/.config/rc.d/zsh/fzf-config.zsh" ]] && source "$HOME/.config/rc.d/zsh/fzf-config.zsh"
+
 else
     # Allow you to select in a menu
     zstyle ':completion:*' menu select
-    zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+    zstyle ':completion:*:descriptions' format '[%d]'
+    zstyle ':completion:*' keep-prefix true
+    zstyle ':completion:*' select-prompt %Scurrent selection @ %p%s
+    zstyle ':completion:*' format 'Completing %d'
+    zstyle ':completion:*' auto-description 'specify: %d'
     zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-    [[ -f "usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "usr/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-fi
+    [[ -f "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "/usr/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# typeset -A key
-# configure key keybindings
-bindkey -e # emacs key bindings
-# bindkey '^I' expand-or-complete-prefix # tab comp
-bindkey '^Xh' _complete_help
-bindkey ' ' magic-space                        # do history expansion on space
-bindkey '^U' backward-kill-line                # ctrl + U
-bindkey '^[[3;5~' kill-word                    # ctrl + Supr
-bindkey '^[[3~' delete-char                    # delete
-bindkey '^[[1;5C' end-of-line                  # ctrl + ->
-bindkey '^[[1;5D' beginning-of-line            # ctrl + <-
-bindkey '^[[5~' beginning-of-buffer-or-history # page up
-bindkey '^[[6~' end-of-buffer-or-history       # page down
-bindkey '^[[H' forward-word                    # home
-bindkey '^[[F' end-of-line                     # end
-bindkey '^Z' undo                              # ctrl + Z undo last action
-# Make dot key autoexpand "..." to "../.." and so on
+fi
 
 _zsh-dot() {
     if [[ ${LBUFFER} = *.. ]]; then
@@ -266,6 +262,7 @@ if zplug check '/usr/share/zsh-autosuggestions'; then
 fi
 
 if zplug check 'hlissner/zsh-autopair'; then
+    autopair-init
     typeset -gA AUTOPAIR_PAIRS
     AUTOPAIR_PAIRS+=("<" ">")
     AUTOPAIR_PAIRS+=("{" "}")
