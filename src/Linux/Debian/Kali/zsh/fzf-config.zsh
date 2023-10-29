@@ -98,8 +98,7 @@ export FZF_CTRL_T_OPTS="
 
 # # Print tree structure in the preview window
 export FZF_ALT_C_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
-export FZF_ALT_C_OPTS="
-        --preview 'exa --all --links --time-style iso --header --color-scale --icons --tree {} | batcat -f -p'  --preview-window 'down:~4:border-horizontal:wrap'"
+export FZF_ALT_C_OPTS="--preview 'exa --all --links --time-style iso --header --color-scale --icons --tree {} | batcat -f -p'  --preview-window 'down:~4:border-horizontal:wrap'"
 
 zstyle ':fzf-tab:*' fzf-command fzf
 zstyle ':fzf-tab:*' prefix '${FZF_PROMPT}'
