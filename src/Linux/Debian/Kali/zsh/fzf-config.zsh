@@ -69,9 +69,6 @@ export FZF_CTRL_T_OPTS="
   	--select-1
   	--exit-0"
 
-<<<<<<< HEAD
-zstyle ':fzf-tab:*' prefix "${FZF_DEFAULT_PROMPT}"
-=======
 # ? to toggle small preview window to see the full command
 # CTRL-Y to copy the command into clipboard using pbcopy
 # export FZF_CTRL_R_OPTS="\
@@ -93,8 +90,7 @@ export FZF_ALT_C_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
 export FZF_ALT_C_OPTS="--preview 'exa --all --links --time-style iso --header --color-scale --icons --tree {} | batcat -f -p'  --preview-window 'down:~4:border-horizontal:wrap'"
 
 zstyle ':fzf-tab:*' fzf-command fzf
-zstyle ':fzf-tab:*' prefix '${FZF_PROMPT}'
->>>>>>> cd95d60a0596371f8f950e8f64e32fe3771f595d
+zstyle ':fzf-tab:*' prefix '$FZF_PROMPT'
 zstyle ':fzf-tab:*' show-group full
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-bindings tab:accept
