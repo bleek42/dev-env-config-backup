@@ -18,13 +18,13 @@ __fzf_default_header="\
 ^?: Show/Hide| Alt+J/K: ↑/↓| ^F/^B: Page↑/↓| \
 ^E/^V: Edit ${EDITOR}|VSCODE}"
 
-FZF_DEFAULT_PREVIEW="([[ -f {} ]] && (bat --color=always -n -p {} || cat {})) ||
+fzf_default_preview="([[ -f {} ]] && (bat --color=always -n -p {} || cat {})) ||
                      ([[ -d {} ]] && (tree -aCI {} | head -50)) ||
                      echo {} 2> /dev/null | head -50 | less {}"
 
-FZF_HISTORY_DIR="${XDG_DATA_HOME:=$HOME/.local/share}/fzf"
+fzf_history_dir="${XDG_DATA_HOME:=$HOME/.local/share}/fzf"
 
-FZF_DEFAULT_PROMPT=' '
+fzf_default_prompt=' '
 
 export FZF_DEFAULT_COMMAND='ag -i -l --hidden -g ""'
 
@@ -41,9 +41,9 @@ export FZF_DEFAULT_OPTS="
                   --header-first \
                   --header '${__fzf_default_header}' \
                   --preview-window=right,50%,border-vertical,hidden,wrap \
-                  --preview '${FZF_DEFAULT_PREVIEW}' \
-                  --prompt '${FZF_DEFAULT_PROMPT}' \
-                  --history '${FZF_HISTORY_DIR}' \
+                  --preview '${fzf_default_preview}' \
+                  --prompt '${fzf_default_prompt}' \
+                  --history '${fzf_history_dir}' \
                   --bind 'ctrl-/:toggle-preview' \
                   --bind 'ctrl-space:toggle+down' \
                   --bind 'ctrl-a:toggle-all' \
@@ -58,16 +58,16 @@ export FZF_DEFAULT_OPTS="
 
 # fzf settings. Uses ripgrep for a faster alternative to `find`.
 # Preview file content using  bat (https://github.com/sharkdp/bat)
-export FZF_CTRL_T_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="
-  	--bind 'ctrl-/:change-preview-window(down|hidden|)'
-		--preview-window down:wrap:hidden:~4'
-  	--header '${__fzf_default_header}'
-		--preview 'bat --color=always -n -p {}'
-  	--color header:italic
-		--header-first
-  	--select-1
-  	--exit-0"
+  	        --bind 'ctrl-/:change-preview-window(down|hidden|)'
+		    --preview-window down:wrap:hidden:~4'
+  	        --header '${__fzf_default_header}'
+		    --preview 'bat -f -p {}'
+  	        --color header:italic
+		    --header-first
+  	        --select-1
+  	        --exit-0"
 
 # ? to toggle small preview window to see the full command
 # CTRL-Y to copy the command into clipboard using pbcopy
@@ -86,8 +86,10 @@ export FZF_CTRL_T_OPTS="
 # export FZF_ALT_C_COMMAND="${FZF_DEFAULT_COMMAND}"
 
 # # Print tree structure in the preview window
-export FZF_ALT_C_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
-export FZF_ALT_C_OPTS="--preview 'exa --all --links --time-style iso --header --color-scale --icons --tree {} | batcat -f -p'  --preview-window 'down:~4:border-horizontal:wrap'"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_OPTS="
+            --preview 'exa --all --links --time-style iso --header --color-scale --icons --tree {} | batcat -f -p' \
+            --preview-window 'down:border-horizontal:wrap:~4'"
 
 zstyle ':fzf-tab:*' fzf-command fzf
 zstyle ':fzf-tab:*' prefix '$FZF_PROMPT'
