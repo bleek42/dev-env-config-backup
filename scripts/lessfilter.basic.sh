@@ -1,104 +1,55 @@
-#!/usr/bin/env sh
-has_cmd() {
-  for opt in "$@"; do
-    command -v "$opt" >/dev/null
-  done
-}
+#!/usr/bin/env zsh
 
-mime=$(file -Lbs --mime-type "$1")
+mime=$(file -bL --mime-type "$1")
 category=${mime%%/*}
 kind=${mime##*/}
-ext=${1##*.}
-if [ "$kind" = octet-stream ]; then
-  if [[ $1 == *events.out.tfevents.* ]]; then
-    python <<EOF
-from contextlib import suppress
-import sys
-from time import gmtime, strftime
-
-import pandas as pd
-import plotext as plt
-from tensorboard.backend.event_processing.event_file_loader import (
-    EventFileLoader,
-)
-
-file = "$1"
-df = pd.DataFrame(columns=["Step", "Value"])
-df.index.name = "YYYY-mm-dd HH:MM:SS"
-
-for event in EventFileLoader(file).Load():
-    with suppress(IndexError):
-        df.loc[strftime("%F %H:%M:%S", gmtime(event.wall_time))] = [  # type: ignore
-            event.step,  # type: ignore
-            event.summary.value[0].tensor.float_val[0],  # type: ignore
-        ]
-df.index = pd.to_datetime(df.index)  # type: ignore
-df.Step = df.Step.astype(int)
-plt.plot(df.Step, df.Value, marker="braille")
-plt.title(event.summary.value[0].metadata.display_name)  # type: ignore
-plt.clc()
-plt.show()
-df.to_csv(sys.stdout, "\t")
-EOF
-  elif [[ $(basename "$1") == data.mdb ]]; then
-    python <<EOF
-from os.path import dirname as dirn
-import lmdb
-
-with lmdb.open(dirn("$1")) as env, env.begin() as txn:
-    for key, val in txn.cursor():
-        print(key.decode())
-EOF
-  fi
-elif [ "$kind" = zip ] && [ "$ext" = pth ]; then
-  python <<EOF
-import torch
-
-data = torch.load("$1")
-if isinstance(data, torch.Tensor):
-    print(data.shape)
-print(data)
-EOF
-elif [ "$kind" = json ]; then
-  if has_cmd jupyter batcat && [ "$ext" = ipynb ]; then
-    jupyter nbconvert --to python --stdout "$1" | batcat --color=always -plpython
-  elif has_cmd jq; then
-    jq -Cr . "$1"
-  fi
-elif [ "$kind" = vnd.sqlite3 ]; then
-  if has_cmd yes sqlite3 batcat; then
-    yes .q | sqlite3 "$1" | batcat --color=always -plsql
-  fi
-# https://github.com/wofr06/lesspipe/pull/107
-elif [ -d "$1" ]; then
-  if has_cmd exa; then
-    exa --git -hl --color=always --icons "$1"
-  fi
-# https://github.com/wofr06/lesspipe/pull/110
-elif [ "$kind" = pdf ]; then
-  if has_cmd pdftotext sed; then
-    pdftotext -q "$1" - | sed "s/\f/$(hr ─)\n/g"
-  fi
-# https://github.com/wofr06/lesspipe/pull/115
-elif [ "$kind" = rfc822 ]; then
-  if has_cmd batcat; then
-    batcat --color=always -lEmail "$1"
-  fi
-# https://github.com/wofr06/lesspipe/pull/106
+type=$(echo "$1" | grep -o '\.[^.]*$' | cut -d. -f2-) 
+if [ -d "$1" ]; then
+	if command -v exa &>/dev/null; then
+		exa  -hla --no-user --icons  --no-permissions  --color=always "$1"
+	else
+        ls -hgG "$1"
+	fi
 elif [ "$category" = image ]; then
-  if has_cmd chafa; then
-    chafa -f symbols "$1"
-  fi
-  if has_cmd exiftool; then
-    exiftool "$1" | batcat --color=always -plyaml
-  fi
-# https://github.com/wofr06/lesspipe/pull/117
+	chafa -s x20 "$1" || less "$1"
+	exiftool "$1"
+elif [ "$mime" = application/pdf ]; then
+	pdftotext $1 - |less
+elif [ "$mime" = application/json ]; then
+	if command -v bat &>/dev/null; then
+		bat -p --style=numbers --color=always "$1" 
+	else
+        cat -n "$1"
+	fi
 elif [ "$category" = text ]; then
-  if has_cmd batcat; then
-    batcat --color=always "$1"
-  elif has_cmd pygmentize; then
-    pygmentize "$1" | less
-  fi
+	if command -v bat &>/dev/null; then
+		(bat -p --style=numbers --color=always "$1") 2>/dev/null | head -1000
+	else
+        cat -n "$1"
+	fi
+elif [ "$type" = xlsx ]; then
+	if command -v xlsx2csv &>/dev/null; then
+		(xlsx2csv "$1" | xsv table | bat -ltsv --color=always) 2>/dev/null
+	else	
+		(in2csv "$1" | xsv table | bat -ltsv --color=always) 2>/dev/null
+	fi
+elif [ "$type" = xls ]; then
+	if command -v xls2csv &>/dev/null; then
+		(xls2csv "$1" | xsv table | bat -ltsv --color=always) 2>/dev/null
+	else	
+		(in2csv "$1" | xsv table | bat -ltsv --color=always) 2>/dev/null
+	fi	
+elif [ "$type" = docx ] ; then
+	pandoc -s -t markdown -- "$1" 
+	# rga "" "$1" |less
+elif [[ "$type" =~ ^(a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|\
+        rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip) ]]; then
+	atool --list -- "$1"
+	 # bsdtar --list --file "$1" 
+elif [ "$type" = rar ]; then
+	unrar lt -p- -- "$1" 
+elif [ "$type" = 7z ]; then
+	 7z l -p  -- "$1" 
 else
-  exit 1
+	echo $1 $mime  
 fi
