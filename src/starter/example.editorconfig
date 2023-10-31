@@ -1,31 +1,31 @@
-root = true
+# root = true
 
-[*]
-charset = utf-8
-end_of_line = lf
-insert_final_newline = true
-trim_trailing_whitespace = true
+# [*]
+# charset = utf-8
+# end_of_line = lf
+# insert_final_newline = true
+# trim_trailing_whitespace = true
 
-[*.{html,xml,css,scss,sass,txt}]
-indent_size = 4
-indent_style = tab
-trim_trailing_whitespace = false
+# [*.{html,xml,css,scss,sass,txt}]
+# indent_size = 4
+# indent_style = tab
+# trim_trailing_whitespace = false
 
-[*.{md,json,conf}]
-indent_size = 4
-indent_style = tab
-trim_trailing_whitespace = false
-insert_final_newline = false
+# [*.{md,json,conf}]
+# indent_size = 4
+# indent_style = tab
+# trim_trailing_whitespace = false
+# insert_final_newline = false
 
-[*.{sh,bash,csh,zsh,nu,fish,ps1}]
-indent_size = 4
-indent_style = space
+# [*.{sh,bash,csh,zsh,nu,fish,ps1}]
+# indent_size = 4
+# indent_style = space
 
-[*.py]
-tab_width = 2
-indent_size = 2
-indent_style = space
-trim_trailing_whitespace = false
+# [*.py]
+# tab_width = 2
+# indent_size = 2
+# indent_style = space
+# trim_trailing_whitespace = false
 
-[*.{ps1,vbs}]
-end_of_line = crlf
+# [*.{ps1,vbs}]
+# end_of_line = crlf
