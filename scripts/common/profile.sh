@@ -9,14 +9,8 @@
 is_system_running="$(systemctl status ssh.service)"
 echo "$is_system_running"
 
-if [[ -n "$(command -v keychain)" ]] && [[ "$is_system_running" =~ "running" ]]; then
-    eval "$(keychain --systemd --confhost --inherit any --gpg2 --timeout 300 --dir "${HOME}"/.config/keychain --absolute --env "${HOME}"/.config/keychain/"${HOST}"-sh)"
-else
-    eval "$(keychain --nogui --confhost --inherit any --gpg2 --timeout 300 --dir "${HOME}"/.config/keychain --absolute --env "${HOME}"/.config/keychain/"${HOST}"-sh)"
-fi
-
-PULSE_SERVER=tcp:"$(tr </etc/resolv.conf | grep nameserver | awk '{print $2; exit;}')":1
-export PULSE_SERVER
+export LS_COLORS="$LS_COLORS:ow=30;44:" # fix ls color for folders with 777 permission
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 WSL_IPV4="$(hostname -I | awk '{print $1}' | awk '{printf $0}')"
 export WSL_IPV4
@@ -24,7 +18,20 @@ export WSL_IPV4
 export DISPLAY="${HOST}":0
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ]; then
-  PATH="$HOME/.local/bin:$PATH"
+  PATH="$HOME/.local/bin:${PATH}"
 fi
 
 export LIBGL_ALWAYS_INDIRECT=1 #GWSL
+export GDK_SCALE=1             #GWSL
+export QT_SCALE_FACTOR=1
+
+DISPLAY="$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}')":0
+PULSE_SERVER=tcp:"$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}')":1
+export DISPLAY PULSE_SERVER
+
+IPV4="$(ip route | awk '/^default/{print $3}')"
+test -n "$IPV4" && export IPV4
+
+if [ -f /opt/conda/etc/profile.d/conda.sh ]; then
+  source /opt/conda/etc/profile.d/conda.sh
+fi
