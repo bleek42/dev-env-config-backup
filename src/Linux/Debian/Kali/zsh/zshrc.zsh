@@ -30,14 +30,14 @@ if command -v zplug >/dev/null 2>&1; then
         use:'fzf-tab.plugin.zsh', \
         defer:2
 
-    zplug "/usr/share/zsh-autosuggestions", \
-        from:local, \
-        use:'zsh-autosuggestions.zsh', \
-        defer:2
+  zplug "/usr/share/zsh-autosuggestions", \
+    from:local, \
+    use:'zsh-autosuggestions.zsh', \
+    defer:2
 
-    zplug "hlissner/zsh-autopair", \
-        use:'autopair.plugin.zsh', \
-        defer:2
+  zplug "hlissner/zsh-autopair", \
+    use:'autopair.plugin.zsh', \
+    defer:2
 
     zplug "zdharma-continuum/fast-syntax-highlighting", \
         use:'fast-syntax-highlighting.plugin.zsh', \
@@ -69,6 +69,7 @@ if command -v zplug >/dev/null 2>&1; then
         zplug install
         # fi
     fi
+  fi
 
     # Then, source plugins and add commands to $PATH
     zplug load
@@ -225,22 +226,21 @@ fi
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm* | rxvt* | Eterm | aterm | kterm | gnome* | alacritty)
-    TERM_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%n@%m: %~\a'
-    ;;
+  TERM_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%n@%m: %~\a'
+  ;;
 *) ;;
 esac
 
 precmd() {
-    # Print the previously configured title
-    print -Pnr -- "$TERM_TITLE"
+  # Print the previously configured title
+  print -Pnr -- "$TERM_TITLE"
 
-    # Print a new line before the prompt, but only if it is not the first line
-    if [ "$NEWLINE_BEFORE_PROMPT" = yes ]; then
-        if [ -z "$_NEW_LINE_BEFORE_PROMPT" ]; then
-            _NEW_LINE_BEFORE_PROMPT=1
-        else
-            print ""
-        fi
+  # Print a new line before the prompt, but only if it is not the first line
+  if [ "$NEWLINE_BEFORE_PROMPT" = yes ]; then
+    if [ -z "$_NEW_LINE_BEFORE_PROMPT" ]; then
+      _NEW_LINE_BEFORE_PROMPT=1
+    else
+      print ""
     fi
 
     # export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $(fzf_sizer_preview_window_settings)"

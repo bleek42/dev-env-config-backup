@@ -5,6 +5,11 @@ case $- in
 *) return ;;
 esac
 
+# ? # KEYBINDINGS
+bind '"\C-":menu-complete'
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
 # # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
 shopt -s extglob
@@ -36,27 +41,22 @@ HISTFILESIZE=8000
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 # Don't store lines starting with a space in the history, or lines identical to the one before.
-HISTCONTROL='ignoreboth:erasedups'
+HISTCONTROL='ignoredups:erasedups'
 # Store timestamps in history file, and display them as 'Mon 2020-06-01 23:42:05'.
 HISTTIMEFORMAT='%a %Y-%m-%d %H:%M:%S'
-
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
 
 # # If this interactive Bash shell session is connected to a terminal emulator (or a TTY "tele-typewriter"), disable software flow control.
 # # In other words, prevent accidentally hitting CTRL+S from freezing the terminal session.
 [ -t 0 ] && stty -ixon 2>/dev/null
 
 if test -d "${XDG_CONFIG_HOME}"/bash/completions; then
-	USER_COMPLETIONS="${XDG_CONFIG_HOME}"/bash/completions
-	echo "$USER_COMPLETIONS"
-	COMPLETION_PATH="${COMPLETION_PATH}:${USER_COMPLETIONS}"
-	echo "$COMPLETION_PATH"
+  USER_COMPLETIONS="${XDG_CONFIG_HOME}"/bash/completions
+  COMPLETION_PATH="${COMPLETION_PATH}:${USER_COMPLETIONS}"
 
-	for cmp in "${USER_COMPLETIONS}"/**/*.sh; do
-		source "$cmp"
-	done
-	unset cmp
+  for cmp in "${USER_COMPLETIONS}"/**/*.sh; do
+    source "$cmp"
+  done
+  unset cmp
 fi
 
 test -f "${XDG_CONFIG_HOME}"/bash/aliases/aliases.sh && source "${XDG_CONFIG_HOME}"/bash/aliases/aliases.sh
