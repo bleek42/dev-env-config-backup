@@ -1,1 +1,2 @@
 # shellcheck external-sources=true
+# shellcheck disable=SC1091

@@ -1,3 +1,5 @@
+#!/usr/bin/env nu
+
 # Nushell Config File
 
 # Neofetch

@@ -1,0 +1,7 @@
+WAYLAND_DISPLAY=
+GDK_SCALE=1
+QT_SCALE_FACTOR=1
+GTK_IM_MODULE='ibus'
+# export GTK_THEME=''
+
+exec startxfce4

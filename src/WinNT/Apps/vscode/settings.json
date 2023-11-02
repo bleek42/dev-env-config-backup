@@ -86,12 +86,12 @@
 	"terminal.integrated.defaultLocation": "view",
 	"terminal.integrated.gpuAcceleration": "on",
 	"terminal.integrated.env.windows": {
-		"TERM_PROGRAM": "vscode"
+		"WT_SESSION": null
 	},
 	/*
 	!!!! EXTENSION-SPECIFIC SETTINGS
 	*/
-	"prettier.prettierPath": "${env:APPDATA}\\AppData\\Local\\Volta\\bin\\prettier.exe",
+	// "prettier.prettierPath": "C:\\Users\\brand\\AppData\\Local\\Volta\\bin\\prettier",
 	"diffEditor.codeLens": true,
 	"editorconfig.template": "~/.editorconfig",
 	"vscode-edge-devtools.browserFlavor": "Dev",
@@ -128,6 +128,14 @@
 	// ? "eslint.nodePath": "",
 	// ? "eslint.runtime": "node",
 	// ? "eslint.trace.server": "verbose",
+	// "totalTypeScript.hiddenTips": [
+	// 	"basic-types",
+	// 	"union-type",
+	// 	"variable-type-annotation",
+	// 	"undefined-keyword"
+	// ],
+	// "totalTypeScript.hideAllTips": false,
+	// "totalTypeScript.hideBasicTips": false
 	/*
 	!!! FILE BEHAVIOR & SETTINGS
 	*/
@@ -245,13 +253,13 @@
 		"editor.defaultFormatter": "vscode.json-language-features",
 		"editor.formatOnSave": true,
 		"editor.formatOnSaveMode": "modifications",
-		"editor.fontFamily": "'ProFontWindows Nerd Font Mono'",
-		"editor.fontSize": 16,
-		"editor.fontWeight": 500,
+		"editor.fontFamily": "'ProFontIIx Nerd Font Mono'",
+		"editor.fontSize": 15,
+		"editor.fontWeight": 300,
 		"editor.fontVariations": true,
 		"editor.fontLigatures": true,
 		"editor.minimap.enabled": true,
-		"editor.minimap.maxColumn": 120,
+		"editor.minimap.maxColumn": 200,
 		"editor.wordWrap": "bounded",
 		"editor.wordWrapColumn": 150,
 		"editor.detectIndentation": true,
@@ -274,16 +282,16 @@
 	},
 	"[jsonc]": {
 		"editor.defaultFormatter": "vscode.json-language-features",
-		"editor.fontFamily": "'ProFontWindows Nerd Font Mono'",
-		"editor.fontSize": 16,
-		"editor.fontWeight": 800,
+		"editor.fontFamily": "'ProFontIIx Nerd Font Mono'",
+		"editor.fontSize": 15,
+		"editor.fontWeight": 300,
 		"editor.fontVariations": true,
 		"editor.fontLigatures": true,
 		"editor.formatOnSave": true,
 		"editor.minimap.enabled": true,
-		"editor.minimap.maxColumn": 120,
+		"editor.minimap.maxColumn": 200,
 		"editor.wordWrap": "bounded",
-		"editor.wordWrapColumn": 125,
+		"editor.wordWrapColumn": 100,
 		"editor.detectIndentation": true,
 		"editor.maxTokenizationLineLength": 30000,
 		"editor.guides.highlightActiveIndentation": true,
@@ -296,22 +304,17 @@
 	"[scss]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 	},
+
 	"[fish]": {
 		"editor.insertSpaces": true,
 		"editor.tabSize": 4
 	},
+
 	"[dockerfile]": {
 		"editor.defaultFormatter": "foxundermoon.shell-format"
 	},
+
 	"[ignore]": {
 		"editor.defaultFormatter": "foxundermoon.shell-format"
-	},
-	"totalTypeScript.hiddenTips": [
-		"basic-types",
-		"union-type",
-		"variable-type-annotation",
-		"undefined-keyword"
-	],
-	"totalTypeScript.hideAllTips": false,
-	"totalTypeScript.hideBasicTips": false
+	}
 }
