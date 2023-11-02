@@ -4,42 +4,25 @@
 #             ||
 #         ([[ -d {} ]] && (tree \"\.git\" {} || tree -aCI \"\.git\" {} | less info -n -q)) {}'
 
-if command -v fdfind >/dev/null 2>&1; then
-    alias fd='fdfind --exclude --follow'
-    alias fdh='fdfind --hidden --exclude ".git" --follow'
-fi
-
 # export FD_DEFAULT_COMMAND='fdfind --hidden -exclude ".git" --follow -f'
 # export AG_DEFAULT_COMMAND='ag -i -l --hidden -g'
 # export RG_DEFAULT_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
 
-export FZF_DEFAULT_COMMAND='ag -i -l --hidden -g ""'
+export FZF_DEFAULT_COMMAND='ag -a --hidden --depth 20 -G ""'
 
-# function dirs-treexa-batcat() {
-#     if command -v exa >/dev/null 2>&1; then
-#         exa --all --group --links --time-style=long-iso --header --color-scale --icons --tree --ignore-glob ".git" -f "$@" | batcat -f -n -p
-#     else
-#         tree -aC -I ".git" --dirsfirst "$@" | batcat -f -n
-#     fi
-# }
-
-# alias treex='dirs-treexa-batcat'
-
-__fzf_default_header="\
-[^G:BACK | ^W:RESET | ^Space:SEL/UNSEL | ^A/^U:SEL/UNSEL ALL| ^Y:COPY | ^O:PASTE] \
-[^?:PREVIEW TOGGLE | Alt+J/K:PREVIEW ↑/↓ | ^F/^B:PAGE ↑/↓ | ^E:${EDITOR} | ^V:${VISUAL}]"
+__fzf_default_header="[^G: 󰱞 | ^W:  | ^Space: 󰒅 | ^A/^U: 󰒆 | ^Y:  | ^O:  | ^?:  | Alt+J/K: 󱗖 ↑/↓ | ^F/^B: PG ↑/↓ | ^E: ${EDITOR} | ^V: ${VISUAL}]"
 
 fzf_default_colors='fg:#f0f0f0,bg:#252c31,bg+:#005f5f,hl:#87d75f,gutter:#252c31'
 fzf_default_info_colors='query:#ffffff,prompt:#f0f0f0,pointer:#dfaf00,marker:#00d7d7'
 
 fzf_history_dir="${XDG_CACHE_HOME:=$HOME/.local/share}/fzf"
 
-fzf_default_preview="\
-                    ([[ -f {} ]] && (batcat -f -p {})) || \
-                    ([[ -d {} ]] && (exa --all --group --links --header --color-scale --icons --tree --ignore-glob ".git" {} | batcat -f -p)) || \
-                    echo {} 2> /dev/null | batcat -f -p"
+fzf_default_preview="
+                ([[ -f {} ]] && (batcat -f -p {})) || \
+                ([[ -d {} ]] && (exa --all --group --links --header --color-scale --icons --tree --ignore-glob ".git" {} | batcat -f -p)) || \
+                echo {} 2> /dev/null | batcat -f -p"
 
-export FZF_DEFAULT_OPTS="\
+export FZF_DEFAULT_OPTS="
                 -i \
                 -e \
                 --ansi \
@@ -74,8 +57,8 @@ export FZF_DEFAULT_OPTS="\
 
 # fzf settings. Uses fdfind for a faster alternative to `find`.
 # Preview file content using batcat (https://github.com/sharkdp/batcat)
-export FZF_CTRL_T_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
-export FZF_CTRL_T_OPTS="${FZF_DEFAULT_OPTS}"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS"
 
 # ? to toggle small preview window to see the full command
 # CTRL-Y to copy the command into clipboard using pbcopy
@@ -94,8 +77,8 @@ export FZF_CTRL_T_OPTS="${FZF_DEFAULT_OPTS}"
 # export FZF_ALT_C_COMMAND="${FZF_DEFAULT_COMMAND}"
 
 # # Print tree structure in the preview window
-export FZF_ALT_C_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
-export FZF_ALT_C_OPTS="${FZF_DEFAULT_OPTS}"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_OPTS="$FZF_DEFAULT_OPTS"
 
 zstyle ':fzf-tab:*' fzf-command fzf
 zstyle ':fzf-tab:*' prefix ' '
@@ -108,11 +91,11 @@ zstyle ':fzf-tab:complete:*' disabled-on none
 
 zstyle ':fzf-tab:complete:*' fzf-bindings \
     '~:accept' \
-    'ctrl-v:execute-silent(${_FTB_INIT_} GUI $realpath)' \
-    'ctrl-e:execute-silent(${_FTB_INIT_} TUI $realpath)'
+    'ctrl-v:execute-silent(${_FTB_INIT_} $VISUAL $realpath)' \
+    'ctrl-e:execute-silent(${_FTB_INIT_} $EDITOR $realpath)'
 
 # User expand
-zstyle ':fzf-tab:user-expand:' fzf-preview 'less $word'
+# zstyle ':fzf-tab:user-expand:' fzf-preview 'less $word'
 
 zstyle ':fzf-tab:complete:*' fzf-preview 'less ${realpath#-*=}'
 
