@@ -18,7 +18,7 @@ __fzf_default_header="\
 ^?: Show/Hide| Alt+J/K: ↑/↓| ^F/^B: Page↑/↓| \
 ^E/^V: Edit ${EDITOR}|VSCODE}"
 
-FZF_DEFAULT_PREVIEW="([[ -f {} ]] && (bat --color=always -n -p {} || cat {})) || 
+FZF_DEFAULT_PREVIEW="([[ -f {} ]] && (bat --color=always -n -p {} || cat {})) ||
                      ([[ -d {} ]] && (tree -aCI {} | head -50)) ||
                      echo {} 2> /dev/null | head -50 | less {}"
 
@@ -109,6 +109,7 @@ zstyle ':fzf-tab:complete:*' fzf-bindings '~:accept' \
 # zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand)' fzf-flags '--preview-window=hidden,down,40%,wrap'
 # zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags '--preview-window=hidden,down,40%,wrap'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
+
 zstyle ':fzf-tab:complete:less:*' fzf-preview 'bat --color=always -n=8 -p'
 
 zstyle ':fzf-tab:complete:(-equal-:|(\\|*/|)(sudo|proxychains|strace):argument-1|pudb:option--pre-run-1)' fzf-preview \
@@ -120,8 +121,7 @@ zstyle ':fzf-tab:complete:(-equal-:|(\\|*/|)(sudo|proxychains|strace):argument-1
 
 zstyle ':fzf-tab:complete:(z|zi|zd|zdi):*' fzf-preview 'exa --header --icons -l --only-dirs --group --all --links --color=always $realpath'
 
-zstyle ':fzf-tab:complete:((-parameter-|unset):|(export|typeset|declare|local):argument-rest)' fzf-preview \
-    'echo ${(P)word}'
+zstyle ':fzf-tab:complete:((-parameter-|unset):|(export|typeset|declare|local):argument-rest)' fzf-preview 'echo ${(P)word}'
 
 # # Command
 zstyle ':fzf-tab:complete:(-command-:|command:option-(v|V)-rest)' fzf-preview \
@@ -158,25 +158,6 @@ zstyle ':fzf-tab:complete:(\\|)help:*' fzf-preview 'help $word'
 
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 
-<<<<<<< HEAD
-zstyle ':fzf-tab:complete:(\\|)bindkey:option-M-1' fzf-preview \
-    'case $group in
-                keymap) bindkey -M$word | batcat -f -pltsv
-                ;;
-        esac'
-
-# curl completion
-zstyle ':fzf-tab:complete:(\\|*/|)curl:argument-rest' fzf-preview \
-    'curl -I $word 2>/dev/null | batcat -f -plyaml'
-
-# du completion
-zstyle ':fzf-tab:complete:(\\|*/|)du:argument-rest' fzf-preview \
-    'grc --colour=on du -sh $realpath'
-
-# df completion
-zstyle ':fzf-tab:complete:(\\|*/|)df:argument-rest' fzf-preview \
-    '[[ $group != "[device label]" ]] && grc --colour=on df -Th $word'
-=======
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
 zstyle ':fzf-tab:complete:gh:' fzf-preview 'gh help $word | bat --color=always -n=4 -p -plhelp'
@@ -203,7 +184,6 @@ zstyle ':fzf-tab:complete:((\\|*/|)docker|docker-help):argument-1' fzf-preview \
 # df completion
 zstyle ':fzf-tab:complete:(\\|*/|)df:argument-rest' fzf-preview \
     '[[ $group != "[device label]" ]] && grc --colour=on -Th $word'
->>>>>>> eeb0c53b83d2413dd0ef6bd0ecfb776c4876651a
 
 # scp
 zstyle ':fzf-tab:complete:(\\|*/|)(scp|rsync):argument-rest' fzf-preview \
@@ -214,116 +194,6 @@ zstyle ':fzf-tab:complete:(\\|*/|)(scp|rsync):argument-rest' fzf-preview \
             ;;
             *host*) grc --colour=on ping -c1 $word
             ;;
-<<<<<<< HEAD
-            *) echo ${(P)word}
-        esac'
-
-zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-
-zstyle ':fzf-tab:complete:(-equal-:|(\\|*/|)(sudo|proxychains|strace):argument-1|pudb:option--pre-run-1)' fzf-preview \
-    '[[ $group == 'external command' ]] && batcat -f -p -n $word'
-
-# give a preview of commandline arguments when completing `kill` or 'ps'
-zstyle ':fzf-tab:complete:(\\|*/|)(kill|ps):argument-rest' fzf-preview \
-    '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd,pid,user,comm -w -w'
-
-zstyle ':fzf-tab:complete:(\\|*/)(px|htop):argument-rest' fzf-preview 'px --top'
-
-zstyle ':fzf-tab:complete:less:*' fzf-preview 'batcat -f -p'
-
-zstyle ':fzf-tab:complete:git-(diff|restore):*' fzf-preview \
-    'git diff $word | batcat -f -n'
-
-zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-    'git log $word | batcat -f -n'
-
-zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-    'git help $word | batcat -f -n'
-
-zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
-    'case $group in
-                "commit tag") git show  $word | batcat -f -n
-            ;;
-                *) git show $word | batcat -f -n
-            ;;
-            esac'
-
-zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
-    'case $group in
-                "modified file") git diff $word | batcat -f -n
-            ;;
-                "recent commit object name") git show -f $word | batcat -f -n
-            ;;
-                *) git log -f $word | batcat -f -n
-            ;;
-            esac'
-
-zstyle ':fzf-tab:complete:gh:' fzf-preview 'gh help $word | batcat -f -n -plhelp'
-
-zstyle ':fzf-tab:complete:(\\|*/|)npm:' fzf-preview 'npm help -l $word | batcat -f -n -l markdown'
-
-zstyle ':fzf-tab:complete:pnpm:' fzf-preview 'pnpm help $word | batcat -f -n -l markdown'
-
-# Docker
-zstyle ':fzf-tab:complete:docker-container:argument-1' fzf-preview \
-    'docker container $word --help | batcat -f -p'
-
-zstyle ':fzf-tab:complete:docker-image:argument-1' fzf-preview \
-    'docker image $word --help | batcat -f -p'
-
-zstyle ':fzf-tab:complete:docker-inspect:' fzf-preview \
-    'docker inspect $word | batcat -f -p'
-
-zstyle ':fzf-tab:complete:docker-(run|images):argument-1' fzf-preview \
-    'docker images $word batcat -f -p'
-
-zstyle ':fzf-tab:complete:((\\|*/|)docker|docker-help):argument-1' fzf-preview \
-    'docker help $word | batcat -f -p'
-
-# fzf in hidden files, optional arg: location
-fz() {
-    local location="${1}"
-    local cmd="fdfind --hidden --exclude \.git -f"
-    if [[ -z "${location}" ]]; then
-        cmd="${cmd} --strip-cwd-prefix"
-    else
-        cmd="${cmd} . ${location}"
-    fi
-    eval "${cmd}" |
-        fzf-tmux-digdown -p90% \
-            --bind "enter:execute([[ -f {} ]] && LESS='--RAW-CONTROL-CHARS' batcat --color=auto --paging=always {})" \
-            --bind "ctrl-r:reload(${cmd})" \
-            --header 'Enter: VIEW | ^R: RELOAD'
-    return 0
-}
-
-# Browse docker containers
-fzd() {
-    # Optionally: colorize log preview via ` | ccze -m ansi` (ccze needs to be installed first via apt install ccze)
-    local get_id="\$(echo {} | cut --delimiter=\" \" --fields=1)"
-    # Note: After arg query, we must use =. Otherwise and empty arg list won't work.
-    local opts="${FZF_DEFAULT_OPTS}
-            --preview 'docker logs ${get_id}'
-            --preview-window right:80%:hidden
-            --bind 'ctrl-e:execute(docker exec --interactive --tty ${get_id} bash < /dev/tty > /dev/tty)'
-            --bind 'alt-i:execute(docker inspect ${get_id} | batcat -n -f --language=cjson )'
-            --bind 'alt-e:execute(docker exec --user root ${get_id} bash -c \"apt-get update \
-                                    && apt-get install --yes curl telnet\" \
-                                    | bash && exec bash --login\")'
-            --bind 'enter:execute(docker logs ${get_id} | LESS=\"--RAW-CONTROL-CHARS\" less --LINE-NUMBERS +G)'
-            --bind 'alt-enter:execute(echo {} \
-                                        | tr --squeeze-repeats \" \" \
-                                        | cut --delimiter=\" \" --fields=2 \
-                                        | xargs dive)'
-            --bind 'ctrl-r:reload(docker ps --format \"table {{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Ports}}\")'
-            --query='$*'
-            --header ' ^E: EXEC | Alt+E: PKGS | ^R: RELOAD | Alt+I: INSPECT | Enter: LOGS | Alt+Enter: DIVE'
-            --header-lines 2"
-    # ~/dotfiles/lib/fzf/fzf-tmux-digdown -p90%
-    docker-ps-format | FZF_DEFAULT_OPTS="${opts}"
-    return 0
-}
-=======
 			*) echo ${(P)word}
         esac'
 
@@ -416,4 +286,3 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 # 	docker-ps-format | FZF_DEFAULT_OPTS="${opts}"
 # 	return 0
 # }
->>>>>>> eeb0c53b83d2413dd0ef6bd0ecfb776c4876651a
