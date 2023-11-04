@@ -116,25 +116,25 @@ ext_list=(
 case "${VISUAL}" in
 "codium")
     for ext in "${ext_list[@]}"; do
-        codium --install-extension "${ext}"
+        codium --install-extension "${ext}" | xargs -L -o {}
     done
     unset ext
     ;;
 "codium-insiders")
     for ext in "${ext_list[@]}"; do
-        codium-insiders --install-extension "${ext}"
+        codium-insiders --install-extension "${ext}" | xargs -L -o {}
     done
     unset ext
     ;;
 "code-insiders")
     for ext in "${ext_list[@]}"; do
-        code-insiders --install-extension "${ext}"
+        code-insiders --install-extension "${ext}" | xargs -L -o {}
     done
     unset ext
     ;;
 *)
     for ext in "${ext_list[@]}"; do
-        code --install-extension "${ext}"
+        code --install-extension "${ext}" | xargs -L -o {}
     done
     unset ext
     ;;
