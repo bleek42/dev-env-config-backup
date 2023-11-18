@@ -290,7 +290,7 @@ zstyle ':fzf-tab:complete:docker-(run|images):argument-1' fzf-preview 'docker im
 
 zstyle ':fzf-tab:complete:((\\|*/|)docker|docker-help):argument-1' fzf-preview 'docker help $word | batcat -f -p'
 
-# fzf in hidden files, optional arg: location
+# * fzf in hidden files, optional arg: location
 fz() {
     local location="${1}"
     local cmd="fdfind --hidden --exclude \.git -f"
@@ -307,102 +307,7 @@ fz() {
     return 0
 }
 
-# Browse docker containers
-fzd() {
-    # Optionally: colorize log preview via ` | ccze -m ansi` (ccze needs to be installed first via apt install ccze)
-    local get_id="\$(echo {} | cut --delimiter=\" \" --fields=1)"
-    # Note: After arg query, we must use =. Otherwise and empty arg list won't work.
-    local opts="${FZF_DEFAULT_OPTS}
-            --preview 'docker logs ${get_id}'
-            --preview-window right:80%:hidden
-            --bind 'ctrl-e:execute(docker exec --interactive --tty ${get_id} bash < /dev/tty > /dev/tty)'
-            --bind 'alt-i:execute(docker inspect ${get_id} | batcat -n -f --language=cjson )'
-            --bind 'alt-e:execute(docker exec --user root ${get_id} bash -c \"apt-get update \
-                                    && apt-get install --yes curl telnet\" \
-                                    | bash && exec bash --login\")'
-            --bind 'enter:execute(docker logs ${get_id} | LESS=\"--RAW-CONTROL-CHARS\" less --LINE-NUMBERS +G)'
-            --bind 'alt-enter:execute(echo {} \
-                                        | tr --squeeze-repeats \" \" \
-                                        | cut --delimiter=\" \" --fields=2 \
-                                        | xargs dive)'
-            --bind 'ctrl-r:reload(docker ps --format \"table {{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Ports}}\")'
-            --query='$*'
-            --header ' ^E: EXEC | Alt+E: PKGS | ^R: RELOAD | Alt+I: INSPECT | Enter: LOGS | Alt+Enter: DIVE'
-            --header-lines 2"
-    # ~/dotfiles/lib/fzf/fzf-tmux-digdown -p90%
-    docker-ps-format | FZF_DEFAULT_OPTS="${opts}"
-    return 0
-}
-
-zstyle ':fzf-tab:complete:(\\|*/)(top|htop):argument-rest' fzf-preview 'px --top'
-
-zstyle ':fzf-tab:complete:git-(diff|restore):*' fzf-preview \
-    'git diff $word | batcat -f -n -r :10'
-
-zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-    'git log $word | batcat -f - -r :10'
-
-zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-    'git help $word | batcat -f -n -r :10'
-
-zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
-    'case $group in
-                "commit tag") git show  $word | batcat -f -n -r :10
-            ;;
-                *) git show $word | batcat -f -n -r :10
-            ;;
-            esac'
-
-zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
-    'case $group in
-                "modified file") git diff $word | batcat -f -n -r :10
-            ;;
-                "recent commit object name") git show -f $word | batcat -f -n -r :10
-            ;;
-                *) git log -f $word | batcat -f -n -r :10
-            ;;
-            esac'
-
-zstyle ':fzf-tab:complete:gh:' fzf-preview 'gh help $word | batcat -f -n -r :20 -plhelp'
-
-zstyle ':fzf-tab:complete:(\\|*/|)npm:' fzf-preview 'npm help -l $word | batcat -f -n -r :20 -l markdown'
-
-zstyle ':fzf-tab:complete:pnpm:' fzf-preview 'pnpm help $word | batcat -f -n -r :20 -l markdown'
-
-# Docker
-zstyle ':fzf-tab:complete:docker-container:argument-1' fzf-preview \
-    'docker container $word --help | batcat -f -p'
-
-zstyle ':fzf-tab:complete:docker-image:argument-1' fzf-preview \
-    'docker image $word --help | batcat -f -p'
-
-zstyle ':fzf-tab:complete:docker-inspect:' fzf-preview \
-    'docker inspect $word | batcat -f -p'
-
-zstyle ':fzf-tab:complete:docker-(run|images):argument-1' fzf-preview \
-    'docker images $word batcat -f -p'
-
-zstyle ':fzf-tab:complete:((\\|*/|)docker|docker-help):argument-1' fzf-preview \
-    'docker help $word | batcat -f -n -r :20 -l markdown'
-
-# fzf in hidden files, optional arg: location
-fz() {
-    local location="${1}"
-    local cmd="fdfind --hidden --exclude \.git -f"
-    if [[ -z "${location}" ]]; then
-        cmd="${cmd} --strip-cwd-prefix"
-    else
-        cmd="${cmd} . ${location}"
-    fi
-    eval "${cmd}" |
-        fzf-tmux-digdown -p90% \
-            --bind "enter:execute([[ -f {} ]] && LESS='--RAW-CONTROL-CHARS' batcat --color=auto --paging=always {})" \
-            --bind "ctrl-r:reload(${cmd})" \
-            --header 'Enter: VIEW | ^R: RELOAD'
-    return 0
-}
-
-# Browse docker containers
+# * Browse docker containers
 fzd() {
     # Optionally: colorize log preview via ` | ccze -m ansi` (ccze needs to be installed first via apt install ccze)
     local get_id="\$(echo {} | cut --delimiter=\" \" --fields=1)"

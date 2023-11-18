@@ -80,28 +80,34 @@
 # RekeyLimit 1G 1h
 
 
-Host *
-        User bleek42
-        EscapeChar ~
-        UserKnownHostsFile ~/.ssh/known_hosts
-        PasswordAuthentication no
-        PreferredAuthentications publickey
-        ForwardX11Trusted yes
-        ForwardAgent ask
+Host \*
+	EscapeChar ~
+	PasswordAuthentication no
 
-Host *.github.com
-        HostName github.com
-        User git
-        AddKeysToAgent yes
-        IdentityFile ~/.ssh/id_ed25519_gh
-        IdentitiesOnly yes
+Host 192.168.1.0/255
+	HostName <username.myddns.me>
+	ForwardX11 <yes/no>
+	ForwardAgent <yes/no>
+	AddKeysToAgent <yes/no>
+	IdentityFile ~/.ssh/id_rsa
+	PreferredAuthentications publickey
+	PasswordAuthentication yes
 
-Host *.gitlab.com
-        HostName gitlab.com
-        User git
-        AddKeysToAgent yes
-        IdentityFile ~/.ssh/id_ed25519_work
-        IdentitiesOnly yes
+Host github.com *.github.com
+	User git
+  	HostName github.com
+	ForwardAgent yes
+	IdentityFile ~/.ssh/id_ed25519_gh
+	PreferredAuthentications publickey
+	IdentitiesOnly yes
+
+Host gitlab.com *.gitlab.com
+	User git
+  	HostName gitlab.com
+	ForwardAgent yes
+	IdentityFile ~/.ssh/id_ed25519_work
+	PreferredAuthentications publickey
+	IdentitiesOnly yes
 
 Host *.azure.com
         HostName azure.com
@@ -118,3 +124,4 @@ Host *.visualstudio.com
         PubkeyAcceptedAlgorithms +ssh-rsa
         IdentityFile ~/.ssh/id_ed25519_gh.ppk
         IdentitiesOnly yes
+
