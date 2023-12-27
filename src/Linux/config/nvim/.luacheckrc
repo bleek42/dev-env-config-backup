@@ -1,7 +1,5 @@
 -- Global objects
-globals = {
-  "astronvim",
-  "astronvim_installation",
+read_globals = {
   "vim",
   "bit",
 }
@@ -13,6 +11,7 @@ cache = true
 self = false
 
 ignore = {
+  "122",
   "631", -- max_line_length
-  "212/_.*", -- unused argument, for vars with "_" prefix
+  "212/_.*" -- unused argument, for vars with "_" prefix
 }
