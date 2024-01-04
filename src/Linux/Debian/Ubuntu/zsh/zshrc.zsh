@@ -25,9 +25,6 @@ if command -v zplug >/dev/null 2>&1; then
     ## ? zplug "unixorn/docker-helpers", from:gh-r, use:'docker-helpers.plugin.zsh'
     ## ? zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1"C
 
-    zplug "plugins/systemd", from:oh-my-zsh
-    zplug "plugins/systemadmin", from:oh-my-zsh
-
     zplug "/usr/share/zsh-autosuggestions", \
         from:local, \
         use:'zsh-autosuggestions.zsh', \
@@ -55,16 +52,24 @@ if command -v zplug >/dev/null 2>&1; then
         use:'strug.zsh-theme', \
         defer:3
 
+    zplug "plugins/systemd", \
+        from:oh-my-zsh, \
+        defer:3
+
+    zplug "plugins/systemadmin", \
+        from:oh-my-zsh, \
+        defer:3
+
     # Install plugins if there are plugins that have not been installed
     if ! zplug check; then
-        # printf "Install? [y/N]: "
-        # if read -q; then
-        zplug install
-        # fi
+        printf "Install? [y/N]: "
+        if read -q; then
+            zplug install
+        fi
     fi
 
     # Then, source plugins and add commands to $PATH
-    zplug load
+    zplug load --verbose
 
     # export ZPLUG_ROOT ZPLUG_HOME ZPLUG_BIN ZPLUG_LOADFILE ZPLUG_CACHE_DIR ZPLUG_ERROR_LOG ZPLUG_REPOS ZPLUG_USE_CACHE ZPLUG_PROTOCOL ZPLUG_FILTER
 fi

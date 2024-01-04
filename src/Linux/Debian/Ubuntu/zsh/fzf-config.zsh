@@ -15,7 +15,7 @@ __fzf_default_header="[^G: 󰱞 | ^W:  | ^Space: 󰒅 | ^A/^U: 󰒆 | ^Y: 
 fzf_default_colors='fg:#f0f0f0,bg:#252c31,bg+:#005f5f,hl:#87d75f,gutter:#252c31'
 fzf_default_info_colors='query:#ffffff,prompt:#f0f0f0,pointer:#dfaf00,marker:#00d7d7'
 
-fzf_history_dir="${XDG_CACHE_HOME:=$HOME/.local/share}/fzf"
+fzf_history_dir="${XDG_DATA_HOME:=$HOME/.local/share}/fzf"
 
 fzf_default_preview="
                 ([[ -f {} ]] && (batcat -f -p {})) || \
