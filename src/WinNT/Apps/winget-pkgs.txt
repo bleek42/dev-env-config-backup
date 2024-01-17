@@ -1,0 +1,133 @@
+Name                Id
+-----------------------------------------------------------------------------------------------------------------------
+Microsoft Clipchamp Clipchamp.Clipchamp_yxz26nhyzhsrt
+Docker Desktop Docker.DockerDesktop
+Dolby Vision DolbyLaboratories.DolbyVisionHDR_rz1tebttyb220
+Firefox Developer Edition (x64 en-US) Mozilla.Firefox.DeveloperEdition
+Git Git.Git
+Kali Linux kalilinux.kalilinux
+Microsoft Edge Microsoft.Edge
+Microsoft Edge Update Microsoft Edge Update
+Microsoft Edge WebView2 Runtime Microsoft.EdgeWebView2Runtime
+Microsoft Visual Studio 2010 Tools for Offic… Microsoft.VSTOR
+Microsoft Defender Microsoft.6365217CE6EB4_8wekyb3d8bbwe
+AV1 Video Extension Microsoft.AV1VideoExtension_8wekyb3d8bbwe
+App Installer Microsoft.AppInstaller
+Get Help Microsoft.GetHelp_8wekyb3d8bbwe
+HEIF Image Extensions Microsoft.HEIFImageExtension_8wekyb3d8bbwe
+HEVC Video Extensions from Device Manufactur… Microsoft.HEVCVideoExtension_8wekyb3d8bbwe
+MPEG-2 Video Extension Microsoft.MPEG2VideoExtension_8wekyb3d8bbwe
+Microsoft Edge Dev Microsoft.MicrosoftEdge.Dev_8wekyb3d8bbwe
+Microsoft Edge Microsoft.MicrosoftEdge.Stable_8wekyb3d8bbwe
+Microsoft 365 (Office) Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe
+Microsoft Sticky Notes Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe
+Microsoft .Net Native Framework Package 2.2 Microsoft.NET.Native.Framework.2.2_8wekyb3d8b…
+Microsoft .Net Native Runtime Package 2.2 Microsoft.NET.Native.Runtime.2.2_8wekyb3d8bbwe
+OneDrive Microsoft.OneDriveSync_8wekyb3d8bbwe
+Outlook for Windows Microsoft.OutlookForWindows_8wekyb3d8bbwe
+Power Automate Microsoft.PowerAutomateDesktop_8wekyb3d8bbwe
+PowerToys ImageResizer Context Menu Microsoft.PowerToys.ImageResizerContextMenu_8…
+PowerToys PowerRename Context Menu Microsoft.PowerToys.PowerRenameContextMenu_8w…
+Raw Image Extension Microsoft.RawImageExtension_8wekyb3d8bbwe
+Snipping Tool Microsoft.ScreenSketch_8wekyb3d8bbwe
+Windows Security Microsoft.SecHealthUI_8wekyb3d8bbwe
+Microsoft Engagement Framework Microsoft.Services.Store.Engagement_8wekyb3d8…
+Store Experience Host Microsoft.StorePurchaseApp_8wekyb3d8bbwe
+Microsoft.UI.Xaml.2.7 Microsoft.UI.Xaml.2.7
+Microsoft.UI.Xaml.2.8 Microsoft.UI.Xaml.2.8
+Microsoft Visual C++ 2015 UWP Desktop Runtim… Microsoft.VCLibs.Desktop.14
+Microsoft Visual C++ 2015 UWP Runtime Package Microsoft.VCLibs.140.00_8wekyb3d8bbwe
+VP9 Video Extensions Microsoft.VP9VideoExtensions_8wekyb3d8bbwe
+Web Media Extensions Microsoft.WebMediaExtensions_8wekyb3d8bbwe
+Webp Image Extensions Microsoft.WebpImageExtension_8wekyb3d8bbwe
+Microsoft Whiteboard Microsoft.Whiteboard_8wekyb3d8bbwe
+Windows App Runtime DDLM 3000.934.1904.0-x6 Microsoft.WinAppRuntime.DDLM.3000.934.1904.0-…
+Windows App Runtime DDLM 3000.934.1904.0-x8 Microsoft.WinAppRuntime.DDLM.3000.934.1904.0-…
+Dev Home GitHub Extension (Preview) Microsoft.Windows.DevHomeGitHubExtension_8wek…
+Dev Home (Preview) Microsoft.DevHome
+Microsoft Photos Microsoft.Windows.Photos_8wekyb3d8bbwe
+Windows Clock Microsoft.WindowsAlarms_8wekyb3d8bbwe
+WindowsAppRuntime.1.2 Microsoft.WindowsAppRuntime.1.2_8wekyb3d8bbwe
+WindowsAppRuntime.1.3 Microsoft.WindowsAppRuntime.1.3_8wekyb3d8bbwe
+WindowsAppRuntime.1.4 Microsoft.WindowsAppRuntime.1.4_8wekyb3d8bbwe
+Windows Calculator Microsoft.WindowsCalculator_8wekyb3d8bbwe
+Windows Camera Microsoft.WindowsCamera_8wekyb3d8bbwe
+Windows Notepad Microsoft.WindowsNotepad_8wekyb3d8bbwe
+Microsoft Store Microsoft.WindowsStore_8wekyb3d8bbwe
+Windows Terminal Microsoft.WindowsTerminal
+Windows Package Manager Source (winget) Microsoft.Winget.Source_8wekyb3d8bbwe
+Phone Link Microsoft.YourPhone_8wekyb3d8bbwe
+WinAppRuntime.Main.1.3 MicrosoftCorporationII.WinAppRuntime.Main.1.3…
+WinAppRuntime.Singleton MicrosoftCorporationII.WinAppRuntime.Singleto…
+Windows HDR Calibration 9N7F2SM5D1LR
+Windows Subsystem for Linux MicrosoftCorporationII.WindowsSubsystemForLin…
+Windows Web Experience Pack MicrosoftWindows.Client.WebExperience_cw5n1h2…
+Mozilla Firefox ESR (x64 en-US) Mozilla.Firefox.ESR
+Mozilla Maintenance Service MozillaMaintenanceService
+NVIDIA Control Panel NVIDIACorp.NVIDIAControlPanel_56jybvy8sckqj
+NodeVPN 9PH2CCGW1ZSV
+Microsoft 365 - en-us O365HomePremRetail - en-us
+Oh My Posh version 19.5.2 JanDeDobbeleer.OhMyPosh
+Microsoft OneDrive Microsoft.OneDrive
+Microsoft OneNote - en-us OneNoteFreeRetail - en-us
+Rainmeter Rainmeter.Rainmeter
+Realtek Audio Control RealtekSemiconductorCorp.RealtekAudioControl_…
+StartAllBack StartIsBack.StartAllBack
+SteelSeries GG 54.0.0 SteelSeries.GG
+VcXsrv marha.VcXsrv
+Malwarebytes Windows Firewall Control BiniSoft.WindowsFirewallControl
+Zoom Zoom.Zoom
+zoxide ajeetdsouza.zoxide
+Visual Studio Build Tools 2022 Microsoft.VisualStudio.2022.BuildTools
+direnv direnv.direnv
+fzf junegunn.fzf
+Mail and Calendar microsoft.windowscommunicationsapps_8wekyb3d8…
+shfmt mvdan.shfmt
+qBittorrent qBittorrent.qBittorrent
+Core Temp 1.18.1 ALCPU.CoreTemp
+NVIDIA Nsight Visual Studio Edition 2023.3.1… {0E8D26AE-1AF1-463E-9709-6009CF76FB4A}
+Windows SDK AddOn Microsoft.WindowsAppRuntime.1.3
+vs_CoreEditorFonts {1851460E-0E63-4117-B5BA-25A2F045801B}
+Microsoft Visual C++ 2010 x64 Redistributab… Microsoft.VCRedist.2010.x64
+PowerToys (Preview) x64 Microsoft.PowerToys
+Microsoft Visual C++ 2015-2022 Redistributab… Microsoft.VCRedist.2015+.x64
+Microsoft .NET SDK 8.0.101 (x64) from Visual… {24E9FB48-4983-4C9C-93D2-27307AE92B5E}
+GPT4All {26eba936-be35-47fb-aceb-d91a2db911a7}
+Microsoft Visual C++ 2015-2022 Redistributab… Microsoft.VCRedist.2015+.x86
+Microsoft Azure Libraries for .NET – v2.9 {3C188EC3-3DFE-48B1-9C45-D1AF419D534F}
+Microsoft .NET SDK 6.0.418 (x64) Microsoft.DotNet.SDK.6
+IronPython 3.4.0a1 Microsoft.IronPython.3
+PowerShell Universal IronmanSoftware.PowerShellUniversal
+Microsoft Windows Desktop Runtime - 7.0.15 (… Microsoft.DotNet.DesktopRuntime.7
+Microsoft Visual Studio Installer {6F320B93-EE3C-4826-85E0-ADF79F8D4C61}
+NVIDIA Nsight Compute 2023.3.1 {707ACA6B-6510-4408-86A5-F3C385C72963}
+Microsoft Build of OpenJDK with Hotspot 11.0… Microsoft.OpenJDK.11
+WingetUI SomePythonThings.WingetUIStore
+Microsoft Azure Authoring Tools - v2.9.7 {90462BD2-DF5B-449C-A401-FCC1DC264E4E}
+Microsoft .NET Framework 4.8.1 Targeting Pack {94DDB521-CDD4-4A83-BBE0-D3C856FE9420}
+NVIDIA Nsight Systems 2023.3.3 {9793590F-9325-4B93-A76F-6E8DC72C3B62}
+PowerShell 7-x64 Microsoft.PowerShell
+VSCodium Insiders VSCodium.VSCodium.Insiders
+NVIDIA CUDA Documentation 12.1 {B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_CUDADo…
+NVIDIA CUDA Toolkit 12.3 Nvidia.CUDA
+NVIDIA Graphics Driver 546.33 {B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Displa…
+NVIDIA GeForce Experience 3.27.0.120 Nvidia.GeForceExperience
+NVIDIA PhysX System Software 9.21.0713 Nvidia.PhysX
+NVIDIA FrameView SDK 1.3.8513.32290073 {B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_FrameV…
+NVIDIA HD Audio Driver 1.3.40.14 {B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_HDAudi…
+NVIDIA USBC Driver 1.50.831.832 {B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_USBC
+NVIDIA CUDA Visual Studio Integration 12.1 {B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_visual…
+Microsoft Edge Dev Microsoft.Edge.Dev
+NVIDIA Tools Extension SDK (NVTX) - 64 bit {B56D2F88-8865-40FD-B7AC-F074EE4D201D}
+Windows Subsystem for Linux {B65C3390-98CD-4624-B0CC-F44416BDF6A3}
+Microsoft .NET Framework 4.8.1 SDK {BD4C49AC-2A45-48B0-B3F7-0C6043987AD0}
+Microsoft Update Health Tools {C6FD611E-7EFE-488C-A0E0-974C09EF6473}
+Google Chrome Google.Chrome
+Microsoft Web Deploy 4.0 Microsoft.WebDeploy
+usbipd-win dorssel.usbipd-win
+Microsoft Visual Studio Code Microsoft.VisualStudioCode
+Microsoft Visual C++ 2010 x86 Redistributab… Microsoft.VCRedist.2010.x86
+Windows Subsystem for Linux Update {F8474A47-8B5D-4466-ACE3-78EAB3BF21A8}
+Windows Software Development Kit - Windows 1… Microsoft.WindowsSDK
+Microsoft .NET Runtime - 6.0.26 (x64) Microsoft.DotNet.Runtime.6
+Windows Software Development Kit - Windows 1… Microsoft.WindowsSDK.10.0.22000
