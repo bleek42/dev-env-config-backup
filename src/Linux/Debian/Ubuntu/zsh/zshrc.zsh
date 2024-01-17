@@ -3,7 +3,7 @@
 # ~/.zshrc file for zsh interactive shells.
 # see /usr/share/doc/zsh/examples/zshrc for examples
 
-# [[ -o interactive ]] || return 0
+[[ -o interactive ]] || return 0
 
 if [ -f "${ZPLUG_HOME}/.config/zplug/init.zsh" ]; then
     source "${ZPLUG_HOME}/.config/zplug/init.zsh"
@@ -52,7 +52,7 @@ if command -v zplug >/dev/null 2>&1; then
     zplug "themes/strug", \
         from:oh-my-zsh, \
         as:theme, \
-        use:'lambda.zsh-theme', \
+        use:'strug.zsh-theme', \
         defer:3
 
     # Install plugins if there are plugins that have not been installed
@@ -69,26 +69,53 @@ if command -v zplug >/dev/null 2>&1; then
     # export ZPLUG_ROOT ZPLUG_HOME ZPLUG_BIN ZPLUG_LOADFILE ZPLUG_CACHE_DIR ZPLUG_ERROR_LOG ZPLUG_REPOS ZPLUG_USE_CACHE ZPLUG_PROTOCOL ZPLUG_FILTER
 fi
 
-#setopt correct            # auto correct mistakes
-setopt interactivecomments # allow comments in interactive mode
-# setopt magicequalsubst     # enable filename expansion for arguments of the form ‘anything=expression’
-setopt nonomatch         # hide error message if there is no match for the pattern
-setopt notify            # report the status of background jobs immediately
-setopt prompt_subst      # enable command substitution in prompt
-setopt sh_word_split     # split fields on unquoted parameter expansions (bash compatibility)
-setopt numeric_glob_sort # sort filenames numerically when it makes sense
-setopt flow_control      # use Ctrl+S / Ctrl+Q to stop and continue flow
-setopt prompt_subst
-setopt null_glob
+# setopt correct            # ! auto correct mistakes
+# setopt magicequalsubst    # !  enable filename expansion for arguments of the form ‘anything=expression’
+setopt prompt_subst         # ! enable command substitution in prompt
+setopt interactivecomments  # ! allow comments in interactive mode
+setopt flow_control         # ! use Ctrl+S / Ctrl+Q to stop and continue flow
+setopt no_nomatch           # ! hide error message if there is no match for the pattern
+setopt interactive_comments # ! allow use of comments in interactive code
+setopt auto_param_slash     # ! complete folders with / at end
+setopt list_types           # ! mark type of completion suggestions
+setopt hash_list_all        # ! whenever a command completion is attempted, make sure the entire command path is hashed first
+setopt complete_in_word     # ! allow completion from within a word/phrase
+setopt always_to_end        # ! move cursor to the end of a completed word
+setopt long_list_jobs       # ! display pid when suspending processes as well
 setopt extended_glob
+setopt null_glob
+setopt numeric_glob_sort # ! sort filenames numerically when it makes sense
+setopt sh_word_split     # ! split fields on unquoted parameter expansions (bash compatibility)
+
+setopt auto_resume       # ! attempt to resume existing job before creating a new process
+setopt notify            # ! report the status of background jobs immediately
+setopt no_hup            # ! Don't send SIGHUP to background processes when the shell exits
+setopt pushd_ignore_dups # ! don't push the same dir twice
+setopt no_sh_word_split  # ! use zsh style word splitting
+setopt rm_star_wait      # ! wait for 10 seconds confirmation when running rm with *
+
+unsetopt rm_star_silent # ! notify when rm is running with *
 
 # History configurations
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-setopt share_history          # share
-HISTSIZE=8000
-SAVEHIST=8000
+# +---------+
+# | HISTORY |
+# +---------+
+
+setopt inc_append_history_time # ! history appends to existing file as soon as it's written
+setopt hist_ignore_dups        # ! do not record an event that was just recorded again.
+setopt hist_find_no_dups       # ! do not display a previously found event.
+setopt hist_save_no_dups       # ! do not write a duplicate event to the history file.
+setopt hist_ignore_all_dups    # ! delete an old recorded event if a new event is a duplicate.
+setopt hist_expire_dups_first  # ! delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_verify             # ! do not execute immediately upon history expansion.
+setopt hist_ignore_space       # ! ignore commands that start with space
+setopt hist_reduce_blanks      # ! trim multiple insignificant blanks in history
+setopt hist_verify             # ! show command with history expansion to user before running it
+setopt share_history           # ! share
+
+HISTSIZE=10000
+SAVEHIST=10000
+HISTTIMEFORMAT='[%F %T]'
 HISTFILE="${HOME}/.zhistfile"
 
 alias history='history -50'
