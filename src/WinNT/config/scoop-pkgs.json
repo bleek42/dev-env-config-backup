@@ -1,0 +1,386 @@
+{
+    "apps": [
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "7zip",
+            "Version": "23.01",
+            "Updated": "2023-11-07T13:20:18.028565-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "ag",
+            "Version": "2.2.5",
+            "Updated": "2023-01-13T15:59:18.4520699-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "bat",
+            "Version": "0.24.0",
+            "Updated": "2023-10-13T13:50:37.0578788-04:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "cacert",
+            "Version": "2023-12-12",
+            "Updated": "2023-12-12T15:26:58.5891819-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "extras",
+            "Name": "dartium",
+            "Version": "1.24.2",
+            "Updated": "2023-06-13T06:59:44.3521834-04:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "gcc",
+            "Version": "13.2.0",
+            "Updated": "2024-01-15T12:23:15.1973273-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "gh",
+            "Version": "2.42.0",
+            "Updated": "2024-01-12T15:53:30.0335133-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "gsudo",
+            "Version": "2.4.2",
+            "Updated": "2023-12-18T12:06:03.0505914-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "extras",
+            "Name": "inno-script-studio",
+            "Version": "2.5.1",
+            "Updated": "2022-12-12T22:13:24.6814226-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "extras",
+            "Name": "inno-setup",
+            "Version": "6.2.2",
+            "Updated": "2023-02-17T13:53:27.5723527-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "innoextract",
+            "Version": "1.9",
+            "Updated": "2022-12-12T22:12:58.5633134-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "innounp",
+            "Version": "0.50",
+            "Updated": "2022-11-25T14:16:46.9475943-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "lsd",
+            "Version": "1.0.0",
+            "Updated": "2023-08-30T18:47:47.8002433-04:00"
+        },
+        {
+            "Info": "",
+            "Source": "extras",
+            "Name": "meow",
+            "Version": "0.2019.03.22",
+            "Updated": "2023-01-05T22:01:03.9143398-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "mingit",
+            "Version": "2.43.0",
+            "Updated": "2023-11-23T21:24:36.4413785-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "extras",
+            "Name": "obsidian",
+            "Version": "1.5.3",
+            "Updated": "2023-12-26T23:20:57.1276585-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "scoop-search",
+            "Version": "1.3.3",
+            "Updated": "2024-01-07T16:26:49.3419741-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "extras",
+            "Name": "slack",
+            "Version": "4.36.138",
+            "Updated": "2024-01-12T15:53:45.0160236-05:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "wget",
+            "Version": "1.21.4",
+            "Updated": "2023-05-11T13:15:53.7053397-04:00"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Name": "wixtoolset",
+            "Version": "3.11.2",
+            "Updated": "2022-11-25T14:16:51.0343326-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "0xProto-NF",
+            "Version": "3.1.1",
+            "Updated": "2024-01-13T10:58:48.9005269-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "0xProto-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2024-01-13T10:58:49.3595437-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "BigBlueTerminal-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:12.8976229-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "CascadiaCode-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:16.2683312-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "CascadiaCode-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:19.4899088-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "CodeNewRoman-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:21.8477731-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "CodeNewRoman-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:24.1396952-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "D2Coding-NF",
+            "Version": "3.1.1",
+            "Updated": "2024-01-13T10:58:51.409609-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "D2Coding-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2024-01-13T10:58:53.4144857-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "main",
+            "Name": "fastfetch",
+            "Version": "2.5.0",
+            "Updated": "2024-01-01T20:18:22.4186167-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "FiraCode-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:26.3803341-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "FiraCode-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:28.7792096-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "Hack-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:30.6847631-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "JetBrainsMono-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:38.9845944-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "JetBrainsMono-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:46.8079235-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "Monocraft-Nerd-Font",
+            "Version": "3.0",
+            "Updated": "2023-07-04T14:13:53.186164-04:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "Monoid-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:48.8727592-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nonportable",
+            "Name": "nodejs-np",
+            "Version": "21.6.0",
+            "Updated": "2024-01-15T12:23:36.1991358-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "Office-Code-Pro",
+            "Version": "1.004",
+            "Updated": "2023-08-09T19:53:26.1355542-04:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "ProFont-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:50.4984146-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "ProFont-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:52.32064-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "main",
+            "Name": "python",
+            "Version": "3.12.1",
+            "Updated": "2023-12-08T19:23:43.463886-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "RobotoMono-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:25:57.6509146-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "extras",
+            "Name": "secureuxtheme",
+            "Version": "2.2.0",
+            "Updated": "2023-11-08T13:30:06.5759565-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "SpaceMono-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:26:00.0474998-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "Terminus-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:26:02.3628959-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "Terminus-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:26:04.7860109-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "twemoji-color-font",
+            "Version": "14.0.2",
+            "Updated": "2023-08-09T19:56:46.9683632-04:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "Ubuntu-NF",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:26:08.1626742-05:00"
+        },
+        {
+            "Info": "Global install",
+            "Source": "nerd-fonts",
+            "Name": "Ubuntu-NF-Mono",
+            "Version": "3.1.1",
+            "Updated": "2023-11-26T14:26:10.9354689-05:00"
+        }
+    ],
+    "buckets": [
+        {
+            "Name": "extras",
+            "Source": "https://github.com/ScoopInstaller/Extras",
+            "Updated": "2024-01-16T11:27:38-05:00",
+            "Manifests": 1928
+        },
+        {
+            "Name": "main",
+            "Source": "https://github.com/ScoopInstaller/Main",
+            "Updated": "2024-01-16T11:27:41-05:00",
+            "Manifests": 1286
+        },
+        {
+            "Name": "nerd-fonts",
+            "Source": "https://github.com/matthewjberger/scoop-nerd-fonts",
+            "Updated": "2024-01-16T06:15:52-05:00",
+            "Manifests": 327
+        },
+        {
+            "Name": "nonportable",
+            "Source": "https://github.com/ScoopInstaller/Nonportable",
+            "Updated": "2024-01-15T15:28:55-05:00",
+            "Manifests": 127
+        },
+        {
+            "Name": "sysinternals",
+            "Source": "https://github.com/niheaven/scoop-sysinternals",
+            "Updated": "2024-01-09T15:27:34-05:00",
+            "Manifests": 75
+        }
+    ]
+}
