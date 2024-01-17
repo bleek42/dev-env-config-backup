@@ -1,0 +1,358 @@
+{
+	/*
+	WINDOW & EXPLORER SETTINGS
+	*/
+	// "window.titleBarStyle": "custom",
+	// "window.commandCenter": true,
+	"explorer.confirmDelete": false,
+	"explorer.confirmDragAndDrop": false,
+	"workbench.colorTheme": "Hacker X - Enhanced Material Hacker Theme",
+	"workbench.iconTheme": "material-icon-theme",
+	"workbench.preferredDarkColorTheme": "Hacker X - Enhanced Material Hacker Theme",
+	"workbench.preferredHighContrastTheme": "",
+	"workbench.editorAssociations": {
+		"*.md": "cweijan.markdownViewer"
+	},
+	/*
+	EDITOR SETTINGS
+	*/
+	"editor.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
+	"editor.inlayHints.fontFamily": "'CaskaydiaCove NF Mono', Consolas, 'Courier New', monospace",
+	"editor.codeLensFontFamily": "'Terminess Nerd Font Mono', Consolas, 'Courier New', monospace",
+	"debug.console.fontFamily": "'Terminess Nerd Font Mono', Consolas, 'Courier New', monospace",
+	"editor.fontSize": 15,
+	"editor.fontWeight": 600,
+	"editor.fontLigatures": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.inlayHints.fontSize": 13,
+	"editor.inlayHints.padding": true,
+	"editor.wordWrap": "on",
+	"editor.wrappingStrategy": "simple",
+	"editor.guides.indentation": true,
+	"editor.detectIndentation": true,
+	"editor.autoIndent": "advanced",
+	"editor.guides.bracketPairs": true,
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.highlightActiveIndentation": true,
+	"editor.guides.highlightActiveBracketPair": true,
+	"editor.suggestSelection": "first",
+	"editor.minimap.enabled": false,
+	"editor.cursorSmoothCaretAnimation": "on",
+	"editor.cursorStyle": "block-outline",
+	"editor.cursorBlinking": "phase",
+	"editor.cursorWidth": 64,
+	"editor.cursorSurroundingLines": 10,
+	"editor.cursorSurroundingLinesStyle": "all",
+	"editor.formatOnSaveMode": "modifications",
+	/*
+	! FILE SPECIFIC SETTINGS
+	*/
+	"files.autoSave": "off", // ? autosave messes up "hot-reloading" when using tools like live server & nodemon + it is for amateurs :P
+	"files.maxMemoryForLargeFilesMB": 5096, // ? a little higher: default = 4096mb
+	/*
+	! TERMINAL SETTINGS
+	*/
+	"terminal.integrated.profiles.linux": {
+		"zsh": {
+			"path": "/usr/bin/zsh",
+			"icon": "terminal-ubuntu",
+			"args": [
+				"--login",
+				"--interactive"
+			],
+			"color": "terminal.ansiCyan"
+		},
+		"fish": {
+			"path": "/usr/bin/fish",
+			"icon": "terminal-linux",
+			"args": [
+				"--login",
+				"--interactive"
+			],
+			"color": "terminal.ansiGreen"
+		},
+		"bash": {
+			"path": "/usr/bin/bash",
+			"icon": "terminal-bash",
+			"args": [
+				"--login",
+				"-i"
+			],
+			"color": "terminal.ansiYellow"
+		},
+	},
+	"terminal.explorerKind": "external",
+	"terminal.external.linuxExec": "/usr/bin/konsole",
+	"terminal.integrated.automationProfile.linux": {
+		"path": "/home/bleek42/.local/share/pnpm/node/node",
+		"icon": "debug-console",
+		"color": "terminal.ansiMagenta"
+	},
+	"terminal.integrated.defaultProfile.linux": "zsh",
+	"terminal.integrated.fontFamily": "'ProFontIIx NFM'",
+	"terminal.integrated.cursorBlinking": true,
+	"terminal.integrated.cursorStyle": "block",
+	"terminal.integrated.smoothScrolling": true,
+	"terminal.integrated.rightClickBehavior": "paste",
+	"terminal.integrated.defaultLocation": "view",
+	"terminal.integrated.gpuAcceleration": "on",
+	"terminal.integrated.tabs.showActions": "always",
+	"terminal.integrated.environmentChangesIndicator": "on",
+	"terminal.integrated.tabs.defaultColor": "terminal.ansiGreen",
+	"terminal.integrated.shellIntegration.suggestEnabled": true,
+	"terminal.integrated.env.linux": {
+		"VSCODE_SUGGEST": "1"
+	},
+	/*
+	EXTENSION-SPECIFICE SETTINGS
+	*/
+	"editorconfig.template": "~/.editorconfig",
+	"git.autofetch": true,
+	"CodeGPT.apiKey": "CodeGPT Plus",
+	"CodeGPT.model": "CodeGPT Plus",
+	"CodeGPT.Autocomplete.enabled": true,
+	"CodeGPT.Autocomplete.provider": "CodeGPT Plus - Plus",
+	"vsintellicode.typescript.completionsEnabled": true,
+	"liveServer.settings.donotShowInfoMsg": true,
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"gitlens.defaultDateLocale": "system",
+	"gitlens.defaultDateFormat": null,
+	"gitlens.defaultDateShortFormat": null,
+	"gitlens.defaultTimeFormat": null,
+	"npm-intellisense.packageSubfoldersIntellisense": true,
+	"npm-intellisense.scanDevDependencies": true,
+	"errorLens.enabled": true,
+	"errorLens.delay": 8000,
+	"errorLens.fontFamily": "BigBlue_Terminal Plus NFM Book",
+	"errorLens.enabledDiagnosticLevels": [
+		"error",
+		"warning",
+		"info"
+	],
+	"bashIde.explainshellEndpoint": "http://localhost:5000",
+	/*
+	LANG & FILE TYPE SPECIFIC SETTINGS
+	*/
+	// "javascript.suggest.paths": false, // TURNING OFF PATH SUGGESTION FOR NPM INTELLISENSE COMPLETION EXTENSION
+	// "typescript.suggest.paths": false,
+	// "npm.packageManager": "pnpm",
+	// "eslint.packageManager": "pnpm",
+	"eslint.debug": true,
+	"eslint.trace.server": "verbose",
+	// "eslint.nodePath": "/home/bleek42/.local/share/fnm/node-versions/v18.15.0/installation/node_modules/",
+	// "eslint.runtime": "/home/bleek/.local/share/fnm/node-versions/v18.15.0/installation/bin/node",
+	"javascript.format.semicolons": "insert",
+	// "eslint.nodePath": "",
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"javascript.inlayHints.enumMemberValues.enabled": true,
+	"javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"typescript.format.semicolons": "insert",
+	"[html]": {
+		"editor.defaultFormatter": "vscode.html-language-features",
+		"editor.formatOnSaveMode": "modifications",
+		"editor.fontFamily": "'CaskaydiaCove NFM', Consolas, 'Courier New', monospace",
+		"editor.suggest.insertMode": "replace"
+	},
+	"[css]": {
+		"editor.suggest.insertMode": "replace",
+		"editor.defaultFormatter": "vscode.css-language-features",
+		"editor.formatOnSave": true,
+		"editor.fontFamily": "'SauceCodePro NFM', Consolas, 'Courier New', monospace",
+		"editor.formatOnSaveMode": "modifications"
+	},
+	"[javascript]": {
+		"editor.fontFamily": "'Monocraft Nerd Font', Consolas, 'Courier New', monospace",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 500,
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.suggest.insertMode": "replace"
+	},
+	"[typescript]": {
+		"editor.fontFamily": "'ProFont IIx Nerd Font Mono', 'CaskaydiaCove Nerd Font Mono', Terminus, monospace",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 500,
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSaveMode": "modifications",
+		"editor.suggest.insertMode": "replace",
+		"editor.quickSuggestions": {
+			"other": "on",
+			"comments": "on",
+			"strings": "on"
+		},
+		"gitlens.codeLens.scopes": [
+			"document",
+			"containers"
+		]
+	},
+	"[javascriptreact]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.fontFamily": "'CodeNewRoman NFM', Consolas, 'Courier New', monospace",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 500,
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.suggest.insertMode": "replace",
+		"editor.quickSuggestions": {
+			"other": "on",
+			"comments": "on",
+			"strings": "on"
+		}
+	},
+	"[typescriptreact]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.fontFamily": "'ProFontIIx Nerd Font Mono', Consolas, 'Courier New', monospace",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 550,
+		"editor.suggest.insertMode": "replace",
+		"editor.quickSuggestions": {
+			"other": "on",
+			"comments": "on",
+			"strings": "on"
+		}
+	},
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features",
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.fontFamily": "'BigBlue_TerminalPlus NF',  Tahoma, Consolas, 'Courier New', monospace",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 300,
+		"editor.fontVariations": true,
+		"editor.fontLigatures": true,
+		"editor.minimap.enabled": true,
+		"editor.minimap.maxColumn": 120,
+		"editor.wordWrap": "bounded",
+		"editor.wordWrapColumn": 150,
+		"editor.detectIndentation": true,
+		"editor.maxTokenizationLineLength": 30000,
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.suggest.insertMode": "replace",
+		"editor.quickSuggestions": {
+			"strings": true,
+			"comments": "on"
+		}
+	},
+	"[shellscript]": {
+		"editor.fontFamily": "'BigBlue_Terminal Plus NF', Consolas, 'Courier New', monospace",
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[dotenv]": {
+		"editor.fontFamily": "'BigBlue_Terminal Plus NF', Consolas, 'Courier New', monospace",
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[properties]": {
+		"editor.fontFamily": "'BigBlue_Terminal Plus NFM', Consolas, 'Courier New', monospace",
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features",
+		"editor.fontFamily": "'BigBlue_TerminalPlus NF', Tahoma, Consolas, 'Courier New', monospace",
+		"editor.fontSize": 16,
+		"editor.fontWeight": 300,
+		"editor.fontVariations": true,
+		"editor.fontLigatures": true,
+		"editor.wordWrap": "on",
+		"editor.wordWrapColumn": 140,
+		"editor.formatOnSave": true,
+		"editor.minimap.enabled": true,
+		"editor.minimap.maxColumn": 1200,
+		"editor.detectIndentation": true,
+		"editor.maxTokenizationLineLength": 30000,
+		"editor.guides.highlightActiveIndentation": true,
+		"editor.suggest.insertMode": "replace",
+		"editor.quickSuggestions": {
+			"strings": true,
+			"comments": "on"
+		}
+	},
+	"[scss]": {
+		"editor.fontFamily": "'CaskaydiaCove NFM', Consolas, 'Courier New', monospace"
+	},
+	"[fish]": {
+		"editor.fontFamily": "'CodeNewRoman NFM', Consolas, 'Courier New', monospace"
+	},
+	"[dockerfile]": {
+		"editor.fontFamily": "'BigBlue_TerminalPlus Nerd Font', Consolas, 'Courier New', monospace",
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[.zshrc]": {
+		"editor.fontFamily": "'BigBlue_TerminalPlus Nerd Font', Consolas, 'Courier New', monospace",
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[shellcheckrc]": {
+		"editor.fontFamily": "'BigBlue_TerminalPlus Nerd Font', Consolas, 'Courier New', monospace",
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[ignore]": {
+		"editor.defaultFormatter": "EditorConfig.EditorConfig"
+	},
+	"totalTypeScript.hiddenTips": [
+		"ts-object-type",
+		"type-alias-declaration",
+		"basic-types",
+		"union-type",
+		"typing-function-parameters",
+		"literal-type",
+		"readonly-object-property",
+		"passing-generics-to-types",
+		"undefined-keyword",
+		"optional-object-property",
+		"keyof",
+		"array-type",
+		"null-keyword",
+		"variable-type-annotation",
+		"interface-declaration",
+		"any-type",
+		"never-keyword",
+		"type-alias-with-generics",
+		"as-assertion",
+		"typeof",
+		"function-return-type",
+		"generic-slots-in-functions",
+		"tuple-type",
+		"mapped-type",
+		"conditional-type"
+	],
+	"totalTypeScript.hideAllTips": false,
+	"totalTypeScript.hideBasicTips": false,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"errorLens.excludeBySource": [
+		"eslint(no-unused-vars)",
+		"eslint(no-console)",
+		"yaml-schema: Alacritty Configuration Schema(0)"
+	],
+	"errorLens.lintFilePaths": {
+		"eslint": [
+			"**/*.eslintrc.{js,cjs,mjs,yaml,yml,json}",
+			"**/*package.json",
+			"**/*.vscode/settings.json"
+		],
+		"Stylelint": [
+			"**/*.stylelintrc",
+			"**/*.stylelintrc.{cjs,js,json,yaml,yml}",
+			"**/*stylelint.config.{cjs,js}",
+			"**/*package.json",
+			"**/*.vscode/settings.json"
+		]
+	},
+	"[graphql]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[gql]": {
+		"editor.defaultFormatter": "GraphQL.vscode-graphql"
+	},
+	"redhat.telemetry.enabled": true,
+	"window.zoomLevel": 1,
+	"extensions.experimental.affinity": {
+		"asvetliakov.vscode-neovim": 1
+	},
+	"[lua]": {
+		"editor.defaultFormatter": "trixnz.vscode-lua"
+	}
+}

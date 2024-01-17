@@ -1,0 +1,146 @@
+
+[env]
+SHELL = "/usr/bin/fish"
+TERM = "xterm-256color"
+TERM_PROGRAM = "Alacritty"
+
+[shell]
+args = ["--login", "--interactive"]
+program = "/usr/bin/fish"
+
+[window]
+title = "Alacritty-Git"
+dynamic_title = true
+dynamic_padding = true
+decorations = "Full"
+blur = true
+opacity = 0.8
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.padding]
+x = 2
+y = 2
+
+[window.dimensions]
+columns = 100
+lines = 40
+# action = "DecreaseFontSize"
+# key = "Minus"
+# mods = "Control"
+# working_directory = "~"
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black = "#283d5c"
+blue = "#5999ff"
+cyan = "#00f2ff"
+green = "#08ffa4"
+magenta = "#dd00ff"
+red = "#ff0000"
+white = "#ffffff"
+yellow = "#ff9d00"
+
+[colors.cursor]
+cursor = "#9100ff"
+text = "#05e2ff"
+
+[colors.dim]
+black = "#1b232e"
+blue = "#204691"
+cyan = "#3eb6bd"
+green = "#12c952"
+magenta = "#8b20ab"
+red = "#911811"
+white = "#828282"
+yellow = "#ad8c53"
+
+[colors.normal]
+black = "#0a1526"
+blue = "#00c3ff"
+cyan = "#05e2ff"
+green = "#03ff5f"
+magenta = "#da05ff"
+red = "#ff0000"
+white = "#ccccc4"
+yellow = "#f57800"
+
+[colors.primary]
+foreground = "#00ffe1"
+background = "#0a1526"
+# bright_background = "#4a3b78"
+# bright_foreground = "#5999ff"
+# dim_background = "#1b232e"
+# dim_foreground = "#00ff0d"
+
+[colors.selection]
+background = "#0d15ff"
+text = "#9100ff"
+
+
+[scrolling]
+history = 5000
+multiplier = 4
+
+[bell]
+color = "#fff640"
+animation = "EaseOutCubic"
+duration = 1500
+command = { program = "/usr/bin/notify-send", args = ["-e", "Alacritty-Git: job completed!"]}
+
+[cursor]
+style = "Block"
+thickness = 0.4
+unfocused_hollow = true
+vi_mode_style = "Underline"
+
+[colors.vi_mode_cursor]
+cursor = "#0d15ff"
+text = "#dd00ff"
+
+[font.normal]
+family = "Terminess Nerd Font Mono"
+style = "Medium"
+
+[font.bold]
+family = "Terminess Nerd Font Mono"
+style = "Bold"
+
+[font.italic]
+family = "Hack Nerd Font Mono"
+style = "Italic"
+
+[font.bold_italic]
+family = "Hack Nerd Font Mono"
+style = "Bold Italic"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "PasteSelection"
+key = "Insert"
+mods = "Shift"
+
+[mouse]
+hide_when_typing = true
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[[mouse.bindings]]
+action = "CopySelection"
+mouse = "Right"
+

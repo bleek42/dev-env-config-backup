@@ -1,38 +1,46 @@
-if vim.loader and vim.fn.has "nvim-0.9.1" == 1 then vim.loader.enable() end
-
-for _, source in ipairs {
-  "astronvim.bootstrap",
-  "astronvim.options",
-  "astronvim.lazy",
-  "astronvim.autocmds",
-  "astronvim.mappings",
-} do
-  local status_ok, fault = pcall(require, source)
-  if not status_ok then vim.api.nvim_err_writeln("Failed to load " .. source .. "\n\n" .. fault) end
+if vim.loader and vim.fn.has("nvim-0.9.1") == 1 then
+  vim.loader.enable()
 end
 
-if astronvim.default_colorscheme and not vim.g.vscode then
-  if not pcall(vim.cmd.colorscheme, astronvim.default_colorscheme) then
-    require("astronvim.utils").notify(
-      ("Error setting up colorscheme: `%s`"):format(astronvim.default_colorscheme),
-      vim.log.levels.ERROR
-    )
-  end
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system(
+    {
+      "git",
+      "clone",
+      "--filter=blob:none",
+      "https://github.com/folke/lazy.nvim.git",
+      "--branch=stable",
+      lazypath
+    }
+  )
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+local opts = {}
+
+if vim.loop.os_uname().version:match("Windows") then
+  opts.concurrency = 1
 end
 
 if vim.g.vscode then
-	    local vscode = require("vscode")
-    vscode.configure()
+  local vscode = require("vscode")
+  vscode.configure()
 
-    local options = {
-        root = vim.fn.stdpath("data") .. "/lazy-vscode",
-        lockfile = vim.fn.stdpath("config") .. "/lazy-vscode-lock.json",
-    }
-    if vim.loop.os_uname().version:match("Windows") then
-        options.concurrency = 1
-    end
+  opts.root = vim.fn.stdpath("data") .. "/lazy-vscode"
+  opts.lockfile = vim.fn.stdpath("config") .. "/lazy-vscode-lock.json"
 
-	require("astronvim.lazy").setup(vscode.packages(), options)
+  require("lazy").setup(vscode.packages(), opts)
+
+else
+  local neovim = require("neovim")
+
+  neovim.setup()
+  require("lazy").setup("plugins", options)
+
+  neovim.activate_theme()
+  neovim.configure_mappings()
+  neovim.configure_lsp()
+
 end
-
-require("astronvim.utils").conditional_func(astronvim.user_opts("polish", nil, false), true)
