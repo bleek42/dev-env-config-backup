@@ -25,20 +25,17 @@ if command -v zplug >/dev/null 2>&1; then
     ## ? zplug "unixorn/docker-helpers", from:gh-r, use:'docker-helpers.plugin.zsh'
     ## ? zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1"C
 
-    zplug "plugins/systemd", from:oh-my-zsh
-    zplug "plugins/systemadmin", from:oh-my-zsh
-
     zplug "/usr/share/zsh-autosuggestions", \
         from:local, \
         use:'zsh-autosuggestions.zsh', \
         defer:2
 
-    zplug "hlissner/zsh-autopair", \
-        use:'autopair.plugin.zsh', \
-        defer:2
-
     zplug "Aloxaf/fzf-tab", \
         use:'fzf-tab.plugin.zsh', \
+        defer:2
+
+    zplug "hlissner/zsh-autopair", \
+        use:'autopair.plugin.zsh', \
         defer:2
 
     zplug "zdharma-continuum/fast-syntax-highlighting", \
@@ -54,6 +51,16 @@ if command -v zplug >/dev/null 2>&1; then
         as:theme, \
         use:'strug.zsh-theme', \
         defer:3
+
+    zplug "plugins/debian", \
+        from:oh-my-zsh, \
+        defer:3
+
+    zplug "plugins/systemadmin", \
+        from:oh-my-zsh, \
+        defer:3
+
+    # zplug "plugins/"
 
     # Install plugins if there are plugins that have not been installed
     if ! zplug check; then
@@ -86,15 +93,15 @@ setopt extended_glob
 setopt null_glob
 setopt numeric_glob_sort # ! sort filenames numerically when it makes sense
 setopt sh_word_split     # ! split fields on unquoted parameter expansions (bash compatibility)
+# setopt no_sh_word_split  # ! use zsh style word splitting
 
 setopt auto_resume       # ! attempt to resume existing job before creating a new process
 setopt notify            # ! report the status of background jobs immediately
 setopt no_hup            # ! Don't send SIGHUP to background processes when the shell exits
 setopt pushd_ignore_dups # ! don't push the same dir twice
-setopt no_sh_word_split  # ! use zsh style word splitting
 setopt rm_star_wait      # ! wait for 10 seconds confirmation when running rm with *
 
-unsetopt rm_star_silent # ! notify when rm is running with *
+# unsetopt rm_star_silent # ! notify when rm is running with *
 
 # History configurations
 # +---------+
@@ -113,21 +120,20 @@ setopt hist_reduce_blanks      # ! trim multiple insignificant blanks in history
 setopt hist_verify             # ! show command with history expansion to user before running it
 setopt share_history           # ! share
 
+HISTFILE="${HOME}/.zhistfile"
 HISTSIZE=10000
 SAVEHIST=10000
 HISTTIMEFORMAT='[%F %T]'
-HISTFILE="${HOME}/.zhistfile"
 
 alias history='history -50'
 
-WORDCHARS='*?_[]~=&;!#$%^(){}' # Dont consider certain characters part of the word
+WORDCHARS='*?_[]~=&;!#$%^(){}``' # Dont consider certain characters part of the word
 PROMPT_EOL_MARK=" "
 
 # load zsh modules
 zmodload zsh/terminfo
 zmodload zsh/zutil
 zmodload zsh/complist
-
 # typeset -A key
 # configure key keybindings
 bindkey -e # emacs key bindings
@@ -144,6 +150,7 @@ bindkey '^[[6~' end-of-buffer-or-history       # page down
 bindkey '^[[H' forward-word                    # home
 bindkey '^[[F' end-of-line                     # end
 bindkey '^Z' undo                              # ctrl + Z undo last action
+
 # Fullscreen command line edit
 autoload -Uz edit-command-line
 zle -N edit-command-line
@@ -172,7 +179,8 @@ autoload -z lspath bag fgb fgd fgl fz ineachdir psg vpaste evalcache compdefcach
 autoload -Uz colors && colors
 
 autoload -Uz compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
+
+test -f "${HOME}/.config/rc.d/zsh/aliases.zsh" && source "${HOME}/.config/rc.d/zsh/aliases.zsh"
 
 zstyle ':completion:*' menu select search
 zstyle ':completion:*:descriptions' format '[%d]'
@@ -203,8 +211,6 @@ zstyle ':completion:*:kill:*' command 'ps -u ${USER} -o pid,%cpu,tty,cputime,cmd
 zstyle ':completion:*:*:px:*' command 'px --top '
 # zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
-test -f "${HOME}/.config/rc.d/common/aliases.sh" && source "${HOME}/.config/rc.d/common/aliases.sh"
-
 if command -v fzf >/dev/null 2>&1; then
     test -f "usr/share/doc/fzf/examples/key-bindings.zsh" && source "/usr/share/doc/fzf/examples/key-bindings.zsh"
     test -f "/usr/share/doc/fzf/examples/completion.zsh" && source "/usr/share/doc/fzf/examples/completion.zsh"
@@ -218,10 +224,12 @@ else
     zstyle ':completion:*' format 'Completing %d'
     zstyle ':completion:*' auto-description 'specify: %d'
     zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-    [[ -f "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "/usr/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    test -f "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" && source "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    test -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" && source "/usr/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 fi
+
+autoload -Uz bashcompinit && bashcompinit
 
 # Make dot key autoexpand "..." to "../.." and so on
 _zsh-dot() {
@@ -250,43 +258,16 @@ xterm* | rxvt* | Eterm | aterm | kterm | gnome* | alacritty)
 *) ;;
 esac
 
-precmd() {
-    # Print the previously configured title
-    print -Pnr -- "$TERM_TITLE"
-
-    # Print a new line before the prompt, but only if it is not the first line
-    if [ "$NEWLINE_BEFORE_PROMPT" = yes ]; then
-        if [ -z "$_NEW_LINE_BEFORE_PROMPT" ]; then
-            _NEW_LINE_BEFORE_PROMPT=1
-        else
-            print ""
-        fi
-    fi
-
-    # export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $(fzf_sizer_preview_window_settings)"
-}
-
-# Determines prompt modifier if and when a conda environment is active
-precmd_conda_info() {
-    if [[ -n $CONDA_DEFAULT_ENV ]]; then
-        CONDA_ENV="($CONDA_DEFAULT_ENV)"
-        RPROMPT="%B%F{cyan}$CONDA_ENV%b%f"
-    # When no conda environment is active, don't show anything
-    else
-        CONDA_ENV=""
-    fi
-}
-
 precmd_functions+=(precmd precmd_conda_info)
 
-if zplug check '/usr/share/zsh-autosuggestions'; then
+if zplug check /usr/share/zsh-autosuggestions || test -d /usr/share/zsh-autosuggestions; then
     ZSH_AUTOSUGGEST_STRATEGY=(history completion)
     ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=247'
 fi
 
 if zplug check 'hlissner/zsh-autopair'; then
-    autopair-init
+    # autopair-init
     typeset -gA AUTOPAIR_PAIRS
     AUTOPAIR_PAIRS+=("<" ">")
     AUTOPAIR_PAIRS+=("{" "}")
@@ -298,29 +279,32 @@ if zplug check 'hlissner/zsh-autopair'; then
 fi
 
 if command -v direnv >/dev/null 2>&1; then
-    [[ -f "$HOME/.envrc" ]] && eval "$(direnv hook zsh)"
+    eval "$(direnv hook zsh)"
 fi
 
-[[ -x $(command -v neofetch) ]] && [[ $(tty) = "/dev/pts/0" ]] && neofetch
+if [[ $(tty) = /dev/pts/0 ]]; then
+    fetch_cmd=$(command -v fastfetch || command -v neofetch)
+    echo "${fetch_cmd}"
 
+    case "${fetch_cmd}" in
+    *'fastfetch'*)
+        fastfetch
+        ;;
+    *'neofetch'*)
+        neofetch
+        ;;
+    *)
+        echo "no fetch cmd detected in path..."
+        ;;
+    esac
+
+fi
 # export RPROMPT='$(systemd_prompt_info systemd-sysusers.service user.slice)'
 
+if [ -n "$RANGER_LEVEL" ]; then
+    export RPROMPT='${[ranger]:+$PS4}'
+fi
 # enable command-not-found if installed
-if [ -f /etc/zsh_command_not_found ]; then
+if [ -f etc/zsh_command_not_found ]; then
     source /etc/zsh_command_not_found
 fi
-
-# # >>> conda initialize >>>
-# # !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/opt/conda/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
-#         . "/opt/conda/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/opt/conda/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# # <<< conda initialize <<<

@@ -5,26 +5,28 @@
 
 # ? load any ssh keys that are in $HOME/.ssh so we dont need to enter in our passphrase everytime
 agent_load_env() {
-    test -f "$env" && source "$env" >|/dev/null
+  test -f "$env" && source "$env" >|/dev/null
 }
 
 agent_start() {
-    (umask 077 ssh-agent >|"$env") && source "$env" >|/dev/null
+  (umask 077 ssh-agent >|"$env") && source "$env" >|/dev/null
 }
 
 agent_load_env
 
 # ? agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
 agent_run_state=$(
-    ssh-add -l >|/dev/null 2>&1
-    echo $?
+  ssh-add -l >|/dev/null 2>&1
+  echo $?
 )
 
-if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-    agent_start
-    ssh-add
-elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-    ssh-add
+if [ ! "$SSH_AUTH_SOCK" ] || [ "$agent_run_state" = 2 ]; then
+  agent_start
+  ssh-add
+elif [ "$SSH_AUTH_SOCK" ] && [ "$agent_run_state" = 1 ]; then
+  ssh-add
+else
+  echo "ssh failed in ~/.profile ..."
 fi
 
 unset env
@@ -33,8 +35,8 @@ unset env
 # ? special tty (or teletypewriter) characteristics: setting to single combination for more "sane" terminal defaults
 case $- in
 *i*)
-    stty sane
-    ;;
+  stty sane
+  ;;
 *) return ;;
 esac
 
