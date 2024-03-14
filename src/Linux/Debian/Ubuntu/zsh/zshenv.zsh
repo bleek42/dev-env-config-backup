@@ -24,6 +24,4 @@ export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
 export MANPAGER=$'/bin/sh -c \'col -b | batcat -p -l man\''
 # export MANPAGER="/bin/sh -c 'col -bx |bat --language=help -n man -p'"
 export MANROFFOPT=-c
-export EDITOR='/usr/bin/vim'
-export VISUAL='code.exe'
 export BROWSER='/mnt/c/Program Files/Firefox Developer Edition/firefox.exe'
