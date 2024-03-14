@@ -4,31 +4,31 @@
 #             ||
 #         ([[ -d {} ]] && (tree \"\.git\" {} || tree -aCI \"\.git\" {} | less info -n -q)) {}'
 
-# export FD_DEFAULT_COMMAND='fdfind --hidden -exclude ".git" --follow -f'
-# export AG_DEFAULT_COMMAND='ag -i -l --hidden -g'
-# export RG_DEFAULT_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
+FD_DEFAULT_COMMAND='fd --hidden -exclude ".git" --follow -f'
+AG_DEFAULT_COMMAND='ag -i -l --hidden -g'
+RG_DEFAULT_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
 
-export FZF_DEFAULT_COMMAND='ag -i -l --hidden -g ""'
+export FZF_DEFAULT_COMMAND='fdfind --hidden --show-errors --follow -d 4'
 
-# function dirs-treexa-batcat() {
-#     if command -v exa >/dev/null 2>&1; then
-#         exa --all --group --links --time-style=long-iso --header --color-scale --icons --tree --ignore-glob ".git" -f "$@" | batcat -f -n -p
+# function dirs-treeza-batcat() {
+#     if command -v eza >/dev/null 2>&1; then
+#         eza --all --group --links --time-style=long-iso --header --color-scale --icons --tree --ignore-glob ".git" -f "$@" | batcat -f -n -p
 #     else
 #         tree -aC -I ".git" --dirsfirst "$@" | batcat -f -n
 #     fi
 # }
 
-# alias treex='dirs-treexa-batcat'
+# alias treex='dirs-treeza-batcat'
 
-__fzf_default_header="[^G: BACK | ^W: RESET | ^Space: SELECT/UNSEL | ^A/^U: SELECT/UNSEL ALL | ^Y: COPY | ^O: PASTE | ^?: TOGGLE | Alt+J/K: PREVIEW ↑/↓ | ^F/^B: PAGE ↑/↓ | ^E/^V: OPEN ${EDITOR}/VS${VISUAL}]"
+__fzf_default_header="[^G: 󰱞 | ^W:  | ^Space: 󰒅 | ^A/^U: 󰒆 | ^Y:  | ^O:  | ^?:  | Alt+J/K: 󱗖 ↑/↓ | ^F/^B: PG ↑/↓ | ^E:  | ^V: 󰨞]"
 
 fzf_prompt=' '
 
-fzf_history_dir="${XDG_CACHE_HOME:-$HOME/.local/share}/fzf"
+# fzf_history_dir="${XDG_CACHE_HOME:-$HOME/.local/share}/fzf"
 
 fzf_preview="
             ([[ -f {} ]] && (batcat -f -n -r :10 {})) || \
-            ([[ -d {} ]] && (exa --all --group --links --time-style=long-iso --header --color-scale --icons --tree --ignore-glob ".git" | batcat -f -n -r :10 {})) || \
+            ([[ -d {} ]] && (eza --all --group --links --time-style=long-iso --header --color-scale --icons --tree --ignore-glob ".git" | batcat -f -n -r :10 {})) || \
             echo {} 2> /dev/null | batcat -f -n -r :10"
 
 export FZF_DEFAULT_OPTS="
@@ -37,32 +37,31 @@ export FZF_DEFAULT_OPTS="
 		--ansi \
 		--cycle \
 		--border vertical\
-        --reverse \
+        	--reverse \
 		--height 50% \
-        --min-height 20 \
-        --info inline \
-        --header-first \
-        --header-lines 4 \
-        --header '${__fzf_default_header}' \
+        	--min-height 20 \
+        	--info inline \
+        	--header-first \
+        	--header-lines 4 \
+        	--header '${__fzf_default_header}' \
 		--preview-window 'right:hidden:border-vertical:~6:wrap' \
 		--preview '${fzf_preview}' \
 		--prompt '${fzf_prompt}' \
-		--history '${fzf_history_dir}' \
 		--pointer ' ' \
 		--marker '* ' \
-        --select-1 \
-        --exit-0 \
+        	--select-1 \
+        	--exit-0 \
 		--bind 'ctrl-/:toggle-preview' \
-        --bind 'ctrl-space:toggle+down' \
-        --bind 'ctrl-a:toggle-all' \
-        --bind 'ctrl-u:deselect-all' \
-        --bind 'ctrl-e:execute($EDITOR {+} < /dev/tty > /dev/tty)' \
-        --bind 'ctrl-v:execute($VISUAL {+})' \
-        --bind 'alt-j:preview-down' \
-        --bind 'alt-k:preview-up' \
-        --bind 'ctrl-f:preview-page-down' \
-        --bind 'ctrl-b:preview-page-up' \
-        --bind 'ctrl-o:accept-non-empty'"
+        	--bind 'ctrl-space:toggle+down' \
+        	--bind 'ctrl-a:toggle-all' \
+        	--bind 'ctrl-u:deselect-all' \
+        	--bind 'ctrl-e:execute($EDITOR {+} < /dev/tty > /dev/tty)' \
+        	--bind 'ctrl-v:execute($VISUAL {+})' \
+        	--bind 'alt-j:preview-down' \
+        	--bind 'alt-k:preview-up' \
+        	--bind 'ctrl-f:preview-page-down' \
+        	--bind 'ctrl-b:preview-page-up' \
+        	--bind 'ctrl-o:accept-non-empty'"
 
 # fzf settings. Uses fdfind for a faster alternative to `find`.
 # Preview file content using batcat (https://github.com/sharkdp/batcat)
@@ -95,7 +94,7 @@ export FZF_CTRL_T_OPTS="
 # # Print tree structure in the preview window
 export FZF_ALT_C_COMMAND='rg -i --pretty --hidden --no-ignore-vcs'
 export FZF_ALT_C_OPTS="
-        --preview 'exa --all --links --time-style iso --header --color-scale --icons --tree {} | batcat -f -p'  --preview-window 'down:border-horizontal:~4:wrap'"
+        --preview 'eza --all --links --time-style iso --header --color-scale --icons --tree {} | batcat -f -p'  --preview-window 'down:border-horizontal:~4:wrap'"
 
 zstyle ':fzf-tab:*' fzf-command fzf
 zstyle ':fzf-tab:*' prefix '${fzf_prompt}'
@@ -143,13 +142,13 @@ zstyle ':fzf-tab:complete:(\\|)help:*' fzf-preview 'help $word'
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 
 zstyle ':fzf-tab:complete:cd:*' fzf-preview \
-	'exa --tree --header --icons -l --group --git --all --links $realpath 2>/dev/null | batcat -f -p'
+	'eza --tree --header --icons -l --group --git --all --links $realpath 2>/dev/null | batcat -f -p'
 
 zstyle ':fzf-tab:complete:(_z|_zi|z|zd|zdi|zda|zdh):*' fzf-preview \
-	'exa --tree --header --icons -l --group --git --all --links $realpath 2>/dev/null | batcat -f -p'
+	'eza --tree --header --icons -l --group --git --all --links $realpath 2>/dev/null | batcat -f -p'
 
 zstyle ':fzf-tab:complete:ls:*' fzf-preview \
-	'exa --tree --header --icons -l --only-dirs --group --git --all $realpath | batcat -f -p'
+	'eza --tree --header --icons -l --only-dirs --group --git --all $realpath | batcat -f -p'
 
 zstyle ':fzf-tab:complete:(\\|*/|)type:argument-rest' fzf-preview 'type $word'
 

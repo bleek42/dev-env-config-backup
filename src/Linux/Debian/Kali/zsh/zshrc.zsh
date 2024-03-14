@@ -68,7 +68,7 @@ if command -v zplug >/dev/null 2>&1; then
 	fi
 
 	# Then, source plugins and add commands to $PATH
-	zplug load --verbose
+	zplug load
 
 fi
 
@@ -91,9 +91,11 @@ setopt hist_expire_dups_first # delete duplicates first when HISTFILE size excee
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share
-HISTFILE="$HOME/.cache/zhistory"
-HISTSIZE=8000
-SAVEHIST=8000
+
+export HISTFILE="$HOME/.cache/zhistory"
+export HISTSIZE=8000
+export SAVEHIST=8000
+
 alias history='history -50'
 
 WORDCHARS='*?_[]~=&;!#$%^(){}' # Don't consider certain characters part of the word
@@ -176,7 +178,7 @@ zstyle ':completion:*' menu yes select search
 zstyle ':completion:*' complete true
 zstyle ':completion:*' verbose true
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path '${HOME}/.cache/zcompdump'
+# zstyle ':completion:*' cache-path '~/.cache/zcompdump'
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' completer _expand _complete
 
@@ -202,16 +204,15 @@ zstyle ':completion:*:kill:*' command 'ps -u ${USER} -o pid,%cpu,tty,cputime,cmd
 zstyle ':completion:*:*:px:*' command 'px --top '
 # zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
-[[ -f "$HOME/.config/rc.d/common/aliases.sh" ]] && source "$HOME/.config/rc.d/common/aliases.sh"
+autoload -Uz bashcompinit
+bashcompinit
 
 if command -v fzf >/dev/null 2>&1; then
-
-	[[ -f "usr/share/doc/fzf/examples/key-bindings.zsh" ]] && source "/usr/share/doc/fzf/examples/key-bindings.zsh"
-	[[ -f "/usr/share/doc/fzf/examples/completion.zsh" ]] && source "/usr/share/doc/fzf/examples/completion.zsh"
-	[[ -f "$HOME/.config/rc.d/zsh/fzf-config.zsh" ]] && source "$HOME/.config/rc.d/zsh/fzf-config.zsh"
-
+	test -f "usr/share/doc/fzf/examples/key-bindings.zsh" && source "/usr/share/doc/fzf/examples/key-bindings.zsh"
+	test -f "/usr/share/doc/fzf/examples/completion.zsh" && source "/usr/share/doc/fzf/examples/completion.zsh"
+	test -f "${HOME}/.config/rc.d/zsh/fzf-config.zsh" && source "${HOME}/.config/rc.d/zsh/fzf-config.zsh"
 else
-	# Allow you to select in a menu
+	# * Allow you to select in a menu
 	zstyle ':completion:*' menu select
 	zstyle ':completion:*:descriptions' format '[%d]'
 	zstyle ':completion:*' keep-prefix true
@@ -219,13 +220,11 @@ else
 	zstyle ':completion:*' format 'Completing %d'
 	zstyle ':completion:*' auto-description 'specify: %d'
 	zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-	[[ -f "usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-	[[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "usr/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
+	test -f "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" && source "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+	test -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" && source "usr/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
-autoload -Uz bashcompinit
-bashcompinit
 # make less more friendly for non-text input files, see lesspipe(1)
 # [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -256,9 +255,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 configure_prompt() {
-	prompt_symbol='[ 󰨡  ]:(  )'
+	prompt_symbol='[ 󰨡  :  ]'
 	# Skull emoji for root terminal
-	[ "$EUID" -eq 0 ] && prompt_symbol='[ 󰨡   ]:{  󰚌 }'
+	[ "$EUID" -eq 0 ] && prompt_symbol='[ 󰨡  :  󰚌 ]'
 	case "$PROMPT_ALTERNATIVE" in
 	twoline)
 		PROMPT=$'%{$fg_bold[green]%}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]$reset_color$(gitprompt)\n%{$fg_bold[green]%}└─%B%(#.%F{green}#.%F{blue}λ)%b%F{reset} '
@@ -320,12 +319,13 @@ precmd() {
 }
 
 # enable auto-suggestions based on the history
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+if test -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh; then
 	# change suggestion color
+	ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 	ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
+	ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE_CURSOR='fg=#777'
 fi
-
-if zplug check 'hlissner/zsh-autopair'; then
+if zplug check 'hlissner/zsh-autopair' || test -f '/usr/share/zsh/plugins/autopair/autopair.zsh'; then
 	# source "$ZSH_CUSTOM/plugins/zsh-autopair/autopair.zsh"
 	# bindkey '^I' expand-or-complete-prefix
 	autopair-init
@@ -339,11 +339,26 @@ if zplug check 'hlissner/zsh-autopair'; then
 	AUTOPAIR_PAIRS+=('`' '`')
 fi
 
-[[ -n $(command -v direnv) ]] && [[ -f "$HOME/.envrc" ]] && eval "$(direnv hook zsh)"
+test -f "${HOME}/.config/rc.d/bash/aliases.sh" && source "${HOME}/.config/rc.d/bash/aliases.sh"
 
-[[ -n $(command -v neofetch) ]] && [[ $(tty) = "/dev/pts/0" ]] && [[ $TERM_PROGRAM != 'vscode' ]] && neofetch
+if [[ -n $(command -v direnv) ]] && [[ -f ${HOME}/.envrc ]]; then
+	eval "$(direnv hook zsh)"
+fi
 
+# if [[ $(tty) = "/dev/pts/0" ]] && [[ $TERM_PROGRAM != 'vscode' ]]; then
+#   fetch_cmd=$(command -v fastfetch || command -v neofetch)
+
+#  case "${fetch_cmd}" in
+# 	*fastfetch*) fastfetch
+# 	;;
+# 	*neofetch*) neofetch
+# 	;;
+# 	*) echo "no fetch command found"
+# 	;;
+#  esac
+
+# fi
 # enable command-not-found if installed
-if [ -f /etc/zsh_command_not_found ]; then
+if test -f /etc/zsh_command_not_found; then
 	source /etc/zsh_command_not_found
 fi

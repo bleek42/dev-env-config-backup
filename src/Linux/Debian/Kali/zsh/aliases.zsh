@@ -330,12 +330,12 @@ if command -v rg >/dev/null 2>&1; then
     alias rg='rg -i --pretty --hidden --no-ignore-vcs'
 fi
 
-if command -v exa >/dev/null 2>&1; then
-    alias ls='exa -a --color-scale --icons'
-    alias la='exa -al --color-scale --icons'
-    alias lt='exa -lT --color-scale --icons'
-    alias ld='exa -al --links --color-scale --icons'
-    alias ll='exa -al --links --color-scale --icons'
+if command -v eza >/dev/null 2>&1; then
+    alias ls='eza -a --color-scale --icons=always'
+    alias la='eza -al --color-scale --icons=always'
+    alias lt='eza -aT --color-scale --icons=always'
+    alias ld='eza -al --links --color-scale --icons=always'
+    alias ll='eza -al --links --color-scale --icons=always'
 else
     alias ls='ls --color=auto'
     alias ll='ls -l'
