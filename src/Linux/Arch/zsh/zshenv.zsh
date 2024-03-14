@@ -1,0 +1,1 @@
+/home/bleek42/.zshenv
