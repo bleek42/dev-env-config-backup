@@ -1,0 +1,5 @@
+[global]
+bash_path = "C:\\Program Files\\Git\\usr\\bin\\bash.exe"
+warn_timeout = "5000ms"
+load_dotenv = true
+disable_stdin = true
