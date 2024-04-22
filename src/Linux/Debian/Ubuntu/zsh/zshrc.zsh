@@ -60,8 +60,6 @@ if command -v zplug >/dev/null 2>&1; then
         from:oh-my-zsh, \
         defer:3
 
-    # zplug "plugins/"
-
     # Install plugins if there are plugins that have not been installed
     if ! zplug check; then
         # printf "Install? [y/N]: "
