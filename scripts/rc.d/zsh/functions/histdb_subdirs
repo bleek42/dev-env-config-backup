@@ -13,4 +13,4 @@ _zsh_autosuggest_strategy_histdb_subdirs() {
     suggestion=$(_histdb_query "$query")
 }
 
-export ZSH_AUTOSUGGEST_STRATEGY=histdb_subdirs
+ZSH_AUTOSUGGEST_STRATEGY='histdb_subdirs'

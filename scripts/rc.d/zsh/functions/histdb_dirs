@@ -12,4 +12,5 @@ _zsh_autosuggest_strategy_histdb_dirs() {
     suggestion=$(_histdb_query "$query")
 }
 
-ZSH_AUTOSUGGEST_STRATEGY=histdb_dirs
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
+ZSH_AUTOSUGGEST_STRATEGY='histdb_dirs'
