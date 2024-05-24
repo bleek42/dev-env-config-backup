@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
-if [ "$SHLVL" = 1 ]; then
-    clear -q
+if [[ $(command -v clear_console) ]] && [[ $SHLVL = 1 ]]; then
+    # echo "logging out, clearing console..."
+    clear_console -q
 fi
