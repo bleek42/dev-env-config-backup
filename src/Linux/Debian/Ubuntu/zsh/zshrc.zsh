@@ -2,12 +2,27 @@
 
 ### * ${HOME}/.zshrc file for zsh interactive shells.
 ## ? see /usr/share/doc/zsh/examples/zshrc for examples
-[[ -o interactive ]] || return 1 # ! if not in interactive mode, return to stop the whole script from running and exit with code 1 (universally accepted as a shell error)
+[[ -o interactive ]] || exit 1 # ! if not in interactive mode, return to stop the whole script from running and exit with code 1 (universally accepted as a shell error)
+
+if [[ ! -d ${ZI[CACHE_DIR]:-${HOME}/.cache/zsh} ]]; then
+    mkdir -p "${ZI[CACHE_DIR]:-${HOME}/.cache/zsh}"
+fi
+
+if [[ ! -f ${ZI[CACHE_DIR]:-${HOME}/.cache/zsh}/zhistfile ]]; then
+    touch "${ZI[CACHE_DIR]:-${HOME}/.cache/zsh}/zhistfile"
+fi
+
+### * Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+### * Initialization code that may require console input (password prompts, [y/n]
+### * confirmations, etc.) must go above this block; everything else may go below.
+typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 
 if [[ -r ${XDG_CACHE_DIR:-${HOME}/.cache}/zi/p10k-instant-prompt-${(%):-%n}.zsh ]]; then
     source "${XDG_CACHE_DIR:-${HOME}/.cache}/zi/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+WORDCHARS='*?_[]~=&;!#$%^(){}``' # Dont consider certain characters part of the word
+PROMPT_EOL_MARK=" "
 
 ## * ###############
 ## * +-------------+
@@ -47,22 +62,10 @@ setopt hist_ignore_space       # ! ignore commands that start with space
 setopt hist_reduce_blanks      # ! trim multiple insignificant blanks in history
 setopt share_history           # ! share
 
-if [[ ! -d "${ZI[CACHE_DIR]:-${HOME}/.cache/zsh}" ]]; then
-    mkdir -p "${ZI[CACHE_DIR]:-${HOME}/.cache/zsh}"
-fi
-
-if [[ ! -f "${ZI[CACHE_DIR]:-${HOME}/.cache/zsh}/zhistfile" ]]; then
-    touch "${ZI[CACHE_DIR]:-${HOME}/.cache/zsh}/zhistfile"
-fi
-
 HISTSIZE=10000
 SAVEHIST=10000
 HISTTIMEFORMAT='[%F %a %b %d]'
 HISTFILE="${ZI[CACHE_DIR]:-${HOME}/.cache/zsh}/zhistfile"
-
-WORDCHARS='*?_[]~=&;!#$%^(){}``' # Dont consider certain characters part of the word
-PROMPT_EOL_MARK=" "
-
 
 autoload -Uz is-at-least
 # *-magic is known buggy in some versions; disable if so
@@ -80,18 +83,17 @@ if [[ $DISABLE_MAGIC_FUNCTIONS != true ]]; then
     done
 fi
 
-# Sets color variable such as $fg, $bg, $color and $reset_color
-autoload -Uz colors && colors
-
-### * Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-### * Initialization code that may require console input (password prompts, [y/n]
-### * confirmations, etc.) must go above this block; everything else may go below.
-typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+## ? enable zsh enhanced version of default 'mv' command
+## ? use as alternative for moving or copying files & dirs
+autoload -Uz zmv
 
 
 if [[ -f ${ZI[BIN_DIR]}/zi.zsh ]]; then
 
     source "${ZI[BIN_DIR]}/zi.zsh"
+
+    module_path+=( "/home/bleek42/.local/share/zsh/zmodules/zpmod/Src" )
+    zmodload zi/zpmod
 
     autoload -Uz _zi
     (( ${+_comps} )) && _comps[zi]=_zi
@@ -129,7 +131,7 @@ if [[ -f ${ZI[BIN_DIR]}/zi.zsh ]]; then
         compile='functions/.*rust*~*.zwc' \
     z-shell/z-a-rust
 
-    zi wait='0a' lucid is-snippet for \
+    zi silent is-snippet for \
         id-as='clipboard' \
     "${ZI[CONFIG_DIR]}/lib/clipboard.zsh" \
         id-as='zsh-git' \
@@ -151,10 +153,12 @@ if [[ -f ${ZI[BIN_DIR]}/zi.zsh ]]; then
         id-as='common-aliases' \
         aliases \
         bash \
-    "${SHELLRCD:-${HOME}/.config/rc.d}/common/aliases.sh" \
+    "${SHELLRCD}/common/aliases.sh" \
         id-as='zsh-aliases' \
         aliases \
-    "${ZI[CONFIG_DIR]}/lib/aliases.zsh" \
+    "${ZI[CONFIG_DIR]}/lib/aliases.zsh"
+
+    zi wait='0a' lucid light-mode for \
         if='test -d "${HOME}/.ssh"' \
         atload='test -f "${ZI[CONFIG_DIR]}/options/ssh-agent.zsh" && \
                     source "${ZI[CONFIG_DIR]}/options/ssh-agent.zsh"; \
@@ -169,39 +173,51 @@ if [[ -f ${ZI[BIN_DIR]}/zi.zsh ]]; then
         has='npm' \
     OMZ::plugins/npm \
         has='nmap' \
-    OMZ::plugins/nmap
-
-    zi wait='0b' lucid for \
-        id-as='zsh-autopair' \
-        compile='autopair*~*.zwc' \
-    hlissner/zsh-autopair \
-        id-as='powerlevel10k' \
-        depth=1 \
-        nocd \
-        atload='test -f "${ZI[CONFIG_DIR]}/options/p10k-lambda.zsh" && \
-                    source "${ZI[CONFIG_DIR]}/options/p10k-lambda.zsh"; \
-            '\
-    romkatv/powerlevel10k \
-    @zunit \
-    @console-style \
+    OMZ::plugins/nmap \
         id-as='tree-sitter' \
         from='gh-r' \
+        null \
+        lbin='tree-sitter-* -> tree-sitter' \
         binary \
-        sbin='tree-sitter-* -> tree-sitter' \
-        extract \
         nocompile \
     tree-sitter/tree-sitter \
         id-as='superfile' \
         from='gh-r' \
+        null \
+        bpick='*linux-*-amd64.tar.gz' \
+        lbin='!dist/**/*spf* -> spf' \
         binary \
-        sbin='**/* -> spf' \
         extract \
-        nocompile \
     yorukot/superfile \
+        id-as='zunit' \
+        null \
+        eval='./build.zsh;' \
+        lbin='!zunit' \
+    zdharma/zunit \
+        id-as='revolver' \
+        null \
+        lbin='!revolver' \
+    zdharma/revolver \
+        id-as='pyenv' \
+        pack='bgn' \
+    z-shell/pyenv \
         id-as='diff-so-fancy' \
-        as='null' \
-        sbin='bin/**' \
+        lbin='!bin/**' \
+        null \
     z-shell/zsh-diff-so-fancy \
+        id-as='vivid' \
+        from='gh-r' \
+        null \
+        bpick='*x86_64-unknown-linux-gnu.tar.gz' \
+        lbin='!**/* -> vivid' \
+        binary \
+        extract \
+    @sharkdp/vivid
+
+    zi wait='0b' lucid light-mode for \
+        id-as='zsh-autopair' \
+        compile='autopair*~*.zwc' \
+    hlissner/zsh-autopair \
         id-as='zui' \
     z-shell/zui \
         id-as='zflai' \
@@ -225,24 +241,25 @@ if [[ -f ${ZI[BIN_DIR]}/zi.zsh ]]; then
             '\
         atload='alias histdbd="histdb --desc --details --limit 24"' \
         compile='{*sqlite*~*.zwc,*histdb*~*.zwc}' \
-    larkery/zsh-histdb
+    larkery/zsh-histdb \
+        id-as='local-completions' \
+        as='completion' \
+        eval='!cp -uf /usr/share/zsh/functions/Completion/{Base,Zsh,Unix,Linux,Debian,AIX,X}/_* "${ZI[CONFIG_DIR]}/completions"; \
+                cp -uf /usr/share/zsh/vendor-completions/_* "${ZI[CONFIG_DIR]}/completions"; \
+                zi creinstall -q "${ZI[CONFIG_DIR]}/completions"; zi cclear \
+            '\
+        atload='ziprependfpath "${ZI[CONFIG_DIR]}/completions"; \
+                ziprependfpath "${ZI[CONFIG_DIR]}/functions"; \
+                zpcompinit; zpcdreplay \
+            '\
+        run-atpull \
+        nocompile \
+    z-shell/0
 
     ## ? call zsh compinit in system-completions at very end of block before loading fzf-tab, syntax hl, etc.
     ## ! DON'T add ANY completions in below plugin block..!
 
     zi wait='0c' lucid for \
-        id-as='local-completions' \
-        as='completion' \
-        eval='!cp -uf /usr/share/zsh/functions/Completion/{Base,Zsh,Unix,Linux,Debian,AIX,X}/* \
-                /usr/share/zsh/vendor-completions/* "${ZI[CONFIG_DIR]}/completions"; \
-                zi creinstall "${ZI[CONFIG_DIR]}/completions"; zi cclear \
-            '\
-        atload='ziprependfpath "${ZI[CONFIG_DIR]}/functions"; \
-                ziprependfpath "${ZI[CONFIG_DIR]}/completions"; \
-                zpcompinit; zpcdreplay \
-            '\
-        nocompile \
-    z-shell/0 \
         id-as='fzf-tab' \
         has='fzf' \
         atload='source "${ZI[CONFIG_DIR]}/options/comp-opts.zsh"' \
@@ -257,9 +274,7 @@ if [[ -f ${ZI[BIN_DIR]}/zi.zsh ]]; then
                     source "${ZI[CONFIG_DIR]}/options/history/history-multiword-search.zsh"; \
             '\
         compile='functions/h*~*.zwc' \
-    z-shell/H-S-MW
-
-    zi wait='1a' lucid for \
+    z-shell/H-S-MW \
         id-as='zsh-autosuggestions' \
         eval='!test -f "${ZI[CONFIG_DIR]}/options/key-bindings.zsh" && \
                     source "${ZI[CONFIG_DIR]}/options/key-bindings.zsh"; \
@@ -270,15 +285,25 @@ if [[ -f ${ZI[BIN_DIR]}/zi.zsh ]]; then
         compile='{src/*.zsh*~*.zwc,src/strategies/*~*.zwc}' \
     zsh-users/zsh-autosuggestions
 
+    zi wait='!0' for \
+        id-as='powerlevel10k' \
+        atload='test -f "${ZI[CONFIG_DIR]}/options/p10k-lambda.zsh" && \
+                    source "${ZI[CONFIG_DIR]}/options/p10k-lambda.zsh" \
+            '\
+        depth=1 \
+        nocd \
+    romkatv/powerlevel10k
+
 fi
-
-
 
 # RPROMPT="$(systemd_prompt_info systemd-sysusers.service user.slice)"
+# if [[ -n $RANGER_LEVEL ]] && [[ -n $RPROMPT ]]; then
+#     RPROMPT=${RPROMPT:+${[ranger]:+$PS4}}
 
-if [[ -n $RANGER_LEVEL ]]; then
-    RPROMPT=${[ranger]:+$PS4}
-fi
+# elif [[ -n $RANGER_LEVEL ]] && [[ -z $RPROMPT ]]; then
+#     RPROMPT=${[ranger]:+$PS4}
+# fi
+
 
 # Expand variables and commands in PROMPT variables
 # setopt prompt_subst
@@ -308,7 +333,7 @@ fi
 
 # fi
 
-# enable command-not-found if installed
-if [ -f /etc/zsh_command_not_found ]; then
-    source /etc/zsh_command_not_found
-fi
+# # enable command-not-found if installed
+# if [ -f /etc/zsh_command_not_found ]; then
+#     source /etc/zsh_command_not_found
+# fi
