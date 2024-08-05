@@ -49,16 +49,20 @@ function open_command() {
 
   # define the open command
   case "$OSTYPE" in
-    darwin*)  open_cmd='open' ;;
-    cygwin*)  open_cmd='cygstart' ;;
-    linux*)   [[ "$(uname -r)" != *icrosoft* ]] && open_cmd='nohup xdg-open' || {
+        darwin*)  open_cmd='open'
+            ;;
+        cygwin*)  open_cmd='cygstart'
+            ;;
+        linux*)   [[ "$(uname -r)" != *icrosoft* ]] && open_cmd='nohup xdg-open' || {
                 open_cmd='cmd.exe /c start ""'
                 [[ -e "$1" ]] && { 1="$(wslpath -w "${1:a}")" || return 1 }
-              } ;;
-    msys*)    open_cmd='start ""' ;;
-    *)        echo "Platform $OSTYPE not supported"
-              return 1
-              ;;
+              }
+            ;;
+        msys*)  open_cmd='start ""'
+            ;;
+        *)      echo "Platform $OSTYPE not supported"
+                return 1
+            ;;
   esac
 
   # If a URL is passed, $BROWSER might be set to a local browser within SSH.
@@ -161,9 +165,10 @@ function env_default() {
 }
 
 
-if command -v zoxide >/dev/null 2>&1; then
-    eval "$(zoxide init zsh --hook prompt --cmd zd)"
+if [[ $TERM == 'dumb' ]]; then
+  return 1
 fi
+
 
 # URL-encode a string
 #
@@ -300,13 +305,13 @@ function omz_urldecode {
 }
 
 function zi-append-fpath () {
-    zi add-fpath "$1" # arguments are accessible through $1, $2,...
+    command -v zi && zi add-fpath "$1" # arguments are accessible through $1, $2,...
 }
 
 function zi-prepend-fpath () {
-    zi add-fpath --front "$1" # arguments are accessible through $1, $2,...
+    command -v zi && zi add-fpath --front "$1" # arguments are accessible through $1, $2,...
 }
 
-alias -g ziprependfpath='zi-append-fpath'
+alias -g ziappendfpath='zi-append-fpath'
 
 alias -g ziprependfpath='zi-prepend-fpath'

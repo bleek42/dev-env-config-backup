@@ -36,6 +36,8 @@
 ###*################################################################################################
 ###*################################################################################################
 
+zmodload zsh/complist
+
 ### ? shell emulation options
 setopt posix_builtins  # ! when set, the command 'builtin' can be used to execute shell builtins
 unsetopt sh_word_split # ! use zsh style word splitting
@@ -47,11 +49,11 @@ setopt prompt_subst      # ! enable command substitution in prompt
 setopt magic_equal_subst # ! enable filename expansion for arguments of the form ‘anything=expression’
 
 ### ? completion option
-# setopt menu_complete  # ! enable menu completion
-setopt auto_menu # ! show completion menu on successive tab press
-setopt auto_list # ! automatically list choices on ambiguous completion
+# setopt menu_complete # ! enable menu completion
+setopt auto_menu     # ! show completion menu on successive tab press
+setopt auto_list     # ! automatically list choices on ambiguous completion
 setopt complete_in_word
-setopt always_to_end # ! move cursor to the end of a completed word
+setopt always_to_end    # ! move cursor to the end of a completed word
 setopt complete_aliases # ! don't expand aliases _before_ completion has finished
 setopt auto_param_keys  # ! intelligently remove automatically inserted characters when completing
 setopt auto_param_slash # ! when completing a directory name add a slash instead of a space
@@ -69,14 +71,14 @@ setopt nomatch   # ! print an error if a glob didn't return a result
 setopt auto_pushd
 setopt pushd_ignore_dups # ! don't push the same dir twice
 setopt pushdminus
-setopt rm_star_wait     # ! wait for 10 seconds confirmation when running rm with *
-unsetopt rm_star_silent # ! notify when rm is running with *
+# setopt rm_star_wait     # ! wait for 10 seconds confirmation when running rm with *
+# unsetopt rm_star_silent # ! notify when rm is running with *
 
 COMPLETION_WAITING_DOTS=true
 
 ## ? How many completions should be shown in menu selection
-zstyle ':completion:*' menu select search interactive
-zstyle ':completion:*:*:*:*:*' menu select search interactive # ? How many completions switch on menu selection
+zstyle ':completion:*' menu=long select search
+zstyle ':completion:*:*:*:*:*' menu=4 select search # ? How many completions switch on menu selection
 zstyle ':completion:*' accept-exact '*(N)'          # ? Prevent comp to glob the first part of the path to avoid partial globs. (Performance)
 zstyle ':completion:*' complete true
 zstyle ':completion:*' rehash true
@@ -89,13 +91,13 @@ zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 zstyle ':completion:*' group-name '' ## ? Required for completion to be in good groups (named after the tags)
 
 if [[ -x $(command -v vivid) ]]; then
-    export LS_COLORS="$(vivid generate molokai)"
+    export LS_COLORS="$(vivid generate jellybeans)"
     export ZLS_COLORS="$LS_COLORS"
 fi
 
 ## ? Adjust color-completion style
-zstyle ':completion:*:' list-colors ${(s.:.)LS_COLORS}
-# zstyle -e ':completion:*' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=12}:${(s.:.)LS_COLORS}")'
+zstyle ':completion:*:' list-colors "${(s.:.)LS_COLORS}"
+# zstyle -e ':completion:*:*:*:*' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=12}:${(s.:.)LS_COLORS}")'
 
 ## ? case insensitive (all), partial-word and substring completion
 if [[ "$CASE_SENSITIVE" = true ]]; then
@@ -112,35 +114,34 @@ unset CASE_SENSITIVE HYPHEN_INSENSITIVE
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
-#  _expand _complete
-autoload -Uz _expand _complete _match _approximate _extensions
+## ! The +X flag makes the function load faster by disabling the tracing of the function body.
+autoload -Uz _expand _complete _match _extensions _generic _ignored _files .force_rehash
+# zle -C .force_rehash
+# zstyle ':completion:*' completer _expand _complete _match _ignored _files _extensions
+# zstyle ':completion:*' completer _expand .force_rehash _complete _match _files _extensions
+zstyle ':completion:*' completer _expand _complete _match _files _extensions _ignored
+## ! Complete the alias when _expand_alias is used as a function
+# autoload -Uz _expand_alias
+# zle -C alias-expansion complete-word _generic
+# bindkey '^Xa' alias-expansion
+# zstyle ':completion:alias-expansion:*' completer _expand_alias _complete _generic
 
-# zle -C _force_rehash
 # Fuzzy match mistyped completions.
-autoload -Uz .force_rehash && \
-    zstyle ':completion:*' completer _expand .force_rehash _complete _match _approximate || \
-        zstyle ':completion:*' completer _expand _complete _match _approximate
-
-## ? Complete the alias when _expand_alias is used as a function
-autoload -Uz _expand_alias
-zle -C alias-expansion complete-word _generic
-bindkey '^Xa' alias-expansion
-zstyle ':completion:alias-expansion:*' completer _expand_alias _complete _generic
 
 ## ? Define completers
 zstyle ':completion:*:expand:*' tag-order all-expansions
 zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins commands functions options parameters reserved-words
 
-zstyle ':completion:*:aliases' list-colors '=*=0;38;2;166;226;46'
-zstyle ':completion:*:builtins' list-colors '=*=0;38;2;253;151'
-zstyle ':completion:*:functions' list-colors '=*=0;38;2;243;249;157'
-zstyle ':completion:*:commands' list-colors '=*=0;38;2;165;255;195'
-zstyle ':completion:*:options' list-colors '=*=0;38;2;153;173;106'
-zstyle ':completion:*:parameters' list-colors '=*=0;38;2;210;15;57'
-zstyle ':completion:*:reserved-words' list-colors '=*=0;38;2;0;255;135'
+# zstyle ':completion:*:aliases' list-colors '=*=0;38;2;166;226;46'
+# zstyle ':completion:*:builtins' list-colors '=*=0;38;2;253;151'
+# zstyle ':completion:*:functions' list-colors '=*=0;38;2;243;249;157'
+# zstyle ':completion:*:commands' list-colors '=*=0;38;2;165;255;195'
+# zstyle ':completion:*:options' list-colors '=*=0;38;2;153;173;106'
+# zstyle ':completion:*:parameters' list-colors '=*=0;38;2;210;15;57'
+# zstyle ':completion:*:reserved-words' list-colors '=*=0;38;2;0;255;135'
 
-## ! disable sort when completing options of any command
-# zstyle ':completion:complete:*:options' sort false
+# ## ! disable sort when completing options of any command
+zstyle ':completion:complete:*:options' sort false
 
 zstyle ':completion:*:options' description yes
 zstyle ':completion:*:options' auto-description '[%d]'
@@ -152,23 +153,24 @@ zstyle ':completion:*' select-prompt '* %m -> %l %p'
 # -zstyle ':completion:*:default' select-prompt \
 # -    "${fg[118]}* ${fg[046]}%m ${fg[226]}-> ${fg[118]}%l ${fg[222]}%p${fx[reset]}"
 
-zstyle ':completion:*:default' format '${fg_bold[118]}» %d'
-zstyle ':completion:*:descriptions' format "[»» %d ««]"
-zstyle ':completion:*:corrections' format '[ ⨯ %d ] (%e)'
-zstyle ':completion:*:messages' format '[  %d ]'
-zstyle ':completion:*:warnings' format '[ ⚠ %d ]'
+zstyle ':completion:*:default' format '» %d'
+zstyle ':completion:*:descriptions' format "[ %d ]"
+zstyle ':completion:*:corrections' format '( ⨯ %d / %e)'
+zstyle ':completion:*:messages' format '(  %d )'
+zstyle ':completion:*:warnings' format '( ⚠ %d )'
+
 # -zstyle ':completion:*:*:*:*' format \
 # -    "${fg_bold[118]}»»${fg[102]}%d${fg_bold[118]}««${fx[reset]}"
-# -
+
 # -zstyle ':completion:*:*:*:*:descriptions' format \
 # -    "${fg[046]}»»[${fg[104]}%d${fg[046]}]««${fx[reset]}"
-# -
+
 # -zstyle ':completion:*:*:*:*:corrections' format \
 # -    "${fg[118]}[ ${fg[75]}󱋴  %d ${fg[118]}] ${fg[105]}(  %e )${fx[reset]}"
-# -
+
 # -zstyle ':completion:*:*:*:*:messages' format \
 # -    "${fg[046]}[ ${fg[105]}󱋵 %d${fg[046]}]${fx[reset]}"
-# -
+
 # -zstyle ':completion:*:*:*:*:warnings' format \
 # -    "${fg[155]}[ ${fg[118]} %d ${fg[155]}]${fx[reset]}"
 
@@ -217,16 +219,19 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
 # hosts=()
 
 ## ? SSH/SCP/RSYNC
-[[ -x $(command -v bat) ]] &&
+if [[ -x $(command -v bat) ]]; then
     zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts \
-        'reply=(${=${${(f)"$(bat ${hosts}(|2)(N) /dev/null)"}%%[# ]*}//,/ })' ||
+        'reply=(${=${${(f)"$(bat ${hosts}(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
+else
     zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts \
         'reply=(${=${${(f)"$(cat ${hosts}(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+fi
 
 # zstyle ':completion::*:*:*:hosts' hosts "${hosts}"
-zstyle ':completion:*:ssh:*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
-zstyle ':completion:*:ssh:*' group-order users hosts-domain hosts-host users hosts-ipaddr
+# zstyle ':completion:*:ssh:*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
 
+zstyle ':completion:*:(ssh|rsync|sftp|rsh):*' group-order users hosts-domain hosts-host users hosts-ipaddr
 zstyle ':completion:*:(scp|rsync|sftp|rsh):*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
 zstyle ':completion:*:(scp|rsync|sftp|rsh):*' group-order users files all-files hosts-domain hosts-host hosts-ipaddr
 zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
@@ -262,13 +267,8 @@ zstyle ':completion:*:git-checkout:*' sort false
 
 zstyle '*' single-ignored show
 
-# if command -v notify-send >/dev/null 2>&1; then
-#     zstyle ':notify:*' error-title "${fg[red]}FAILED!${reset_color}"
-#     zstyle ':notify:*' success-title "${fg[green]}SUCCESS!${reset_color}"
-
-#     zstyle \":notify:*\" command-complete-timeout 3
-#     zstyle \":notify:*\" command 'notifier plg-zsh-notify'
-# fi
+## ? automatically load bash completion functions
+autoload -U +X bashcompinit && bashcompinit
 
 if command -v fzf >/dev/null 2>&1; then
 
@@ -346,8 +346,8 @@ if command -v fzf >/dev/null 2>&1; then
         ;;
     esac
 
-    # fd -H -i -L -d=4 --follow --stats --color=always -E="*.git" -g ""
-    export FZF_DEFAULT_COMMAND='ag -S -f --hidden --ignore "*.git" -g ""'
+    export FZF_DEFAULT_COMMAND='fd -H -L -i -g ""'
+    # export FZF_DEFAULT_COMMAND='ag -S -f --hidden --ignore "*.git" -g ""'
 
     __fzf_default_header="[^G: 󰱞 |^W:  |^SPC: 󰒅 |^A/^U: 󰒆 |^Y:  | ^O:  |^?:  |Alt+J/K: 󰏕/󰏔 |^F/^B: ↑/↓ |^E: ${editor_symbol} |^V: ${visual_symbol}]"
 
@@ -359,15 +359,14 @@ if command -v fzf >/dev/null 2>&1; then
     __fzf_preview_files='lsd --color=always -1 -aA -F -L --extensionsort --group-dirs=first '
     __fzf_preview_dirs='lsd --color=always --tree --blocks=permission,user,size,date,name -a -d'
     __fzf_default_preview="([[ -f {} ]] && (bat -f {} || cat {})) || \
-                        ([[ -d {} ]] && (lsd --color=always --tree -A -F -d {}) || tree -C -a -f -L 2 {}) || \
-                        echo {} 2> /dev/null | bat -f || echo {} 2> /dev/null | less -Rf"
+                            ([[ -d {} ]] && (lsd --color=always --tree -A -F -d {}) || tree -C -a -f -L 2 {}) || \
+                            echo {} 2> /dev/null | bat -f || echo {} 2> /dev/null | less -Rf"
 
     __fzf_colors_fg_bg="fg:#33cfad,fg+:#46e253,bg:#121212,bg+:#231f32"
     __fzf_colors_info_marker_hl="hl:#77c6d6,hl+:#3d9d47,info:#afaf87,marker:#5ed7d7"
     __fzf_colors_prompt_icons="prompt:#03ff1c,spinner:#1081f2,pointer:#8dee0e,header:#87afaf"
     __fzf_colors_border="gutter:#1d1717,border:#4afbfb"
     __fzf_colors_label="label:#aeaeae,query:#d9d9d"
-    # --preview='${__fzf_default_preview}'
 
     export FZF_DEFAULT_OPTS="-i \
                 -e \
@@ -385,6 +384,7 @@ if command -v fzf >/dev/null 2>&1; then
                 --header-first \
                 --header='${__fzf_default_header}' \
                 --preview-window='right:50%:hidden:border-sharp:wrap:~4' \
+                --preview='${__fzf_default_preview}'
                 --color='${__fzf_colors_fg_bg}','${__fzf_colors_info_marker_hl}','${__fzf_colors_prompt_icons}','${__fzf_colors_border}' \
                 --history='${__fzf_histfile}' \
                 --history-size=8000 \
@@ -440,12 +440,14 @@ if command -v fzf >/dev/null 2>&1; then
     # zstyle ':complete:px:*:*:*:processes' command "px --top "
 
     # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-    is_ftb_key_binded=$(bindkey "^I" | grep -o "fzf-tab-complete")
+    has_fzf_tab_func="$(type fzf-tab-complete)"
 
-    if [[ ${is_ftb_key_binded} == fzf-tab-complete ]]; then
+    if [[ $has_fzf_tab_func == *'fzf-tab-complete is a shell function'* ]]; then
+        echo "fzf-tab keybinding detected: initializing relevant completions..."
 
+        test -f "${FZF_TAB_HOME}/modules/Src" && module_path+=("${FZF_TAB_HOME}/modules/Src")
         zstyle ':completion:*' menu no
-        zstyle ':completion:*:*:*:*:*' menu no
+        # zstyle ':completion:*:*:*:*:*' menu no
         zstyle ':fzf-tab:*' fzf-command fzf
         zstyle ':fzf-tab:*' prefix ' '
         zstyle ':fzf-tab:*' query-string input
@@ -454,14 +456,14 @@ if command -v fzf >/dev/null 2>&1; then
         zstyle ':fzf-tab:*' accept enter
         zstyle ':fzf-tab:*' continuous-trigger space
         zstyle ':fzf-tab:*' fzf-bindings enter:accept
-        zstyle ':fzf-tab:complete:*' fzf-preview 'less ${realpath#-*=}'
-        zstyle ':fzf-tab:user-expand::' fzf-flags '-m -e -i --layout reverse --info inline --preview-window right:border-vertical:~4:wrap --pointer=" " --marker "* "'
-        # zstyle ':fzf-tab:complete:(\\|)(htop|px):argument-rest' fzf-flags '--preview-window right:border-vertical:~4:wrap'
-        # zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags '--preview-window right:border-vertical:~4:wrap'
-
-        # zstyle ':fzf-tab:*'
 
         zstyle ':fzf-tab:complete:*' disabled-on none
+        zstyle ':fzf-tab:complete:*' fzf-preview 'less ${realpath#-*=}'
+        # zstyle ':fzf-tab:user-expand::' fzf-flags '-m -e -i --layout reverse --info inline --preview-window right:border-vertical:~4:wrap --pointer=" " --marker "* "'
+        # zstyle ':fzf-tab:complete:(\\|)(htop|px):argument-rest' fzf-flags '--preview-window right:border-vertical:~4:wrap'
+        # zstyle ':fzf-tab:complete:(kill|ps|px):argument-rest' fzf-flags '--preview-window right:border-vertical:~4:wrap'
+
+        # zstyle ':fzf-tab:*'
 
         zstyle ':fzf-tab:complete:*' fzf-bindings \
             '~:accept' \
@@ -469,7 +471,7 @@ if command -v fzf >/dev/null 2>&1; then
             'ctrl-e:execute-silent(${_FTB_INIT_} $EDITOR $realpath)'
 
         # User expand
-        # zstyle ':fzf-tab:user-expand:' fzf-preview 'less $word'
+        zstyle ':fzf-tab:user-expand:' fzf-preview 'less $word'
 
         zstyle ':fzf-tab:complete:*' fzf-preview 'less ${realpath#-*=}'
 
@@ -717,7 +719,6 @@ esac'
 
     fi
 
-fi
+    unset has_fzf_tab_func
 
-## ? automatically load bash completion functions
-# autoload -U +X bashcompinit && bashcompinit
+fi

@@ -13,4 +13,4 @@ _zsh_autosuggest_strategy_histdb_all() {
     suggestion=$(_histdb_query "$query")
 }
 
-# alias history='histdb --desc --details --limit 16'
+alias histdball='histdb --desc --details --limit 16'
