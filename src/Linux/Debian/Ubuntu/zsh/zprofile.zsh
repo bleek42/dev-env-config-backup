@@ -3,8 +3,16 @@
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
 # echo "$HOME/.profile"
-test -f "${HOME}/.profile" && emulate sh -c '. "${HOME}/.profile"'
-test -f "${HOME}/.config/rc.d/zsh/functions.sh" && source "${HOME}/.config/rc.d/zsh/functions.sh"
+[[ -f ${HOME}/.profile ]] && emulate sh -c '. "${HOME}/.profile"'
+
+if [[ -z ${debian_chroot:-} ]] && [[ -r /etc/debian_chroot ]]; then
+    debian_chroot="$(cat /etc/debian_chroot)"
+fi
+
+if [[ -n $WSL_INTEROP ]]; then
+    export BROWSER='/mnt/c/Program Files/Firefox Developer Edition/firefox.exe'
+fi
+
 # # >>> conda initialize >>>
 # # !! Contents within this block are managed by 'conda init' !!
 # __conda_setup="$('/opt/conda/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
@@ -19,13 +27,3 @@ test -f "${HOME}/.config/rc.d/zsh/functions.sh" && source "${HOME}/.config/rc.d/
 # fi
 # unset __conda_setup
 # # <<< conda initialize <<<
-
-# pnpm
-# export PNPM_HOME="/home/bleek42/.local/share/pnpm"
-case ":$path:" in
-*":$pnpm_home:"*) ;;
-*) path=($pnpm_home $path) ;;
-esac
-
-export PATH
-# pnpm end
