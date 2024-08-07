@@ -1,364 +1,368 @@
 #!/usr/bin/env zsh
 
-# ~/.zshrc file for zsh interactive shells.
-# see /usr/share/doc/zsh/examples/zshrc for examples
-[[ -o interactive ]] || return
+### * ${HOME}/.zshrc file for zsh interactive shells.
+## ? see /usr/share/doc/zsh/examples/zshrc for examples
+[[ -o interactive ]] || return # ! if not in interactive mode, return to stop the whole script from running and exit with code 1 (universally accepted as a shell error)
 
-if [ -f "${ZPLUG_HOME}/init.zsh" ]; then
-	source "${HOME}/.config/zplug/init.zsh"
-elif [ -f "${ZPLUG_ROOT}/init.zsh" ]; then
-	source "${ZPLUG_ROOT}/init.zsh"
-else
-	echo "No ${ZPLUG_HOME} or ${ZPLUG_ROOT}"
+### * Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+### * Initialization code that may require console input (password prompts, [y/n]
+### * confirmations, etc.) must go above this block; everything else may go below.
+typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+
+if [[ -r ${XDG_CACHE_DIR:-${HOME}/.cache}/zi/p10k-instant-prompt-${(%):-%n}.zsh ]]; then
+    source "${XDG_CACHE_DIR:-${HOME}/.cache}/zi/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-if command -v zplug >/dev/null 2>&1; then
-	# Make sure to use double quotes
-	# zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1;"
-	# Set the priority when loading
-	# e.g., zsh-syntax-highlighting must be loaded
-	# after executing compinit command and sourcing other plugins
-	# (If the defer tag is given 2 or above, run after compinit command)
-	# zplug "zsh-users/zsh-syntax-highlighting", defer:2
-	# zplug "unixorn/docker-helpers", from:gh-r, use:'docker-helpers.plugin.zsh'
-	# zplug "plugins/ubuntu", from:oh-my-zsh, if:"command -v apt >/dev/null 2>&1"C
-	# zplug "$HOME/.local/share/dragon", from:local, as:theme, use:'dragon.zsh-theme'
-
-	zplug "/usr/share/zsh-autosuggestions", \
-		from:local, \
-		use:'zsh-autosuggestions.zsh', \
-		defer:2
-
-	zplug "hlissner/zsh-autopair", \
-		use:'autopair.plugin.zsh', \
-		defer:2
-
-	zplug "Aloxaf/fzf-tab", \
-		use:'fzf-tab.plugin.zsh', \
-		defer:2
-
-	zplug "zdharma-continuum/fast-syntax-highlighting", \
-		use:'fast-syntax-highlighting.plugin.zsh', \
-		defer:2
-
-	zplug "zsh-users/zsh-history-substring-search", \
-		use:'zsh-history-substring-search.zsh', \
-		defer:3
-
-	zplug "woefe/git-prompt.zsh", \
-		use:'git-prompt.plugin.zsh', \
-		defer:3
-
-	zplug "plugins/systemadmin", \
-		from:oh-my-zsh, \
-		use:'systemadmin.plugin.zsh', \
-		defer:3
-
-	zplug "plugins/nmap", \
-		from:oh-my-zsh, \
-		use:'nmap.plugin.zsh', \
-		defer:3
-
-	# ! Install plugins if there are plugins that have not been installed
-	if ! zplug check; then
-		printf "Install? [y/N]: "
-		if read -q; then
-			zplug install
-		fi
-	fi
-
-	# Then, source plugins and add commands to $PATH
-	zplug load
-
+if [[ ! -f ${HOME}/.cache/zsh/zhistfile ]]; then
+    touch "${HOME}/.cache/zsh/zhistfile"
 fi
 
-setopt autocd # change directory just by typing its name
-#setopt correct            # auto correct mistakes
-setopt interactivecomments # allow comments in interactive mode
-setopt magicequalsubst     # enable filename expansion for arguments of the form ‘anything=expression’
-setopt nonomatch           # hide error message if there is no match for the pattern
-setopt notify              # report the status of background jobs immediately
-setopt prompt_subst        # enable command substitution in prompt
-setopt sh_word_split       # split fields on unquoted parameter expansions (bash compatibility)
-setopt numeric_glob_sort   # sort filenames numerically when it makes sense
-setopt flow_control        # use Ctrl+S / Ctrl+Q to stop and continue flow
+if [[ -d "${XDG_CONFIG_HOME:-${HOME}/.config}/rc.d/zsh/completions" ]]; then
+    fpath=( "${XDG_CONFIG_HOME:-${HOME}/.config}/rc.d/zsh/completions" $fpath )
+fi
 
-setopt null_glob
-setopt extended_glob
-# History configurations
-# enable auto-suggestions based on the history
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-setopt share_history          # share
 
-export HISTFILE="$HOME/.cache/zhistory"
-export HISTSIZE=8000
-export SAVEHIST=8000
-
-alias history='history -50'
-
-WORDCHARS='*?_[]~=&;!#$%^(){}' # Don't consider certain characters part of the word
+WORDCHARS='*?_[]~=&;!#$%^(){}``' # Dont consider certain characters part of the word
 PROMPT_EOL_MARK=" "
 
-# configure key keybindings
-bindkey -e # emacs key bindings
-# typeset -A key
+## * ###############
+## * +-------------+
+## * | ZSH OPTIONS |
+## * +-------------+
+## * ###############
 
-# bindkey '^I' expand-or-complete-prefix # tab comp
-bindkey '^Xh' _complete_help
-bindkey ' ' magic-space                        # do history expansion on space
-bindkey '^U' backward-kill-line                # ctrl + U
-bindkey '^[[3;5~' kill-word                    # ctrl + Supr
-bindkey '^[[3~' delete-char                    # delete
-bindkey '^[[1;5C' end-of-line                  # ctrl + ->
-bindkey '^[[1;5D' beginning-of-line            # ctrl + <-
-bindkey '^[[5~' beginning-of-buffer-or-history # page up
-bindkey '^[[6~' end-of-buffer-or-history       # page down
-bindkey '^[[H' forward-word                    # home
-bindkey '^[[F' end-of-line                     # end
-bindkey '^Z' undo                              # ctrl + Z undo last action
+### ? script & function options
+setopt multios              # ! enable redirect to multiple streams: echo >file1 >file2
+setopt interactive_comments # ! allow comments in interactive mode
+setopt long_list_jobs       # ! show long list format job notifications
+# setopt local_options # ! shell options are to be restored after returning from a shell function
 
-# # Keybindings for substring search plugin. Maps up and down arrows.
-bindkey -M main '^[OA' history-substring-search-up
-bindkey -M main '^[OB' history-substring-search-down
-# Make dot key autoexpand "..." to "../.." and so on
-# Initialize colors
+### ? expansion/globbing options
+setopt case_match        # ! make regular expression matches case sensitive
+setopt dot_glob          # ! include dotfiles in glob matches
+setopt case_glob         # ! make globbing case sensitive
+setopt null_glob         # ! remove glob from arg list instead of reporting an error if no returned matches
+setopt extended_glob     # ! enable extended globbing
+setopt numeric_glob_sort # ! sort filenames numerically when it makes sense
 
-_zsh-dot() {
-	if [[ ${LBUFFER} = *.. ]]; then
-		LBUFFER+=/..
-	else
-		LBUFFER+=.
-	fi
-}
-zle -N _zsh-dot
-bindkey . _zsh-dot
+## * ##############
+## * +---------+ ##
+## * | HISTORY | ##
+## * +---------+ ##
+## * ##############
 
-# Fullscreen command line edit
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
+# setopt hist_verify             # ! show command with history expansion to user before running it
+setopt extended_history        # ! save time/duration info when exiting shell
+setopt inc_append_history_time # ! history appends to existing file as soon as it's written
+setopt hist_ignore_dups        # ! do not record an event that was just recorded again.
+setopt hist_find_no_dups       # ! do not display a previously found event.
+setopt hist_save_no_dups       # ! do not write a duplicate event to the history file.
+setopt hist_ignore_all_dups    # ! delete an old recorded event if a new event is a duplicate.
+setopt hist_expire_dups_first  # ! delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_space       # ! ignore commands that start with space
+setopt hist_reduce_blanks      # ! trim multiple insignificant blanks in history
+setopt share_history           # ! share
 
-# Enable run-help module
-autoload -z run-help
-alias help='run-help'
+HISTSIZE=10000
+SAVEHIST=10000
+HISTTIMEFORMAT='[%F %a %b %d]'
+HISTFILE="${XDG_CACHE_HOME:-${HOME}/.cache}/zsh/zhistfile"
 
-# enable bracketed paste
-autoload -Uz bracketed-paste-url-magic
-zle -N bracketed-paste bracketed-paste-url-magic
+autoload -Uz is-at-least
+# *-magic is known buggy in some versions; disable if so
+if [[ $DISABLE_MAGIC_FUNCTIONS != true ]]; then
+    for d in $fpath; do
+        if [[ -e "$d/url-quote-magic" ]]; then
+            if is-at-least 5.1; then
+                autoload -Uz bracketed-paste-magic
+                zle -N bracketed-paste bracketed-paste-magic
+            fi
+            autoload -Uz url-quote-magic
+            zle -N self-insert url-quote-magic
+            break
+        fi
+    done
+    unset d
+fi
 
-# enable url-quote-magic
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
-
-# Enable functions from archive plugin
-# fpath+="$ZDOTDIR/plugins/archive"
-autoload -Uz archive lsarchive unarchive
-
-# Custom personal functions
-# Don't use -U as we need aliases here
-autoload -z lspath bag fgb fgd fgl fz ineachdir psg vpaste evalcache compdefcache
-
-# # Enable wrapper, if original command is available
-# (( ${+commands[man]} )) && autoload -z wrap_man
-# (( ${+commands[sudo]} )) && autoload -z wrap_sudo
-
+# ! enable colors
 autoload -Uz colors && colors
 
-zmodload zsh/terminfo
-zmodload zsh/zutil
+# ! Enable run-help module
+(( ${+aliases[help]} )) && unalias help
+autoload -Uz run-help
 
-# enable completion features
-zmodload zsh/complist
-# enable completion features
-autoload -Uz compinit && compinit
+## ? enable zsh enhanced version of default 'mv' command
+## ? use as alternative for moving or copying files & dirs
+autoload -Uz zmv
 
-zstyle ':completion:*' menu yes select search
-zstyle ':completion:*' complete true
-zstyle ':completion:*' verbose true
-zstyle ':completion:*' use-cache on
-# zstyle ':completion:*' cache-path '~/.cache/zcompdump'
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' completer _expand _complete
+if [[ $(tty) == /dev/pts/0 ]] && [[ $TERM_PROGRAM != vscode ]]; then
+    fetch_cmd="$(command -v fastfetch || command -v neofetch || return 1)"
+    # echo '${fetch_cmd}'
 
-zle -C alias-expension complete-word _generic
-bindkey '^Xa' alias-expension
-zstyle ':completion:alias-expension:*' completer _alias _generic
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
-# # Required for completion to be in good groups (named after the tags)
-zstyle ':completion:*' group-name ''
-zstyle ':completion:complete:*:options' sort false
-zstyle ':completion:*:manuals' separate-sections true
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# zstyle ':complete:px:*:*:*:processes' command "px --top "
-# disable sort when completing options of any command
-zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
-# Only display some tags for the command cd
-zstyle :completion':*:*:cd:*' tag-order local-directories directory-stack path-directories
+    case "$fetch_cmd" in
+    */fastfetch)
+        fastfetch
+        ;;
+    */neofetch)
+        neofetch
+        ;;
+    *)
+        echo 'Unable to display system information: no fetch command found in PATH...'
+        ;;
+    esac
 
-zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+fi
 
-zstyle ':completion:*:kill:*' command 'ps -u ${USER} -o pid,%cpu,tty,cputime,cmd -w -w '
-zstyle ':completion:*:*:px:*' command 'px --top '
-# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+if [[ -f ${ZI[BIN_DIR]}/zi.zsh ]]; then
 
-autoload -Uz bashcompinit
-bashcompinit
+    source "${ZI[BIN_DIR]}/zi.zsh"
 
-if command -v fzf >/dev/null 2>&1; then
-	test -f "usr/share/doc/fzf/examples/key-bindings.zsh" && source "/usr/share/doc/fzf/examples/key-bindings.zsh"
-	test -f "/usr/share/doc/fzf/examples/completion.zsh" && source "/usr/share/doc/fzf/examples/completion.zsh"
-	test -f "${HOME}/.config/rc.d/zsh/fzf-config.zsh" && source "${HOME}/.config/rc.d/zsh/fzf-config.zsh"
+    autoload -Uz _zi
+    (( ${+_comps} )) && _comps[zi]=_zi
+
+    if [[ -d ${ZI[ZMODULES_DIR]}/zpmod/Src ]]; then
+        module_path+=( "${ZI[ZMODULES_DIR]}/zpmod/Src" )
+        zmodload zi/zpmod
+    fi
+
+    zi lucid silent for \
+        id-as='z-a-meta-plugins' \
+    z-shell/z-a-meta-plugins \
+        id-as='z-a-default-ice' \
+    z-shell/z-a-default-ice \
+        id-as='z-a-eval' \
+        atinit='Z_A_USECOMP=1' \
+        compile='functions/.*ev*~*.zwc' \
+    z-shell/z-a-eval \
+        id-as='z-a-unscope' \
+    z-shell/z-a-unscope \
+        id-as='z-a-submods' \
+        compile='functions/.*submods*~*.zwc' \
+    z-shell/z-a-submods \
+        id-as='z-a-linkman' \
+        compile='functions/.*lman*~*.zwc' \
+    z-shell/z-a-linkman \
+        id-as='z-a-linkbin' \
+        compile='functions/*za-lb*~*.zwc' \
+    z-shell/z-a-linkbin \
+        id-as='z-a-readurl' \
+        compile='functions/.*readurl*~*.zwc' \
+    z-shell/z-a-readurl \
+        id-as='z-a-patch-dl' \
+        compile='functions/.*patch-dl*~*.zwc' \
+    z-shell/z-a-patch-dl \
+        id-as='z-a-bin-gem-node' \
+        compile='functions/.*bgn*~*.zwc' \
+    z-a-bin-gem-node \
+        id-as='z-a-rust' \
+        compile='functions/.*rust*~*.zwc' \
+    z-shell/z-a-rust
+
+    zi lucid is-snippet compile for \
+        id-as='clipboard-zsh' \
+    "${ZI[CONFIG_DIR]}/lib/clipboard.zsh" \
+        id-as='git-zsh' \
+    "${ZI[CONFIG_DIR]}/lib/git.zsh" \
+        id-as='termsupport-zsh' \
+    "${ZI[CONFIG_DIR]}/lib/termsupport.zsh" \
+            id-as='funcs-zsh' \
+    "${ZI[CONFIG_DIR]}/lib/funcs.zsh" \
+        id-as='spectrum-zsh' \
+    "${ZI[CONFIG_DIR]}/lib/spectrum.zsh" \
+        id-as='proxy-zsh' \
+    "${ZI[CONFIG_DIR]}/lib/proxy.zsh" \
+        id-as='systemd-zsh' \
+        has='systemctl' \
+        if='[[ $(systemctl is-system-running) != offline ]]' \
+    "${ZI[CONFIG_DIR]}/lib/systemd.zsh" \
+        id-as='sysadmin-zsh' \
+        has='ip' \
+    "${ZI[CONFIG_DIR]}/lib/sys-admin.zsh" \
+        id-as='dpkg-apt-zsh' \
+        has='dpkg' \
+    "${ZI[CONFIG_DIR]}/lib/dpkg-apt.zsh" \
+        id-as='tmux-zsh' \
+        has='tmux' \
+    "${ZI[CONFIG_DIR]}/lib/tmux.zsh" \
+        id-as='fzf-zsh' \
+        has='fzf' \
+    "${ZI[CONFIG_DIR]}/lib/fzf.zsh" \
+        id-as='async-zsh' \
+    "${ZI[CONFIG_DIR]}/lib/async.zsh" \
+        id-as='pure-lambda' \
+    "${ZI[CONFIG_DIR]}/options/prompt/pure-lambda.zsh" \
+        id-as='pure-prompt' \
+    "${ZI[CONFIG_DIR]}/options/prompt/pure-prompt.zsh"
+
+    zi lucid light-mode for \
+        if='test -d "${HOME}/.ssh"' \
+        atload='test -f "${ZI[CONFIG_DIR]}/options/ssh-agent.zsh" && \
+                    source "${ZI[CONFIG_DIR]}/options/ssh-agent.zsh" \
+                ' \
+    OMZ::plugins/ssh-agent \
+        has='nmap' \
+    OMZ::plugins/nmap \
+        id-as='firewalld-zsh' \
+        has='firewalld' \
+    OMZ::plugins/firewalld \
+        id-as='nodedocs-zsh' \
+        has='node' \
+    OMZ::plugins/node \
+        id-as='npm-zsh' \
+        has='npm' \
+    OMZ::plugins/npm \
+        id-as='terraform-zsh' \
+        has='terraform' \
+        atload='RPROMPT+=$(tf_prompt_info)' \
+    OMZ::plugins/terraform
+
+    # !GEOMETRY_SYMBOL_PROMPT=󰘧 GEOMETRY_SYMBOL_PROMPT_COLOR=green; GEOMETRY_COLOR_DIR=63; GEOMETRY_PATH_COLOR=63; geometry::prompt
+
+    zi wait='0a' lucid for \
+    @rust-utils \
+        id-as='autopair-zsh' \
+        compile='autopair*~*.zwc' \
+    hlissner/zsh-autopair \
+        id-as='zui' \
+    z-shell/zui \
+        id-as='zflai' \
+    z-shell/zflai \
+        id-as='ztrace' \
+    z-shell/ztrace \
+        id-as='zmorpho' \
+        atload='test -f "${ZI[CONFIG_DIR]}/options/zmorpho.zsh" && \
+                    source "${ZI[CONFIG_DIR]}/options/zmorpho.zsh" \
+                ' \
+        nocompile \
+    z-shell/zsh-morpho \
+        id-as='unique-id-zsh' \
+    z-shell/zsh-unique-id \
+        id-as='zi-console' \
+    z-shell/zi-console \
+        id-as='zzcomplete' \
+    z-shell/zzcomplete \
+        id-as='diff-so-fancy' \
+        null \
+        lbin='!bin/*' \
+    z-shell/zsh-diff-so-fancy \
+        id-as='revolver' \
+        null \
+        lbin='!revolver' \
+    zdharma/revolver
+
+    zi wait='0b' lucid for \
+        id-as='zunit' \
+        has='revolver' \
+        eval='!./build.zsh 2>/dev/null' \
+        lbin='!zunit' \
+        binary \
+        run-atpull \
+    zdharma/zunit \
+        id-as='eza-rust' \
+        cargo='!eza' \
+        atload='test -f "${ZI[CONFIG_DIR]}/options/eza-ls.zsh" && \
+                    source "${ZI[CONFIG_DIR]}/options/eza-ls.zsh" \
+                ' \
+        rustup \
+        binary \
+        run-atpull \
+    z-shell/0 \
+        id-as='fnm-rust' \
+        cargo='!fnm' \
+        atload='!eval "$(fnm env --use-on-cd --corepack-enabled --shell zsh)";' \
+        rustup \
+        binary \
+        run-atpull \
+    z-shell/0 \
+        id-as='tree-sitter' \
+        null \
+        from='gh-r' \
+        lbin='!tree-sitter-* -> tree-sitter' \
+        bpick='*-linux-x64.gz' \
+        binary \
+        run-atpull \
+    tree-sitter/tree-sitter \
+        id-as='pyenv' \
+        pack='bgn' \
+    z-shell/pyenv \
+        id-as='aliases-common' \
+        is-snippet \
+        aliases \
+        bash \
+    "${SHELLRCD}/common/aliases.sh" \
+        id-as='aliases-zsh' \
+        is-snippet \
+        aliases \
+    "${ZI[CONFIG_DIR]}/lib/aliases.zsh" \
+        id-as='histdb-zsh' \
+        atinit='test -f "${ZI[CACHE_DIR]}/histdb/zsh-history.db" && \
+                export HISTDB_FILE="${ZI[CACHE_DIR]}/histdb/zsh-history.db"; \
+            ' \
+        atload='alias histdbd="histdb --desc --details --limit 24"' \
+        compile='{*sqlite*~*.zwc,*histdb*~*.zwc}' \
+    larkery/zsh-histdb \
+        id-as='local-completions' \
+        as='completion' \
+        eval='!command cp -ru /usr/share/zsh/functions/Completion/*/_*  "${ZI[CONFIG_DIR]}/completions"; \
+                command cp -ru /usr/share/zsh/*-functions*/_* "${ZI[CONFIG_DIR]}/completions"; \
+                command cp -ru /usr/share/zsh/*-completions*/_* "${ZI[CONFIG_DIR]}/completions"; \
+                zi creinstall "${ZI[CONFIG_DIR]}/completions"; \
+                zi cclear \
+            ' \
+        atload='zpcompinit; zpcdreplay' \
+        nocompile \
+        run-atpull \
+    z-shell/0
+
+    ## ? call zsh compinit in system-completions at very end of block before loading fzf-tab, syntax hl, etc.
+    ## ! DON'T add ANY completions in below plugin block..!
+
+    zi wait='0c' lucid for \
+        id-as='fzf-tab' \
+        has='fzf' \
+        atload='test -f "${ZI[CONFIG_DIR]}/options/comp-opts.zsh" && \
+                    source "${ZI[CONFIG_DIR]}/options/comp-opts.zsh"' \
+        compile='lib/{-ftb,ftb}*~*.zwc' \
+    Aloxaf/fzf-tab \
+        id-as='fast-syntax-highlighting-zsh' \
+        atload='fast-theme zdharma &>/dev/null' \
+        compile='{functions/{.fast,fast}-*~*.zwc,chroma/*~*.zwc}' \
+    z-shell/F-Sy-H \
+        id-as='history-mw-search-zsh' \
+        atload='test -f "${ZI[CONFIG_DIR]}/options/history/history-multiword-search.zsh" && \
+                    source "${ZI[CONFIG_DIR]}/options/history/history-multiword-search.zsh"; \
+                test -f "${ZI[CONFIG_DIR]}/options/key-bindings.zsh" && \
+                    source "${ZI[CONFIG_DIR]}/options/key-bindings.zsh"; \
+                ' \
+        compile='functions/h*~*.zwc' \
+    z-shell/H-S-MW \
+        id-as='autosuggestions-zsh' \
+        atinit='!test -f "${ZI[CONFIG_DIR]}/options/autosuggest-opts.zsh" && \
+                    source "${ZI[CONFIG_DIR]}/options/autosuggest-opts.zsh" \
+                ' \
+        atload='!_zsh_autosuggest_start' \
+        compile='{src/strategies/*~*.zwc,src/*.zsh*~*.zwc}' \
+    zsh-users/zsh-autosuggestions \
+        id-as='command_not_found' \
+        is-snippet \
+        bash \
+    "${SHELLRCD}/common/command_not_found.sh"
+
 else
-	# * Allow you to select in a menu
-	zstyle ':completion:*' menu select
-	zstyle ':completion:*:descriptions' format '[%d]'
-	zstyle ':completion:*' keep-prefix true
-	zstyle ':completion:*' select-prompt %Scurrent selection @ %p%s
-	zstyle ':completion:*' format 'Completing %d'
-	zstyle ':completion:*' auto-description 'specify: %d'
-	zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 
-	test -f "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" && source "/usr/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-	test -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" && source "usr/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    for src in "${XDG_CONFIG_HOME:-${HOME}/.config}"/rc.d/zsh/lib/*; do
+        echo "sourcing $src from ~/.config/rc.d/zsh/lib ..."
+        source "$src"
+    done
+    unset src
+
+    for src in "${XDG_CONFIG_HOME:-${HOME}/.config}"/rc.d/zsh/options/*; do
+        echo "sourcing ${src} from ~/.config/rc.d/zsh/options ..."
+        source "$src"
+    done
+    unset src
+
 fi
 
-# make less more friendly for non-text input files, see lesspipe(1)
-# [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-	debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-xterm-color | *-256color) color_prompt=yes ;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-	if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-		# We have color support; assume it's compliant with Ecma-48
-		# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-		# a case would tend to support setf rather than setaf.)
-		color_prompt=yes
-	else
-		color_prompt=
-	fi
-fi
-
-configure_prompt() {
-	prompt_symbol='[ 󰨡  :  ]'
-	# Skull emoji for root terminal
-	[ "$EUID" -eq 0 ] && prompt_symbol='[ 󰨡  :  󰚌 ]'
-	case "$PROMPT_ALTERNATIVE" in
-	twoline)
-		PROMPT=$'%{$fg_bold[green]%}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]$reset_color$(gitprompt)\n%{$fg_bold[green]%}└─%B%(#.%F{green}#.%F{blue}λ)%b%F{reset} '
-		# Right-side prompt with exit codes and background processes
-		RPROMPT='%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
-		;;
-	oneline)
-		PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{%(#.red.blue)}%n@%m%b%F{reset}:%B%F{%(#.blue.green)}%~%b%F{reset}%(#.#.$(gitprompt)) '
-		RPROMPT=
-		# $(__git_ps1 " %%F{cyan}%%f %s")
-		;;
-	backtrack)
-		PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{red}%n@%m%b%F{reset}:%B%F{blue}%~%b%F{reset}%(#.#.$(gitprompt)) '
-		RPROMPT=
-		;;
-	esac
-	unset prompt_symbol
-}
-
-# The following block is surrounded by two delimiters.
-# These delimiters must not be modified. Thanks.
-# START KALI CONFIG VARIABLES
-PROMPT_ALTERNATIVE=twoline
-NEWLINE_BEFORE_PROMPT=yes
-# STOP KALI CONFIG VARIABLES
-
-if [ "$color_prompt" = yes ]; then
-	# override default virtualenv indicator in prompt
-	VIRTUAL_ENV_DISABLE_PROMPT=1
-
-	configure_prompt
-
-else
-
-	PROMPT='${debian_chroot:+($debian_chroot)}%n@%m:%~%(#.#.$) '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm* | rxvt* | Eterm | aterm | kterm | gnome* | alacritty)
-	TERM_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%n@%m: %~\a'
-	;;
-*) ;;
-esac
-
-precmd() {
-	# Print the previously configured title
-	print -Pnr -- "$TERM_TITLE"
-
-	# Print a new line before the prompt, but only if it is not the first line
-	if [ "$NEWLINE_BEFORE_PROMPT" = yes ]; then
-		if [ -z "$_NEW_LINE_BEFORE_PROMPT" ]; then
-			_NEW_LINE_BEFORE_PROMPT=1
-		else
-			print ""
-		fi
-	fi
-}
-
-# enable auto-suggestions based on the history
-if test -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh; then
-	# change suggestion color
-	ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-	ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
-	ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE_CURSOR='fg=#777'
-fi
-if zplug check 'hlissner/zsh-autopair' || test -f '/usr/share/zsh/plugins/autopair/autopair.zsh'; then
-	# source "$ZSH_CUSTOM/plugins/zsh-autopair/autopair.zsh"
-	# bindkey '^I' expand-or-complete-prefix
-	autopair-init
-	typeset -gA AUTOPAIR_PAIRS
-	AUTOPAIR_PAIRS+=("<" ">")
-	AUTOPAIR_PAIRS+=("{" "}")
-	AUTOPAIR_PAIRS+=("[" "]")
-	AUTOPAIR_PAIRS+=("'" "'")
-	AUTOPAIR_PAIRS+=("(" ")")
-	AUTOPAIR_PAIRS+=('"' '"')
-	AUTOPAIR_PAIRS+=('`' '`')
-fi
-
-test -f "${HOME}/.config/rc.d/bash/aliases.sh" && source "${HOME}/.config/rc.d/bash/aliases.sh"
-
-if [[ -n $(command -v direnv) ]] && [[ -f ${HOME}/.envrc ]]; then
-	eval "$(direnv hook zsh)"
-fi
-
-# if [[ $(tty) = "/dev/pts/0" ]] && [[ $TERM_PROGRAM != 'vscode' ]]; then
-#   fetch_cmd=$(command -v fastfetch || command -v neofetch)
-
-#  case "${fetch_cmd}" in
-# 	*fastfetch*) fastfetch
-# 	;;
-# 	*neofetch*) neofetch
-# 	;;
-# 	*) echo "no fetch command found"
-# 	;;
-#  esac
-
-# fi
-# enable command-not-found if installed
-if test -f /etc/zsh_command_not_found; then
-	source /etc/zsh_command_not_found
-fi
+# RPROMPT="$(systemd_prompt_info systemd-sysusers.service user.slice)"
