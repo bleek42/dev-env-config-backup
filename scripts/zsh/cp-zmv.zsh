@@ -1,9 +1,10 @@
 #!/usr/bin/env zsh
 
-# autoload -Uz zmv
+autoload -Uz zmv
 
-typeset dest_dir_path="${HOME}/Documents/dev-env-config-backup/src/Linux/Debian/Ubuntu/zsh"
-typeset -a zsh_dotfiles=("${HOME}/.zshrc" "${HOME}/.zprofile" "${HOME}/.zshenv" "${HOME}/.zlogin" "${HOME}/.zlogout") # Add other dotfiles as needed
+
+typeset dest_dir_path="src/Linux/Debian/Kali/zsh"
+typeset -a zsh_dotfiles=("${HOME}/.zshrc" "${HOME}/.zprofile" "${HOME}/.zshenv" "${HOME}/.zlogin" "${HOME}/.zlogout" "${HOME}/.config/rc.d/zsh") # Add other dotfiles as needed
 
 for file in "${zsh_dotfiles[@]}"; do
     # make a variable that takes the path and dot out of the dotfile and appends '.zsh' to the end (ex: $HOME/.zshrc -> zshrc.zsh)
