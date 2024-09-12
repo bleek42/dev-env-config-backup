@@ -1,0 +1,25 @@
+
+#include "Xresources.d/uxterm"
+#include "Xresources.d/rxvt-unicode"
+#include "Xresources.d/xcursor"
+
+!! Default X11 Colors
+xterm*.foreground:  #6bff00
+xterm*.background:  #000000
+xterm*.cursorColor: #00ffda
+xterm*.geometry:    128x108
+
+!! History Scrollback Limit
+*.saveLines: 80000
+
+!! Open urls in browser with Control-Click
+*.urlLauncher: firefox
+*.matcher.button: C1
+
+!! Set sane default keybindings
+*.keysym.Home:          \033[1~
+*.keysym.End:           \033[4~
+*.keysym.Control-Up:    \033[1;5A
+*.keysym.Control-Down:  \033[1;5B
+*.keysym.Control-Left:  \033[1;5D
+*.keysym.Control-Right: \033[1;5C

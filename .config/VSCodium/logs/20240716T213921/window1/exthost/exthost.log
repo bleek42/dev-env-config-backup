@@ -1,0 +1,20 @@
+2024-07-16 21:39:24.852 [info] Extension host with pid 3265 started
+2024-07-16 21:39:24.999 [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onLanguage'
+2024-07-16 21:39:25.050 [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*'
+2024-07-16 21:39:25.055 [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+2024-07-16 21:39:25.097 [info] Eager extensions activated
+2024-07-16 21:39:25.115 [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
+2024-07-16 21:39:25.118 [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+2024-07-16 21:39:55.409 [info] Extension host terminating: renderer closed the MessagePort
+2024-07-16 21:39:55.411 [info] Extension host with pid 3265 exiting with code 0
+2024-07-16 21:39:56.409 [info] Extension host with pid 3475 started
+2024-07-16 21:39:56.409 [info] Skipping acquiring lock for /home/bleek42/.config/VSCodium/User/workspaceStorage/301df6a865862567f70f6f4e7317763a.
+2024-07-16 21:39:56.510 [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*'
+2024-07-16 21:39:56.549 [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+2024-07-16 21:39:56.556 [info] Eager extensions activated
+2024-07-16 21:39:56.592 [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
+2024-07-16 21:39:56.593 [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+2024-07-16 21:39:59.625 [info] ExtensionService#_doActivateExtension vscode.git, startup: false, activationEvent: 'api', root cause: vscode.github
+2024-07-16 21:40:09.613 [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onLanguage'
+2024-07-16 21:41:04.850 [info] Extension host terminating: renderer closed the MessagePort
+2024-07-16 21:41:04.855 [info] Extension host with pid 3475 exiting with code 0

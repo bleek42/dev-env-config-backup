@@ -1,0 +1,39 @@
+
+!! URxvt Appearance
+URxvt*.termName: rxvt-unicode
+URxvt*.scrollBar: false
+URxvt*.geometry: 64x48
+
+URxvt*.foreground:  #08fbe3
+URxvt*.background:  #000000
+URxvt*.cursorColor: #00ffda
+
+!! Font
+URxvt*.font:  xft:Hack Nerd Font Mono:size=13:antialias=true
+URxvt*.boldFont:  xft:Hack Nerd Font Mono:size=13:weight=bold:antialias=true
+URxvt*.italicFont:     xft:Hack Nerd Font Mono:size=13:style=Italic
+URxvt*.boldItalicFont: xft:Hack Nerd Font Mono:size=13:style=Medium Italic
+
+URxvt*.color0:      #DDFFDD
+URxvt*.color1:      #003FFF
+URxvt*.color2:      #006600
+URxvt*.color3:      #00CC00
+URxvt*.color4:      #F14C4C
+URxvt*.color5:      #88FF88
+URxvt*.color6:      #23D18B
+URxvt*.color7:      #E803F4
+URxvt*.color8:      #CD3131
+URxvt*.color9:      #888800
+URxvt*.color10:     #2472C8
+URxvt*.color11:     #3B8EEA
+URxvt*.color12:     #BC3FBC
+URxvt*.color13:     #E803F4
+URxvt*.color14:     #BBFFBB
+URxvt*.color15:     #7E08F9
+
+!! URxvt enabled Perl Extensions
+URxvt*.perl-ext-common: default,eval,matcher,selection,selection-to-clipboard,keyboard-select,font-size,resize-font
+
+!! URxvt change font size on Control-Plus/Minus
+URxvt*.keysym.Control-0x2b: perl:font-size:increase
+URxvt*.keysym.Control-0x2d: perl:font-size:decrease

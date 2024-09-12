@@ -1,0 +1,16 @@
+[GPG Settings]
+gpg_config_path[$e]=$HOME/.gnupg/gpg.conf
+
+[General Options]
+First run=false
+
+[MainWindow]
+2560x1377 screen: XPosition=818
+2560x1377 screen: YPosition=556
+RestorePositionForNextInstance=false
+State=AAAA/wAAAAD9AAAAAAAAA5sAAAClAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+default=default
+
+[User Interface]
+AutoStart=true

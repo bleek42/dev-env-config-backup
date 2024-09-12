@@ -1,0 +1,31 @@
+UXTerm.termName: XTerm-256color
+
+UXTerm*.locale: false
+UXTerm*.utf8: true
+UXTerm*.geometry: 128x108
+
+UXTerm*.foreground:  #6bff00
+UXTerm*.background:  #000000
+UXTerm*.cursorColor: #00ffda
+
+
+!! Font
+UXTerm.font: xft:Hack Nerd Font Mono:pixelsize=14:antialias=true
+UXTerm.boldFont: xft:Hack Nerd Font Mono:pixelsize=14:weight=bold:antialias=true
+
+UXTerm.color0:  #282B35
+UXTerm.color1:  #3D4048
+UXTerm.color2:  #53555D
+UXTerm.color3:  #686A71
+UXTerm.color4:  #7E8086
+UXTerm.color5:  #939599
+UXTerm.color6:  #A9AAAE
+UXTerm.color7:  #BEBFC2
+UXTerm.color8:  #B21889
+UXTerm.color9:  #786DC5
+UXTerm.color10: #438288
+UXTerm.color11: #DF0002
+UXTerm.color12: #00A0BE
+UXTerm.color13: #790EAD
+UXTerm.color14: #B21889
+UXTerm.color15: #C77C48

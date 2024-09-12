@@ -1,0 +1,11 @@
+<qterminal>
+  <group name="Change Directory">
+    <command name="Home" value="cd $HOME"/>
+  </group>
+  <group name="File Manager">
+    <command name="Open here" value="xdg-open $(pwd)"/>
+  </group>
+   <group name="File Manager">
+    <command name="Open here" value="source ~/.config/rc.d/common/fzf/fzf_man.sh"/>
+  </group>
+</qterminal>
