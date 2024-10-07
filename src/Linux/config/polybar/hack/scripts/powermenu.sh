@@ -19,7 +19,7 @@ logout=" Logout"
 
 # Confirmation
 confirm_exit() {
-	rofi -dmenu\
+	rofi -dmenu \
         -no-config\
 		-i\
 		-no-fixed-num-lines\

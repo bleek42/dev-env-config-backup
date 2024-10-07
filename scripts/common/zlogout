@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+if [[ $SHLVL = 1 ]] && [[ -x $(command -v clear_console) ]]; then
+    clear_console -q
+fi
+
+# get user id
+
+if [[ $UID != 1000 ]]; then
+     # if body
+
+fi

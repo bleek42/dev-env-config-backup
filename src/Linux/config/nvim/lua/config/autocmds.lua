@@ -10,9 +10,16 @@
 --   }
 -- )
 
-
-
+-- if vim.fn.executable('lf') then
+--     vim.api.nvim_create_autocmd({
+--         event = "User",
+--         pattern = "LfOpenInDirectory",
+--         callback = function(a)
+--             vim.api.nvim_buf_set_keymap(a.buf, "t", "q", "q", { nowait = true })
+--         end,
+--     })
+--     vim.keymap.set("n", "<M-o>", "<Cmd>Lf<CR>")
+-- end
 -- vim.cmd([[set fillchars=eob:\ ,]])
 -- vim.cmd([[set shortmess+=c]])
 -- vim.cmd([[set undofile]])
-

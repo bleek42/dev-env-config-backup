@@ -4,12 +4,13 @@ return {
         "nvimdev/dashboard-nvim",
         event = "VimEnter",
         lazy = false,
-        priority = 9000,
+        priority = 2000,
         dependencies = {
             "nvim-tree/nvim-web-devicons"
         },
 
-        config = function(_,opts)
+        opts = function(_, opts)
+            -- local opts = {}
             -- local neovimHeader = [[
             --       ⠀⠀⠀⣠⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
             --       ⠀⣴⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣶⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -30,12 +31,12 @@ return {
             -- local file_explorer_cmds = {
 
             -- },
+            -- local function file_explorer()
+            --     return vim.fn.executable('nnn') and "NnnExplorer" or
+            --         vim.fn.executable('ranger') and 'Ranger' or
+            --         vim.fn.executable('lf') and 'Lf' or 'Telescope'
+            -- end
 
-            local opts = {}
-            local file_explorer = vim.fn.executable("nnn") and "NnnExplorer" or vim.fn.executable("ranger") and "Ranger" or
-                vim.fn.executable("lf") and "ListFiles" or "Telescope"
-
-            opts.theme = "doom"
 
             opts.config.header = {
                 "                                                                              ",
@@ -57,66 +58,78 @@ return {
                 "||.=='    _-'                                                     `' |  /==.||",
                 "=='    _-'                    {{ L A Z Y V I M }}                       \\/   `==",
                 "\\   _-'                                                                `-_   /",
-                " `''                                                                      ``'  ",
+                " `''                                                                      ``''",
             }
+
 
             opts.config.center = {
-                {
-                    desc = "Open File Explorer",
-                    keymap = "SPC N e",
-                    action = (file_explorer),
-                    icon = " ",
-                },
 
                 {
-                    desc = "Open File Picker",
-                    keymap = "SPC N p",
-                    action = "NnnPicker",
+                    key = "e",
                     icon = " ",
-                },
-
-
-                {
-                    desc = "Last Nnn session",
-                    keymap = "SPC N s",
-                    icon = "  ",
+                    desc = "File Explorer",
+                    action = "Lf"
                 },
 
                 {
-                    icon = "  ",
-                    desc = "Recent files",
-                    action = "Telescope oldfiles",
-                    keymap = "SPC f r"
+                    key = "f",
+                    icon = " ",
+                    desc = "Find file",
+                    action = "FzfLua",
                 },
 
                 {
-                    icon = "  ",
-                    desc = "Find File",
-                    action = "Telescope find_files",
-                    keymap = "SPC f f"
+                    key = "r",
+                    icon = " ",
+                    desc = " Recent files",
+                    action = "Telescope oldfiles"
+                },
+
+                -- { keymap = "Telescope live_grep", desc = " Find text", icon = " ", key = "g" },
+                {
+                    key = "n",
+                    icon = " ",
+                    desc = "New file",
+                    action = "ene | startinsert",
                 },
 
                 {
-                    icon = "  ",
-                    desc = "Find word",
-                    action = "Telescope live_grep",
-                    keymap = "SPC f g"
+                    key = "c",
+                    desc = "Config",
+                    icon = " ",
+                    action = "LazyConfig"
                 },
 
                 {
-                    desc = "Quit",
-                    keymap = "qa",
+                    key = "s",
+                    icon = " ",
+                    desc = " Restore Session",
+                    action = [[lua require("persistence").load()]]
+                },
+
+                {
+                    key = "x",
+                    icon = " ",
+                    desc = " Lazy Extras",
+                    action = "LazyExtras"
+                },
+
+                {
+                    key = "l",
+                    icon = "󰒲 ",
+                    desc = " Lazy",
+                    keymap = "Lazy"
+                },
+
+                {
+                    key = "Q",
                     icon = " ",
-                },
-                -- { keymap = "Telescope find_files",                                     desc = " Find file",       icon = " ", key = "f" },
-                -- { keymap = "ene | startinsert",                                        desc = " New file",        icon = " ", key = "n" },
-                -- { keymap = "Telescope oldfiles",                                       desc = " Recent files",    icon = " ", key = "r" },
-                -- { keymap = "Telescope live_grep",                                      desc = " Find text",       icon = " ", key = "g" },
-                -- { keymap = [[lua require("lazyvim.util").telescope.config_files()()]], desc = " Config",          icon = " ", key = "c" },
-                -- { keymap = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
-                -- { keymap = "LazyExtras",                                               desc = " Lazy Extras",     icon = " ", key = "x" },
-                -- { keymap = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
+                    desc = "Quit",
+                    keymap = "qall"
+                }
             }
+
+
 
             opts.config.footer = function()
                 local stats = require("lazy").stats()
@@ -125,7 +138,27 @@ return {
                 stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms ))" }
             end
 
-            require("dashboard").setup(opts)
+            for _, button in ipairs(opts.config.center) do
+                button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
+                button.key_format = "  %s"
+            end
+
+            -- open dashboard after closing lazy
+            if vim.o.filetype == "lazy" then
+                vim.api.nvim_create_autocmd("WinClosed", {
+                    pattern = tostring(vim.api.nvim_get_current_win()),
+                    once = true,
+                    callback = function()
+                        vim.schedule(function()
+                            vim.api.nvim_exec_autocmds("UIEnter", { group = "dashboard" })
+                        end)
+                    end,
+                })
+            end
+
+            return opts
+            -- require("dashboard").setup(opts)
         end
     }
+
 }

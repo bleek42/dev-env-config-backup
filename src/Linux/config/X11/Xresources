@@ -4,9 +4,10 @@
 #include "Xresources.d/xcursor"
 
 !! Default X11 Colors
-!*.foreground:  #6bff00
-!*.background:  #000000
-!*.cursorColor: #00ffda
+xterm*.foreground:  #6bff00
+xterm*.background:  #000000
+xterm*.cursorColor: #00ffda
+xterm*.geometry:    64x48
 
 !! History Scrollback Limit
 *.saveLines: 80000

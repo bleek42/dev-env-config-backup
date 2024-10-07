@@ -1,0 +1,23 @@
+[core]
+	logallrefupdates = true
+	longPaths = true
+	symlinks = true
+	editor = /usr/bin/nvim
+	visual = 'code --wait'
+
+[init]
+	defaultBranch = main
+
+[user]
+	name =
+	email =
+
+[alias]
+    fetchall = fetch -av
+    nah = "!f(){ git reset --hard; git clean -df; if [ -d ".git/rebase-apply" ] || [ -d ".git/rebase-merge" ]; then git rebase --abort; fi; }; f"
+
+[credential "https://github.com"]
+	helper = 'gh auth git-credential'
+
+[credential "https://gist.github.com"]
+	helper = 'gh auth git-credential'

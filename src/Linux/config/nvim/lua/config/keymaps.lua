@@ -19,38 +19,40 @@ if vim.g.vscode then
     vim.keymap.set("n", "<leader>k", "<cmd>HopChar1<cr>")
     vim.keymap.set("n", "<leader>l", "<cmd>HopLine<cr>")
     vim.keymap.set("n", "<leader>w", "<cmd>HopWord<cr>")
-end
-if vim.fn.executable("nnn") then
-    vim.keymap.set("n", "<leader>fe", "<cmd>NnnExplorer<cr>", {
+elseif vim.fn.executable("nnn") then
+    vim.keymap.set("n", "<leader>oe", "<cmd>NnnExplorer<cr>", {
         desc = "Open Nnn Explorer",
     })
 
-    vim.keymap.set("n", "<leader>fp", "<cmd>NnnPicker<cr>", {
+    vim.keymap.set("n", "<leader>op", "<cmd>NnnPicker<cr>", {
         desc = "Open Nnn Picker"
     })
+
 elseif vim.fn.executable("ranger") then
-    vim.keymap.set("n", "<leader>fe", "<cmd>RangerExplorer<cr>", {
-        desc = "Open in file explorer (Ranger)",
+    vim.keymap.set("n", "<leader>oe", "<cmd>RangerExplorer<cr>", {
+        desc = "Open w/ Ranger file explorer ",
     })
 
-    vim.keymap.set("n", "<leader>fp", "<cmd>RangerPicker<cr>", {
-        desc = "Open in file picker (Ranger)"
+    vim.keymap.set("n", "<leader>op", "<cmd>RangerPicker<cr>", {
+        desc = "Open w/ Ranger file picker"
     })
+
 elseif vim.fn.executable("lf") then
-    vim.keymap.set("n", "<leader>fe", "<cmd>NnnExplorer<cr>", {
-        desc = "Open in file explorer (LF)"
+    vim.keymap.set("n", "<leader>oe", "<cmd>NnnExplorer<cr>", {
+        desc = "Open w/ Lf file explorer"
     })
 
-    vim.keymap.set("n", "<leader>fp", "<cmd>LfPicker<cr>", {
-        desc = "Open in file picker (LF)"
+    vim.keymap.set("n", "<leader>op", "<cmd>LfPicker<cr>", {
+        desc = "Open w/ Lf file picker"
     })
+
 else
     vim.keymap.set("n", "<leader>fe", "<cmd>NeotreeExplorer<cr>", {
-        desc = "Open in file explorer (LF)"
+        desc = "Open w/ NeoTree file explorer"
     })
 
     vim.keymap.set("n", "<leader>fp", "<cmd>NeotreePicker<cr>", {
-        desc = "Open in file picker (LF)"
+        desc = "Open  w/ NeoTree file picker"
     })
 end
 

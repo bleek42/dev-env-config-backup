@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 dir="$HOME/.config/polybar"
-themes=(`ls --hide="launch.sh" $dir`)
+themes=$(command ls --hide="launch.sh" $dir)
 
 launch_bar() {
 	# Terminate already running bar instances
@@ -20,6 +20,10 @@ launch_bar() {
 		polybar -q main -c "$dir/$style/config.ini" &
 	fi
 }
+
+for theme in "${themes[@]}"; do
+    echo "${theme}"
+done
 
 if [[ "$1" == "--material" ]]; then
 	style="material"

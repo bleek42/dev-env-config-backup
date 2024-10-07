@@ -1,0 +1,51 @@
+#!/usr/bin/env sh
+
+## * /etc/X11/Xsession
+## * user xinitrc / xsession file
+## * used by all X sessions started by xinit (startx)
+## ? invoke global X session script
+## ? start up file for lxqt desktop
+## ? run with `emulate bash -c "source ~/.xinitrc"` from ZSH, drop 'emulate' if using other shells
+## ? use with XRDP, XLaunch w/ RDP, tigerVNC, etc...
+
+## ! need to have display defined - using 'localhost', 'hostname', get local ip or public w/ port forarding, etc.
+export DISPLAY=:0
+
+## ! check if in Windows Subsystem for Linux (WSL) by checking if var WSL_ENV array/string exists
+if [ -n "$WSL_ENV" ]; then
+  ### ! explicitly needed when using WSL
+  unset WAYLAND_DISPLAY
+  export QT_SCALE_FACTOR=1
+  export LIBGL_ALWAYS_INDIRECT=1
+  export LIBGL_ALWAYS_SOFTWARE=true
+  # export GDK_SCALE=1
+
+  # if command -v vcxsrv.exe >/dev/null 2>&1; then
+  #   vcxsrv.exe -lesspointer -winkill -clipboard -wgl -ac
+  #   echo "success"
+
+  # fi
+
+fi
+
+## ! Executed by startx (run your window manager from here)
+user_resources="${XDG_CONFIG_HOME:-${HOME}/.config}/X11"
+
+if [ -f "${user_resources}/Xresources" ]; then
+  xrdb -merge "${user_resources}/Xresources"
+
+fi
+
+unset user_resources
+
+# case "${x-session}" in
+#     pattern)
+#         command ...
+#         ;;
+#     *)
+#         command ...
+#         ;;
+# esac
+touch "${HOME}/.cache/i3.log"
+exec i3 -V -d all >>"${HOME}/.cache/i3.log" 2>&1
+# exec x-session-manager

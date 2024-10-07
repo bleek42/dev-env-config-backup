@@ -1,12 +1,12 @@
 UXTerm.termName: XTerm-256color
 
-UXTerm.locale: false
-UXTerm.utf8: true
-UXTerm.geometry: 96x48
+UXTerm*.locale: false
+UXTerm*.utf8: true
+UXTerm*.geometry: 128x108
 
-UXTerm.foreground:  #6bff00
-UXTerm.background:  #000000
-UXTerm.cursorColor: #00ffda
+UXTerm*.foreground:  #6bff00
+UXTerm*.background:  #000000
+UXTerm*.cursorColor: #00ffda
 
 
 !! Font

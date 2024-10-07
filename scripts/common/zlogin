@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+if [[ -o interactive ]] && [[ $(tty) == /dev/pts/0 ]] && [[ $TERM_PROGRAM != vscode ]]; then
+    tty_cols="$(stty size | cut -d' ' -f2)"
+    tty_rows="$(stty size | cut -d' ' -f1)"
+
+    # ? check if terminal columns & rows are to 80x32
+    if (( $tty_cols >= 84 )) && (( $tty_rows >= 36 )); then
+        if command -v fastfetch >/dev/null 2>&1; then
+            fastfetch
+
+        elif command -v pfetch >/dev/null 2>&1; then
+            pfetch
+
+        elif command -v neofetch >/dev/null 2>&1; then
+            neofetch
+
+        else
+            echo "No fetch command detected... unable to display system information."
+
+        fi
+    fi
+
+    unset tty_cols tty_rows
+
+fi

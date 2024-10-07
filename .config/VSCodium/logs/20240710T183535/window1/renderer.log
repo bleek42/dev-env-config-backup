@@ -1,4 +1,0 @@
-2024-07-10 18:35:36.635 [info] Initial editor state {"filesToOpenOrCreate":[{"fileUri":{"$mid":1,"path":"/home/bleek42/Desktop/user-home.desktop","scheme":"file"},"type":1,"exists":true,"options":{}}],"filesToDiff":[],"filesToMerge":[]}
-2024-07-10 18:35:37.032 [info] Started local extension host with pid 1149.
-2024-07-10 18:35:37.144 [info] Started initializing default profile extensions in extensions installation folder. file:///home/bleek42/.vscode-oss/extensions
-2024-07-10 18:35:37.516 [info] Completed initializing default profile extensions in extensions installation folder. file:///home/bleek42/.vscode-oss/extensions
