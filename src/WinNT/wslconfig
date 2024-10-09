@@ -1,0 +1,15 @@
+[wsl2]
+processors=8
+memory=8GB
+swap=4GB
+vmIdleTimeout=60000
+guiApplications=false
+networkingMode=mirrored
+autoProxy=true
+dnsTunneling=true
+
+
+[experimental]
+hostAddressLoopback=true
+autoMemoryReclaim=gradual
+bestEffortDnsParsing=true

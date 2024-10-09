@@ -75,7 +75,7 @@ indicators: true
 # Which layout to use. "oneline" might be a bit confusing here and should be
 # called "one-per-line". It might be changed in the future.
 # Possible values: grid, tree, oneline
-layout: grid
+layout: oneline
 
 # == Recursion ==
 recursion:
@@ -84,7 +84,7 @@ recursion:
   enabled: true
   # How deep the recursion should go. This has to be a positive integer. Leave
   # it unspecified for (virtually) infinite.
-  depth: 2
+  depth: 1
 
 # == Size ==
 # Specifies the format of the size column.
@@ -122,7 +122,7 @@ total-size: false
 # == Hyperlink ==
 # Attach hyperlink to filenames
 # Possible values: always, auto, never
-hyperlink: auto
+hyperlink: always
 
 # == Symlink arrow ==
 # Specifies how the symlink arrow display, chars in both ascii and utf8
@@ -136,13 +136,13 @@ header: false
 # == Literal ==
 # Whether to show quotes on filenames.
 # Possible values: false, true
-literal: false
+literal: true
 
 # == Truncate owner ==
 # How to truncate the username and group names for a file if they exceed a certain
 # number of characters.
 truncate-owner:
   # Number of characters to keep. By default, no truncation is done (empty value).
-  after: 7
+  after: 6
   # String to be appended to a name if truncated.
-  marker: ".."
+  marker: "..."

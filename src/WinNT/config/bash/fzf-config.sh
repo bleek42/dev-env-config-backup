@@ -8,37 +8,35 @@ __fzf_default_header="\
 
 FZF_PROMPT=' '
 
-FZF_PREVIEW="--preview '([[ -f {} ]] && (bat -f -n -p {} | less)) || ([[ -d {} ]] && (tree -C {} | less -R -f)) || echo {} 2> /dev/null | head -200'"
+FZF_PREVIEW="'([[ -f {} ]] && (bat -f -p {} | less -R -f)) || ([[ -d {} ]] && (lsd --tree {} | less -R -f)) || echo {} 2> /dev/null | head -200'"
 # fzf settings. Uses sharkdp/fd for a faster alternative to `find`.
 # --color 'hl:${COL_FZF_HL},hl+:${COL_FZF_HL_PLUS},pointer:${COL_FZF_POINTER},marker:${COL_FZF_MARKER},bg+:${COL_FZF_BG_PLUS},header:${COL_FZF_HEADER},fg+:${COL_FZF_FG_PLUS}'
 # --marker '﫠'
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -i -g ""'
-export FZF_DEFAULT_OPTS="
+export FZF_DEFAULT_COMMAND='fd --hidden --ignore=".git" -i'
+
+export FZF_DEFAULT_OPTS="\
         -m \
         --cycle \
-        --height 50% \
-        --layout reverse \
+        --height=50% \
+        --layout=reverse \
         --border \
-        --line-range :50 \
-        --inline-less \
-        --header '${__fzf_default_header} \
+        --header=${__fzf_default_header} \
         --header-first \
-        --preview '${FZF_PREVIEW}' \
-        --preview-window down:50% \
-        --pointer '' \
-        --prompt '${FZF_PROMPT}' \
-        --less 'inline:  ' \
-        --bind '?:toggle-preview' \
-        --bind 'ctrl-space:toggle+down' \
-        --bind 'ctrl-a:toggle-all' \
-        --bind 'ctrl-x:deselect-all' \
-        --bind 'ctrl-e:execute(vim {+} < /dev/tty > /dev/tty)' \
-        --bind 'ctrl-v:execute(code {+})' \
-        --bind 'alt-j:preview-down' \
-        --bind 'alt-k:preview-up' \
-        --bind 'ctrl-f:preview-page-down' \
-        --bind 'ctrl-b:preview-page-up' \
-        --bind 'ctrl-o:accept-non-empty'"
+        --preview-window=down:50%:wrap:~4 \
+        --preview=${FZF_PREVIEW} \
+        --pointer='' \
+        --prompt=${FZF_PROMPT} \
+        --bind='ctrl+?:toggle-preview' \
+        --bind='ctrl-space:toggle+down' \
+        --bind='ctrl-a:toggle-all' \
+        --bind='ctrl-x:deselect-all' \
+        --bind='ctrl-e:execute(vim {+} < /dev/tty > /dev/tty)' \
+        --bind='ctrl-v:execute(code {+})' \
+        --bind='alt-j:preview-down' \
+        --bind='alt-k:preview-up' \
+        --bind='ctrl-f:preview-page-down' \
+        --bind='ctrl-b:preview-page-up' \
+        --bind='ctrl-o:accept-non-empty'"
 
 # fzf settings. Uses sharkdp/fd for a faster alternative to `find`.
 # --color 'hl:${COL_FZF_HL},hl+:${COL_FZF_HL_PLUS},pointer:${COL_FZF_POINTER},marker:${COL_FZF_MARKER},bg+:${COL_FZF_BG_PLUS},header:${COL_FZF_HEADER},fg+:${COL_FZF_FG_PLUS}'

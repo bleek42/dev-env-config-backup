@@ -1,0 +1,12 @@
+{
+  "last_update": "2024-10-02T19:50:50.2297712-04:00",
+  "autostash_on_conflict": true,
+  "cat_style": "grid,header,numbers,changes",
+  "root_path": "C:\\Users\\brand\\AppData\\Local\\scoop",
+  "show_manifest": false,
+  "debug": true,
+  "show_update_log": true,
+  "scoop_branch": "master",
+  "scoop_repo": "https://github.com/ScoopInstaller/Scoop",
+  "global_path": "C:\\ProgramData\\scoop"
+}

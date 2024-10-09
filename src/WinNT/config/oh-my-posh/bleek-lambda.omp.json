@@ -1,7 +1,7 @@
 {
 	"$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
-	"terminal_background": "#000000",
-	"accent_color": "#00ab22",
+	"terminal_background": "#0c0c0c",
+	"accent_color": "#20dd46",
 	"blocks": [
 		{
 			"alignment": "left",
@@ -11,11 +11,11 @@
 					"foreground": "#00fff7",
 					"leading_diamond": "\u256d\u2500\ue0b2",
 					"style": "diamond",
-					"template": "{{ if .WSL }}WSL2\uebc6{{ end }}\uf63c {{ .Icon }} \uf120 \uf63d",
+					"template": "{{ if .WSL }}\uebc6{{ end }} <#8cf917>\ue0b2</>  {{ .Icon }}  <#8cf917>\ue0b0</>",
 					"type": "os",
 					"trailing_diamond": "",
 					"properties": {
-						"windows": "\ue62a",
+						"windows": "\ue70f",
 						"linux": "\uebc6",
 						"display_distro_name": true
 					}
@@ -25,16 +25,16 @@
 					"foreground": "#8cf917",
 					"properties": {
 						"always_enabled": true,
-						"style": "austin",
+						"style": "lucky7",
 						"threshold": 500
 					},
 					"style": "powerline",
-					"template": " {{ .FormattedMs }} <#0011CA>\uf054</>",
+					"template": " <#f0836>{{ .FormattedMs }}</> <#06FFE6>\uf054</>",
 					"type": "executiontime"
 				},
 				{
 					"background": "#4f5965",
-					"foreground": "#0011CA",
+					"foreground": "#a806ff",
 					"style": "plain",
 					"template": " \ue70f ",
 					"type": "root"
@@ -43,7 +43,8 @@
 					"type": "path",
 					"style": "diamond",
 					"background": "#4f5965",
-					"foreground": "#00fc2e",
+					"foreground": "#00fc6d",
+					"interactive": false,
 					"properties": {
 						"style": "mixed",
 						"trailing_diamond": "\uf100",
@@ -56,20 +57,19 @@
 							"C:\\Program Files": "\uebdf",
 							"C:\\Users": "\uf0c0",
 							"C:\\Users\\brand": "\uf007",
-							"C:\\Users\\brand\\Documents": "\uf718",
+							"C:\\Users\\brand\\Documents": "\uf482",
 							"C:\\Users\\brand\\OneDrive": "\ue762",
 							"C:\\Users\\brand\\AppData": "\uebdf",
-							"C:\\Users\\brand\\Downloads": "\uf74c",
+							"C:\\Users\\brand\\Downloads": "\uf498",
 							"C:\\Users\\brand\\Documents\\Projects": "\uf1c9",
-							"C:\\Users\\brand\\Documents\\Curriculum_Content": "\ueac4",
-							"C:\\Users\\brand\\Documents\\Miami_U_FSF": "\ueac4"
+							"C:\\Users\\brand\\Documents\\Curriculum_Content": "\ueac4"
 						}
 					},
 					"template": " {{ .Path }} "
 				},
 				{
 					"background": "#50576b",
-					"foreground": "#0800ff",
+					"foreground": "#ccf86e",
 					"properties": {
 						"git_icon": "\ue65d",
 						"github_icon": "\ue708",
@@ -109,7 +109,7 @@
 					"style": "diamond",
 					"template": " {{ if gt .Code 0 }}\uf00d {{ .Meaning }}{{ else }}\uf00c{{ end }} ",
 					"trailing_diamond": "\ue0b4",
-					"type": "exit"
+					"type": "status"
 				}
 			],
 			"type": "prompt"
@@ -134,7 +134,7 @@
 					"style": "powerline",
 					"powerline_symbol": "\ue0b0",
 					"type": "shell",
-					"template": "<b>\uebca /usr/bin/{{ .Shell }} [MSYS2/MINGW64] \ue0b2 ",
+					"template": "<b>\uebca</> {{ .Shell }} \ue0b2",
 					"invert_powerline": false
 				}
 			],
@@ -161,6 +161,7 @@
 		{
 			"alignment": "left",
 			"newline": true,
+
 			"segments": [
 				{
 					"type": "path",
@@ -168,7 +169,7 @@
 					"foreground": "#09F47A",
 					"style": "diamond",
 					"leading_diamond": "\u2570\u2500\ue0b6",
-					"template": "\ufb26",
+					"template": "\udb81\ude27",
 					"trailing_diamond": "\ue0b4",
 					"properties": {
 						"always_enabled": true

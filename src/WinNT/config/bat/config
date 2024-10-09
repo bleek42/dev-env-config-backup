@@ -1,0 +1,10 @@
+# Show line numbers, Git modifications and file header (but no grid)
+--style "grid,header,numbers,changes"
+
+# Set the theme to "Monokai Extended"
+--theme "Monokai Extended"
+
+--pager "less -RF"
+
+# Use C++ syntax for Arduino .ino files
+--map-syntax "*.ino:C++"
