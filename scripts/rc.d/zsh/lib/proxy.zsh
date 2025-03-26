@@ -1,16 +1,15 @@
 #!/usr/bin/env zsh
 
-## *  ______ _____ _    _   _____
-## * |___  // ____| |  | | |  __ \
-## *    / /| (___ | |__| | | |__| ) __ _____  ___   _
-## *   / /  \___ \|  __  | |  ___/ '__/ _ \ \/ | | | |
-## *  / /__ ____) | |  | | | |   | | | (_) >  <| |_| |
-## * /_____|_____/|_|  |_| |_|   |_|  \___/_/\_\\__, |
-## *                                             __/ |
-## *                                            |___/
-## * -------------------------------------------------
-## * A proxy plugin for zsh
-## * Sukka (https://skk.moe)
+###!------------------------------------------------------###
+## !  ______ _____ _    _   _____                           |
+## ! |___  // ____| |  | | |  __ \                          |
+## !    / /| (___ | |__| | | |__| ) __ _____  ___   _       |
+## !   / /  \___ \|  __  | |  ___/ '__/ _ \ \/ | | | |      |
+## !  / /__ ____) | |  | | | |   | | | (_) >  <| |_| |      |
+## ! /_____|_____/|_|  |_| |_|   |_|  \___/_/\_\\__, |      |
+## !                                             __/ |      |
+## !                                            |___/       |
+###!------------------------------------------------------###
 
 __read_proxy_config() {
 	__ZSHPROXY_STATUS=$(cat "${ZSH_CACHE_DIR:-${HOME}/.cache/zsh}/proxy/status")
@@ -97,7 +96,7 @@ __config_proxy() {
 		__read_http="127.0.0.1:8080"
 	fi
 	if [ -z "${__read_no_proxy}" ]; then
-		__read_no_proxy="localhost,127.0.0.1,127.0.1.1,localaddress,.localdomain.com"
+		__read_no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 	fi
 	if [ -z "${__read_git_proxy_type}" ]; then
 		__read_git_proxy_type="socks5"
@@ -115,9 +114,8 @@ __config_proxy() {
 	__read_proxy_config
 }
 
-# ==================================================
-
-# Proxy for APT
+## ? ==================================================
+## ? Proxy for APT
 
 __enable_proxy_apt() {
 	if [ -d "/etc/apt/apt.conf.d" ]; then
@@ -134,25 +132,25 @@ __disable_proxy_apt() {
 	fi
 }
 
-# Proxy for pip
-# pip can read -r http_proxy & https_proxy
+## ? Proxy for pip
+## ? pip can read -r http_proxy & https_proxy
 
-# Proxy for terminal
+## ? Proxy for terminal
 
 __enable_proxy_all() {
-	# http_proxy
+	## * http_proxy
 	export http_proxy="${__ZSHPROXY_HTTP}"
 	export HTTP_PROXY="${__ZSHPROXY_HTTP}"
-	# https_proxy
+	## * https_proxy
 	export https_proxy="${__ZSHPROXY_HTTP}"
 	export HTTPS_PROXY="${__ZSHPROXY_HTTP}"
-	# ftp_proxy
+	## * ftp_proxy
 	export ftp_proxy="${__ZSHPROXY_HTTP}"
 	export FTP_PROXY="${__ZSHPROXY_HTTP}"
-	# rsync_proxy
+	## * rsync_proxy
 	export rsync_proxy="${__ZSHPROXY_HTTP}"
 	export RSYNC_PROXY="${__ZSHPROXY_HTTP}"
-	# all_proxy
+	## * all_proxy
 	export ALL_PROXY="${__ZSHPROXY_SOCKS5}"
 	export all_proxy="${__ZSHPROXY_SOCKS5}"
 
@@ -173,7 +171,7 @@ __disable_proxy_all() {
 	unset no_proxy
 }
 
-# Proxy for Git
+## ? Proxy for Git
 
 __enable_proxy_git() {
 	if [ "${__ZSHPROXY_GIT_PROXY_TYPE}" = "http" ]; then
@@ -190,9 +188,9 @@ __disable_proxy_git() {
 	git config --global --unset https.proxy
 }
 
-# Clone with SSH can be sfind at https://github.com/comwrg/FUCK-GFW#git
+## ! Clone with SSH can be sfind at https://github.com/comwrg/FUCK-GFW#git
 
-# NPM
+## ! NPM
 
 __enable_proxy_npm() {
 	if command -v npm >/dev/null; then
@@ -227,7 +225,7 @@ __disable_proxy_npm() {
 	fi
 }
 
-# ==================================================
+## ! ==================================================
 
 __enable_proxy() {
 	if [ -z "${__ZSHPROXY_STATUS}" ] || [ -z "${__ZSHPROXY_SOCKS5}" ] || [ -z "${__ZSHPROXY_HTTP}" ]; then
@@ -253,9 +251,11 @@ __enable_proxy() {
 		__enable_proxy_all
 		echo "- git"
 		__enable_proxy_git
-		# npm & yarn & pnpm"
+
+        ## * npm & yarn & pnpm"
 		__enable_proxy_npm
-		# apt"
+
+        ## * apt"
 		__enable_proxy_apt
 		echo "Done!"
 	fi
@@ -286,7 +286,7 @@ __zsh_proxy_update() {
 	cd "${__NOW_PATH}" || exit
 }
 
-# ==================================================
+## ! ==================================================
 
 init_proxy() {
 	mkdir -p "${ZSH_CACHE_DIR:-${HOME}/.cache/zsh}/proxy"

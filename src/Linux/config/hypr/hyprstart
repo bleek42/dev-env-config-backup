@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+cd ~ || exit 1
+# user preferred settings
+
+export TERM='xterm-256color'
+#cursor size
+export XCURSOR_SIZE=24
+export XDG_CURRENT_DESKTOP='Hyprland'
+# text editor
+export MICRO_TRUECOLOR=1
+export EDITOR='/usr/bin/nvim'
+export VISUAL="/usr/bin/codium --wait"
+
+# browser
+export BROWSER='/usr/bin/firefox-developer-edition'
+# terminal
+# mail
+
+export MAIL=thunderbird
+
+# check /usr/local/bin/hyprstart

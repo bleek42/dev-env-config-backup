@@ -73,14 +73,22 @@ function _build_tmux_alias {
   compdef "$f" "$1"
 }
 
-alias tksv='tmux kill-server'
-alias tl='tmux list-sessions'
-alias tmuxconf='$EDITOR $ZSH_TMUX_CONFIG'
+alias -g tmuxkllsrv='tmux kill-server'
+alias -g tmuxlsess='tmux list-sessions'
 
-_build_tmux_alias "tmattch" "attach" "-t"
-_build_tmux_alias "tmad" "attach -d" "-t"
-_build_tmux_alias "tmsesh" "new-session" "-s"
-_build_tmux_alias "tmkss" "kill-session" "-t"
+[[ -n $VISUAL ]] && \
+    alias -g tmuxconf='$VISUAL $ZSH_TMUX_CONFIG' || \
+[[ -n $EDITOR ]] && \
+        alias -g tmuxconf='$EDITOR $ZSH_TMUX_CONFIG' || \
+(( ${+commands[micro]} )) && \
+        alias -g tmuxconf='micro $ZSH_TMUX_CONFIG' || \
+(( ${+commands[nano]} )) && \
+        alias -g tmuxconf='nano $ZSH_TMUX_CONFIG'
+
+_build_tmux_alias "ta" "attach" "-t"
+_build_tmux_alias "tad" "attach -d" "-t"
+_build_tmux_alias "ts" "new-session" "-s"
+_build_tmux_alias "tkss" "kill-session" "-t"
 
 unfunction _build_tmux_alias
 
@@ -103,8 +111,6 @@ fi
 # else
 #   export _ZSH_TMUX_FIXED_CONFIG="${0:h:a}/tmux.only.conf"
 # fi
-
-typeset -gx ZSH_TMUX_CONFIG="${XDG_CONFIG_HOME:-${HOME}/.config}/tmux/tmux.conf"
 
 # Wrapper function for tmux.
 function _zsh_tmux_plugin_run() {
@@ -143,9 +149,9 @@ function _zsh_tmux_plugin_run() {
   # If failed, just run tmux, fixing the TERM variable if requested.
   if [[ $? -ne 0 ]]; then
     if [[ "$ZSH_TMUX_FIXTERM" == "true" ]]; then
-      tmux_cmd+=("$_ZSH_TMUX_FIXED_CONFIG")
+      tmux_cmd+=(-f "$_ZSH_TMUX_FIXED_CONFIG")
     elif [[ -e "$ZSH_TMUX_CONFIG" ]]; then
-      tmux_cmd+=("$ZSH_TMUX_CONFIG")
+      tmux_cmd+=(-f "$ZSH_TMUX_CONFIG")
     fi
 
     if [[ -n "$session_name" ]]; then
@@ -161,9 +167,9 @@ function _zsh_tmux_plugin_run() {
 }
 
 # Use the completions for tmux for our function
-compdef _tmux _zsh_tmux_plugin_run
+# compdef _tmux _zsh_tmux_plugin_run
 # Alias tmux to our wrapper function.
-alias tmux=_zsh_tmux_plugin_run
+# alias tmux=_zsh_tmux_plugin_run
 
 function _tmux_directory_session() {
   # current directory without leading path

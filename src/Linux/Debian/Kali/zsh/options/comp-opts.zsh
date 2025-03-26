@@ -488,7 +488,7 @@ if command -v fzf >/dev/null 2>&1; then
             'case $group in
             "executable file") less ${realpath#--*=}
             ;;
-            "builtin command") run-help $word |  bat -f -p
+            "builtin command") run-help $word | bat -f -p
             ;;
             "external command*) less $word
             ;;
@@ -576,13 +576,13 @@ if command -v fzf >/dev/null 2>&1; then
         # journalctl logs
         zstyle ':fzf-tab:complete:(\\|*/|)journalctl:*' fzf-preview \
             'case $group in
-        'boot '*) journalctl -b $word |  bat -f -p -l=log
+        "boot "*) journalctl -b $word |  bat -f -p -l=log
     ;;
-        '/dev files') journalctl -b /dev/$word |  bat -f -p -l=log
+        "/dev files") journalctl -b /dev/$word |  bat -f -p -l=log
     ;;
-        commands) journalctl $word | bat -f -pllog
+        commands) journalctl $word | bat -f -p -l=log
     ;;
-        'possible values') journalctl -u $word |  bat -f -p -l=log
+        "possible values") journalctl -u $word |  bat -f -p -l=log
     ;;
 esac'
 

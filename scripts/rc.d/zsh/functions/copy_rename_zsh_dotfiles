@@ -1,0 +1,47 @@
+#!/usr/bin/env zsh
+
+function copy_rename_zsh_dotfiles() {
+
+    autoload -Uz zmv
+
+    typeset dest_dir_path="$1"
+    typeset additional_dotfiles="$2"
+
+    typeset -a zsh_dotfiles=("${HOME}/.zshrc" "${HOME}/.zprofile" "${HOME}/.zshenv" "${HOME}/.zlogin" "${HOME}/.zlogout" "${HOME}/.config/rc.d/zsh") # Add other dotfiles as needed
+
+    if [[ -z $additonal_dotfiles ]]; then
+        for file in "${zsh_dotfiles[@]}"; do
+            # make a variable that takes the path and dot out of the dotfile and appends '.zsh' to the end (ex: $HOME/.zshrc -> zshrc.zsh)
+            new_file_name="$(basename ${file})"
+
+            new_file_name="${new_file_name#.}"
+
+            echo "${new_file_name}"
+            # "${variable#.}"
+
+            zmv -C -f "${file}" "${dest_dir_path}/${new_file_name}.zsh"
+        done
+    else
+
+        zsh_dotfiles+=("$additonal_dotfiles")
+        for file in "${zsh_dotfiles[@]}"; do
+            # make a variable that takes the path and dot out of the dotfile and appends '.zsh' to the end (ex: $HOME/.zshrc -> zshrc.zsh)
+            new_file_name="$(basename ${file})"
+
+            new_file_name="${new_file_name#.}"
+
+            echo "${new_file_name}"
+            # "${variable#.}"
+
+            zmv -C -f "${file}" "${dest_dir_path}/${new_file_name}.zsh"
+        done
+
+    fi
+
+}
+
+copy_rename_zsh_dotfiles "$@"
+
+# unset file
+# unset zsh_dotfiles
+# unset dest_dir_path
