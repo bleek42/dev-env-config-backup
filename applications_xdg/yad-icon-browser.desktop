@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Icon Browser
+Type=Application
+Comment=Inspect GTK Icon Theme
+Categories=GTK;Development;
+Icon=yad
+Encoding=UTF-8
+Exec=/usr/bin/uwsm-app -s=s -- yad-icon-browser
+Terminal=false
+StartupNotify=true

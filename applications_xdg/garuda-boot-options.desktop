@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Garuda Boot Options
+Type=Application
+Comment=Common start-up choices
+Categories=GNOME;GTK;System;Garuda-Maintenance
+Keywords=grub;startup
+Icon=garuda-boot-options
+Encoding=UTF-8
+Exec=/usr/bin/uwsm-app -s=s -- /usr/lib/garuda/pkexec-gui garuda-boot-options
+Terminal=false
+NoDisplay=false

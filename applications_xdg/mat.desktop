@@ -1,0 +1,10 @@
+[Desktop Entry]
+Categories=Utility;Security;System;
+Exec=/usr/bin/uwsm-app -t=service -- mat-gui
+GenericName=Metadata Anonymisation Toolkit
+Icon=mat
+Keywords=Privacy;Metadata;Documents;PDF;
+Name=MAT
+Terminal=false
+Type=Application
+Version=1.0

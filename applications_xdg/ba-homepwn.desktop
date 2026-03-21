@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=homepwn
+Icon=utilities-terminal
+Comment=Swiss Army Knife for Pentesting of IoT Devices.
+TryExec=/usr/bin/uwsm-terminal /usr/bin/homepwn
+Exec=/usr/bin/sh -c '/usr/bin/homepwn;$SHELL'
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories= X-BlackArch-Scanner; X-BlackArch-Recon; X-BlackArch-Fuzzer; X-BlackArch-Exploitation;

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Icon picker
+Type=Application
+GenericName=nwg-shell icon picker
+Comment=Tool to search and choose GTK icons
+Exec=/usr/bin/uwsm-app -t=service-- nwg-icon-picker
+Icon=nwg-icon-picker
+Terminal=false
+Categories=Utility;

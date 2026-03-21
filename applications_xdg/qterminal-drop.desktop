@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=QTerminal Drop-down
+Type=Application
+GenericName=Drop-down Terminal
+Comment=A drop-down terminal emulator
+Categories=Qt;System;TerminalEmulator;
+Icon=utilities-terminal
+Exec=/usr/bin/uwsm-app -s=session.slice -- qterminal --drop
+Terminal=false

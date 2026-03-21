@@ -1,0 +1,13 @@
+[Desktop Entry]
+
+Name=pacseek
+Comment=A terminal user interface for searching and installing Arch Linux packages
+
+Icon=pacseek
+Type=Application
+Categories=Utility;
+Keywords=terminal;package;
+TryExec=/usr/bin/uwsm-app -s=session.slice -- footclient -d=info -T=pacseek /usr/bin/pacseek
+Exec=/usr/bin/uwsm-app -s=session.slice -- pacseek
+StartupNotify=false
+Terminal=true

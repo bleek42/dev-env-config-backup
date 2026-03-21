@@ -1,0 +1,104 @@
+# * terminal
+export TERM=xterm-256color
+
+# * browser
+export BROWSER=/usr/bin/firefox-developer-edition
+
+# * mail
+export MAIL=/usr/bin/thunderbird
+
+# * text editors
+export MICRO_TRUECOLOR=1
+export EDITOR=/usr/bin/nvim
+export VISUAL='/usr/bin/codium --wait --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform=wayland'
+
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/gcr/ssh"
+
+export GTK2_RC_FILES="${HOME}/.gtkrc-2.0"
+
+# * Session
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=hyprland
+export XDG_CURRENT_DESKTOP=Hyprland # * uncomment it if you want it intentionally,otherwise not needed
+
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/share}:/usr/local/share"
+export XDG_CONFIG_DIRS="${XDG_CONFIG_HOME}:${XDG_CONFIG_DIRS:-/etc/xdg:/etc}"
+
+# * GTK
+export MOZ_ENABLE_WAYLAND=1 # * only start firefox in wayland mode and no other GTK apps
+export MOZ_DBUS_REMOTE=1    # * fixes firefox is already running, but is not responding
+export MOZ_WAYLAND_USE_VAAPI=1
+export GDK_BACKEND=wayland,x11 # * GTK: Use wayland if available. If not: try x11, then any other GDK backend.
+
+# * clutter
+#export CLUTTER_BACKEND=wayland          ## * this can prevent programs from starting. therefore, this should be set per app instead of globally.
+
+# * java
+export _JAVA_AWT_WM_NONREPARENTING=1
+export NO_AT_BRIDGE=1
+export BEMENU_BACKEND=wayland
+
+# * sdl
+export SDL_VIDEODRIVER=wayland # * this can prevent programs from starting old sdl games. therefore, this should be set per app instead of globally.
+
+# * Qt
+export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORMTHEME=hyprqt6engine
+
+# * cursor size
+export XCURSOR_THEME=Nordzy-cursors
+export XCURSOR_SIZE=24
+export HYPRCURSOR_THEME=Nordzy-hyprcursors
+export HYPRCURSOR_SIZE=24
+
+# * toolkit-specific scale
+#export GDK_SCALE=2
+
+# * Example IME Support: fcitx
+#export GTK_IM_MODULE=fcitx
+#export QT_IM_MODULE=fcitx
+#export XMODIFIERS=@im=fcitx
+#export SDL_IM_MODULE=fcitx
+#export GLFW_IM_MODULE=ibus
+
+export FZF_DEFAULT_COMMAND='ag -S -f --hidden --ignore "*.git" -g ""'
+export FZF_DEFAULT_OPTS="\
+            -m \
+            -e \
+            --ansi \
+            --cycle \
+            --sync \
+            --reverse \
+            --border=block \
+            --info=inline \
+            --height=-1 \
+            --margin=1 \
+            --padding=1 \
+            --tail=10000 \
+            --header-first \
+            --header=[^G: 󰱞 |^W:  |^SPC: 󰒅 |^A/^U: 󰒆 |^Y:  | ^O:  |^P:  |Alt+J/K: 󰏕/󰏔 |^F/^B: ↑/↓ |^E:  |^V: 󰨞 ] \
+            --preview-window=right:hidden:wrap:~4 \
+            --preview-border=thinblock \
+            --color=fg:#33cfad,fg+:#46e253,bg:#121212,bg+:#231f32,hl:#77c6d6,hl+:#3d9d47,info:#afaf87,marker:#5ed7d7,prompt:#03ff1c,spinner:#1081f2,pointer:#8dee0e,header:#87afaf,gutter:#1d1717,border:#4afbfb,label:#aeaeae,query:#d9d9d \
+            --prompt=' ' \
+            --pointer='->' \
+            --marker='*' \
+            --select-1 \
+            --bind='tab:down' \
+            --bind='ctrl-p:toggle-preview' \
+            --bind='ctrl-space:toggle+down' \
+            --bind='ctrl-a:toggle-all' \
+            --bind='ctrl-u:deselect-all' \
+            --bind='ctrl-e:execute(nvim {+} < /dev/tty > /dev/tty)' \
+            --bind='ctrl-v:execute(codium {+})' \
+            --bind='alt-j:preview-down' \
+            --bind='alt-k:preview-up' \
+            --bind='ctrl-f:preview-page-down' \
+            --bind='ctrl-b:preview-page-up' \
+            --bind='ctrl-o:accept-non-empty'
+"
+

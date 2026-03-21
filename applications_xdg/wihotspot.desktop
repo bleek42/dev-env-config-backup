@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Wifi Hotspot
+Type=Application
+Comment=feature-rich wifi hotspot creator
+Categories=System
+Keywords=Hotspot;WiFi
+Icon=wihotspot
+Exec=/usr/bin/sh -c 'env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY /usr/bin/wihotspot'
+Terminal=false
+StartupWMClass=wihotspot-gui

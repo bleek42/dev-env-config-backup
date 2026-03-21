@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=wondershaper
+Icon=utilities-terminal
+Comment=Limit the bandwidth of one or more network adapters.
+TryExec=/usr/bin/uwsm-terminal /usr/bin/wondershaper
+Exec=/usr/bin/sh -c '/usr/bin/wondershaper;$SHELL'
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories= X-BlackArch-Networking;

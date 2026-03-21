@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=VeraCrypt
+Type=Application
+Comment=Disk encryption with strong security based on TrueCrypt
+Categories=System;Administration;
+Icon=veracrypt.xpm
+Exec=/usr/bin/uwsm-app -s=a -- veracrypt
+Terminal=false
+StartupNotify=true

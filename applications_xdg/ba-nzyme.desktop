@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=nzyme
+Icon=utilities-terminal
+Comment=WiFi defense system.
+TryExec=/usr/bin/uwsm-terminal /usr/bin/nzyme
+Exec=/usr/bin/sh -c '/usr/bin/nzyme;$SHELL'
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories= X-BlackArch-Wireless; X-BlackArch-Defensive;

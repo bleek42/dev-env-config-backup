@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=NetworkManager Applet
+Type=Application
+Comment=Manage your network connections
+Icon=nm-device-wireless
+Exec=/usr/bin/uwsm-app -- nm-applet
+Terminal=false
+NoDisplay=true
+NotShowIn=KDE;GNOME;
+X-GNOME-UsesNotifications=true

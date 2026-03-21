@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: CC0-1.0
+# SPDX-FileCopyrightText: 2023 Nate Graham <nate@kde.org>
+[Desktop Entry]
+Name=KNewStuff Dialog
+Type=Application
+Categories=Qt;KDE;Utility;
+Comment=Showcase for KNewStuff add-on downloading functionality
+Exec=/usr/bin/uwsm-app -t=service -- knewstuff-dialog6
+Icon=get-hot-new-stuff
+# This is more of an internal utility, so hide it from users
+NoDisplay=true
+SingleMainWindow=true

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Galculator
+Type=Application
+Comment=Perform simple and scientific calculations
+Categories=Utility;
+Icon=galculator
+Version=1.0
+Exec=/usr/bin/uwsm-app -t=service -- /usr/bin/galculator
+StartupNotify=true
+Terminal=false

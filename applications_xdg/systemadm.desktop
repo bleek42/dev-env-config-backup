@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=systemadm
+Comment=Manage Systemd Units
+Exec=/usr/bin/uwsm-app -t=service -- systemadm
+Icon=applications-system
+Terminal=false
+Type=Application
+Categories=System;Settings;

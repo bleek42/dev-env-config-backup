@@ -1,0 +1,23 @@
+[Unit]
+Description=SWWW desktop background wallpaper changer & animation daemon
+Documentation=man:swww-daemon(1)
+PartOf=graphical-session.target
+Requires=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+Slice=background-graphical.slice
+ExecStart=/usr/bin/swww-daemon
+ExecStartPost=/bin/sleep 1
+ExecStartPost=%h/.local/bin/swww-set-default-imgs
+ExecStop=/usr/bin/swww kill
+TimeoutSec=30s
+Restart=always
+RestartSec=3s
+RestartSteps=5
+RestartMaxDelaySec=300s
+
+[Install]
+RequiredBy=graphical-session.target
+WantedBy=xdg-desktop-autostart.target

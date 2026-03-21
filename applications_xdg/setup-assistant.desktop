@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Setup Assistant
+Type=Application
+Comment=Tool for setting up Garuda Linux
+Categories=System;Garuda-Setup;
+Icon=garudalinux-logo
+Encoding=UTF-8
+Exec=/usr/bin/uwsm-app -s=s -- setup-assistant
+Terminal=false
+NoDisplay=false

@@ -1,0 +1,47 @@
+#compdef sniffglue
+
+autoload -U is-at-least
+
+_sniffglue() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-n+[Number of packet parsing threads (defaults to number of cpu cores)]:THREADS: ' \
+'--threads=[Number of packet parsing threads (defaults to number of cpu cores)]:THREADS: ' \
+'--gen-completions=[Generate shell completions]:GEN_COMPLETIONS:(bash elvish fish powershell zsh)' \
+'-p[Set device to promiscuous mode]' \
+'--promisc[Set device to promiscuous mode]' \
+'--debugging[Show fully dissected packets with all headers for development]' \
+'-j[Json output (unstable)]' \
+'--json[Json output (unstable)]' \
+'*-v[Increase filter sensitivity to show more (possibly less useful) packets. The default only shows few packets, this flag can be specified multiple times. (maximum\: 4)]' \
+'*--verbose[Increase filter sensitivity to show more (possibly less useful) packets. The default only shows few packets, this flag can be specified multiple times. (maximum\: 4)]' \
+'-r[Open a pcap file instead of a device]' \
+'--read[Open a pcap file instead of a device]' \
+'--insecure-disable-seccomp[Disable syscall filter sandbox, this flag disables security features in sniffglue, please file a bug report if you need this option]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'::device -- The device or file to read packets from:' \
+&& ret=0
+}
+
+(( $+functions[_sniffglue_commands] )) ||
+_sniffglue_commands() {
+    local commands; commands=()
+    _describe -t commands 'sniffglue commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_sniffglue" ]; then
+    _sniffglue "$@"
+else
+    compdef _sniffglue sniffglue
+fi

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Tor Browser
+GenericName=Tor Browser
+Comment=Launch Tor Browser
+Exec=/usr/bin/uwsm-app -- torbrowser-launcher %u
+Terminal=false
+Type=Application
+Icon=torbrowser
+Categories=Network;WebBrowser;
+StartupWMClass=Tor Browser

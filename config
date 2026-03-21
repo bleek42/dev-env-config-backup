@@ -1,0 +1,147 @@
+### * This is the ssh client configuration sample file
+### * File syntax info: https://man7.org/linux/man-pages/man5/ssh_config.5.html
+### * $OpenBSD: ssh_config,v 1.35 2020/07/17 03:43:42 dtucker Exp $
+
+##  See ssh_config(5) for more information. This file provides defaults for
+## users, and the values can be changed in per-user configuration files
+## or on the command line.
+
+### Configuration data is parsed as follows:
+# * TODO: Add other options or modify existing as needed
+
+# 1. command line options
+
+# 2. user-specific file
+
+# 3. system-wide file
+
+# Any configuration value is only changed the first time it is set.
+
+# Thus, host-specific definitions should be at the beginning of the
+
+# configuration file, and defaults at the end.
+
+# Site-wide defaults for some commonly used options. For a comprehensive
+
+# list of available options, their meanings and defaults, please see the
+
+# ssh_config(5) man page.
+
+# Host \*
+
+# ForwardAgent no
+
+# ForwardX11 no
+
+# PasswordAuthentication yes
+
+# HostbasedAuthentication no
+
+# GSSAPIAuthentication no
+
+# GSSAPIDelegateCredentials no
+
+# BatchMode no
+
+# AddressFamily any
+
+# ConnectTimeout 0
+
+# StrictHostKeyChecking ask
+
+# IdentityFile ~/.ssh/id_rsa
+
+# IdentityFile ~/.ssh/id_dsa
+
+# IdentityFile ~/.ssh/id_ecdsa
+
+# IdentityFile ~/.ssh/id_ed25519
+
+# Port 22
+
+# Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc
+
+# MACs hmac-md5,hmac-sha1,umac-64@openssh.com
+
+# EscapeChar ~
+
+# Tunnel no
+
+# TunnelDevice any:any
+
+# PermitLocalCommand no
+
+# VisualHostKey no
+
+# ProxyCommand ssh -q -W %h:%p gateway.example.com
+
+# RekeyLimit 1G 1h
+
+## ? Connection name as it will be displayed in Remote Explorer
+## ? User name to which to log on on remote host
+## ? Specifies the protocol versions in order of preference.
+
+Host *
+    EscapeChar ~
+    VisualHostKey yes
+    PreferredAuthentications publickey
+    LogLevel VERBOSE
+    ForwardX11Trusted yes
+    ForwardX11Timeout 20m
+
+Host hpenvyx360
+    User bleek42
+    HostName hpenvyx360
+    PasswordAuthentication yes
+    KbdInteractiveAuthentication yes
+    ForwardAgent yes
+    AddKeysToAgent yes
+
+Host cdleek
+    User admin
+    HostName cdleek.lan
+    PasswordAuthentication yes
+
+Host *github.com
+    User git
+    PreferredAuthentications identityfile
+    IdentityFile ~/.ssh/id_ed25519_sk
+    ForwardAgent yes
+    AddKeysToAgent yes
+
+Host *gitlab.com
+    User git
+    PreferredAuthentications identityfile
+    IdentityFile ~/.ssh/id_ed25519_gl
+    ForwardAgent yes
+    AddKeysToAgent yes
+
+## ? Allow connecting to the local host directly via ".host"
+Host .host machine/.host
+    ProxyCommand /usr/lib/systemd/systemd-ssh-proxy unix/run/ssh-unix-local/socket %p
+    ProxyUseFdpass yes
+    CheckHostIP no
+
+## ? Make sure unix/* and vsock/* can be used to connect to AF_UNIX and AF_VSOCK paths.
+## ? Make sure machine/* can be used to connect to local machines registered in machined.
+Host unix/* vsock/* machine/*
+    ProxyCommand /usr/lib/systemd/systemd-ssh-proxy %h %p
+    ProxyUseFdpass yes
+    CheckHostIP no
+    StrictHostKeyChecking no    ## ! Disable all kinds of host identity checks, since these addresses are generally ephemeral.
+    UserKnownHostsFile /dev/null
+
+## ? Allow connecting to the local host directly via ".host"
+Host .host machine/.host
+    ProxyCommand /usr/lib/systemd/systemd-ssh-proxy unix/run/ssh-unix-local/socket %p
+    ProxyUseFdpass yes
+    CheckHostIP no
+
+## ? Make sure unix/* and vsock/* can be used to connect to AF_UNIX and AF_VSOCK paths.
+## ? Make sure machine/* can be used to connect to local machines registered in machined.
+Host unix/* vsock/* machine/*
+    ProxyCommand /usr/lib/systemd/systemd-ssh-proxy %h %p
+    ProxyUseFdpass yes
+    CheckHostIP no
+    StrictHostKeyChecking no    ## ! Disable all kinds of host identity checks, since these addresses are generally ephemeral.
+    UserKnownHostsFile /dev/null

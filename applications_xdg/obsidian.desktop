@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Obsidian
+Type=Application
+Categories=Office;Editor;Text
+Comment=Obsidian markdown text editor
+Icon=obsidian
+MimeType=x-scheme-handler/obsidian;
+Exec=/usr/bin/uwsm-app -t=service-- /usr/bin/obsidian %U
+Terminal=false
+StartupWMClass=obsidian

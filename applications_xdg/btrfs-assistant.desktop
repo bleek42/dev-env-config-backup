@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Btrfs Assistant
+Comment=Change system settings
+Exec=/usr/bin/uwsm-app -t=service -- btrfs-assistant-launcher
+Terminal=false
+Type=Application
+Icon=btrfs-assistant
+Categories=System
+NoDisplay=false

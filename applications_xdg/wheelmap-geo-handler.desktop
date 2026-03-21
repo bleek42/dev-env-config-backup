@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=wheelmap.org
+Icon=map-globe
+MimeType=x-scheme-handler/geo;
+Exec=/usr/bin/uwsm-app -s=a -- kde-geo-uri-handler --coordinate-template "https://wheelmap.org/?lat=<LAT>&lon=<LON>" --query-template "https://wheelmap.org/search?q=<Q>" --fallback "https://wheelmap.org" %u
+Terminal=false
+NoDisplay=true
+StartupNotify=true

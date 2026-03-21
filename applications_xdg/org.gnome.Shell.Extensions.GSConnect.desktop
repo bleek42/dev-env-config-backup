@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: GSConnect Developers https://github.com/GSConnect
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+[Desktop Entry]
+Type=Application
+Name=GSConnect
+Categories=Network;Wireless;Mobile;Phone;GTK;gnome
+Icon=org.gnome.Shell.Extensions.GSConnect
+MimeType=x-scheme-handler/sms;x-scheme-handler/tel;
+Exec=/usr/bin/uwsm-app -s=b -- /usr/bin/gapplication launch org.gnome.Shell.Extensions.GSConnect %U
+DBusActivatable=true
+Terminal=false
+NoDisplay=false
+X-GNOME-UsesNotifications=true
+

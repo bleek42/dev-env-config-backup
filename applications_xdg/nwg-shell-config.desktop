@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=nwg-shell Settings
+Type=Application
+GenericName=nwg-shell configurator
+Comment=Tool to configure nwg-shell
+Exec=/usr/bin/uwsm-app -- nwg-shell-config
+Icon=nwg-shell-config
+Terminal=false
+Categories=Settings;DesktopSettings;

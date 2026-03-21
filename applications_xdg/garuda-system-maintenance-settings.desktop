@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Garuda System Maintenance Settings
+Type=Application
+GenericName=System Maintenance
+Comment=Control the behaviour of Garuda System Maintenance
+Categories=System;Settings;
+Keywords=system;settings;garuda;maintain;config;preferences;control;processos
+Icon=garuda-system-maintenance
+TryExec=/usr/bin/uwsm-app -s=b -- /usr/bin/garuda-system-maintenance --settings
+Exec=/usr/bin/garuda-system-maintenance --settings
+

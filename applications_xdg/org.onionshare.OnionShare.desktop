@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=OnionShare
+Exec=/usr/bin/uwsm-app -t=service -- onionshare
+Terminal=false
+Type=Application
+Icon=org.onionshare.OnionShare
+Categories=Network;FileTransfer;
+Keywords=tor;anonymity;privacy;onion service;file sharing;file hosting;
+StartupNotify=true
+StartupWMClass=onionshare

@@ -1,0 +1,20 @@
+[Unit]
+Description=Hyprland's idle daemon
+Documentation=https://wiki.hyprland.org/Hypr-Ecosystem/hypridle
+PartOf=graphical-session.target
+Requires=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Slice=background-graphical.slice
+ExecStart=/usr/bin/hypridle
+ExecStop=pkill -u %u hypridle
+Restart=on-failure
+RestartSec=5
+RestartSteps=12
+RestartMaxDelaySec=60
+
+[Install]
+RequiredBy=graphical-session.target
+WantedBy=xdg-desktop-autostart.target

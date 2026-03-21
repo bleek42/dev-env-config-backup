@@ -1,0 +1,10 @@
+[Desktop Entry]
+X-Desktop-File-Install-Version=0.11
+Name=Qt6 Settings
+Comment=Qt6 Configuration Tool
+Exec=/usr/bin/uwsm-app -t=service -- qt6ct
+Icon=preferences-desktop-theme
+Terminal=false
+Type=Application
+Categories=Settings;DesktopSettings;Qt;
+Keywords=settings;desktop;qt;qtsettings;qt6;

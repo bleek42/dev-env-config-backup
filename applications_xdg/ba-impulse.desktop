@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=impulse
+Icon=utilities-terminal
+Comment=Modern Denial-of-service ToolKit.
+TryExec=/usr/bin/uwsm-app -t=service -- /usr/bin/impulse
+Exec=/usr/bin/sh -c '/usr/bin/impulse;$SHELL'
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories= X-BlackArch-Dos; X-BlackArch-Spoof;

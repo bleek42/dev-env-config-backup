@@ -1,0 +1,17 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Clean & Shutdown
+Name[ru]=Очистка и выключение
+Comment=Advanced system cleaning and shutdown
+Comment[ru]=Продвинутая очистка системы и выключение
+GenericName=Clean & Shutdown
+GenericName[ru]=Продвинутая очистка системы и выключение
+TryExec=/usr/bin/uwsm-app -s=session.slice -- footclient -d=info -T=advsysclean /usr/bin/advanced-system-cleaning
+Exec=/usr/bin/uwsm-app -s=session.slice -- /usr/bin/advanced-system-cleaning
+Icon=com.github.seryogabrigada.AdvancedLinuxSystemCleaning
+Categories=System;
+Keywords=clean;performance;free;privacy;
+StartupNotify=true
+Terminal=true
+StartupWMClass=AdvancedSystemCleaning

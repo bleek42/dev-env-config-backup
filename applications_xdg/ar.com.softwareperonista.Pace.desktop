@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Pace
+Type=Application
+Categories=GTK;System;
+Icon=ar.com.softwareperonista.Pace
+TryExec=/usr/bin/uwsm-app -t=service -- /usr/bin/pace
+Exec=/usr/bin/uwsm-app -- /usr/bin/pace
+Terminal=false
+StartupNotify=true

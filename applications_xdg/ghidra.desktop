@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Ghidra
+Type=Application
+Comment=The Ghidra Software Reverse Engineering (SRE) Suite
+Categories=Development;Utility
+Icon=ghidra
+Version=11.1
+Path=/opt/ghidra
+Exec=/usr/bin/uwsm-app -- /opt/ghidra/ghidraRun
+Terminal=false

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=nwg-panel Settings
+GenericName=nwg-panel configurator
+Comment=Tool to configure nwg-panel
+Exec=/usr/bin/uwsm-app -t=service-- nwg-panel-config
+Icon=nwg-panel
+Terminal=false
+Categories=Settings;DesktopSettings;

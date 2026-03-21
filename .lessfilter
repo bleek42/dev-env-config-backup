@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+
+if [ ! "$(type has_cmd 2>/dev/null)" ]; then
+
+    has_cmd() {
+        for opt in "$@"; do
+            if ! command -v "$opt" >/dev/null; then
+                return 1
+            fi
+        done
+        return 0
+    }
+
+fi
+
+if [ -z "$1" ]; then
+    echo "Error: No file provided." >&2
+    exit 1
+fi
+
+mime=$(file -Lbs --mime-type "$1" 2>/dev/null)
+if [ -z "$mime" ]; then
+    echo "Error: Could not determine mime type." >&2
+    exit 2
+fi
+
+category=${mime%%/*}
+kind=${mime##*/}
+ext=${1##*.}
+
+if [[ $kind == octet-stream ]]; then
+    if [[ $1 = *events.out.tfevents.* ]]; then
+        python <<EOF
+        import sys
+        import pandas as pd
+        import plotext as plt
+        from contextlib import suppress
+        from time import gmtime, strftime
+        from tensorboard.backend.event_processing.event_file_loader import EventFileLoader
+
+        try:
+            file = "$1"
+            df = pd.DataFrame(columns=["Step", "Value"])
+            df.index.name = "YYYY-mm-dd HH:MM:SS"
+
+            for event in EventFileLoader(file).Load():
+                with suppress(IndexError):
+                df.loc[strftime("%F %H:%M:%S", gmtime(event.wall_time))] = [
+                event.step,
+                event.summary.value[0].tensor.float_val[0],
+            ]
+            df.index = pd.to_datetime(df.index)
+            df.Step = df.Step.astype(int)
+            plt.plot(df.Step, df.Value, marker="braille")
+            plt.title(event.summary.value[0].metadata.display_name)
+            plt.clc()
+            plt.show()
+            df.to_csv(sys.stdout, "\t")
+        except Exception as e:
+            print(f"Error processing TensorBoard events: {e}", file=sys.stderr)
+EOF
+    elif [[ $(basename "$1") == data.mdb ]]; then
+        python <<EOF
+        import sys
+        import lmdb
+        from os.path import dirname as dirn
+
+        try:
+            with lmdb.open(dirn("$1")) as env, env.begin() as txn:
+            for key, val in txn.cursor():
+                print(key.decode())
+        except Exception as e:
+            print(f"Error processing LMDB file: {e}", file=sys.stderr)
+EOF
+    fi
+elif [ "$kind" = zip ] && [ "$ext" = pth ]; then
+    python <<EOF
+    import torch
+
+    try:
+        data = torch.load("$1")
+        if isinstance(data, torch.Tensor):
+        print(data.shape)
+        print(data)
+    except Exception as e:
+        print(f"Error processing PyTorch file: {e}")
+EOF
+elif [ "$kind" = json ]; then
+    if has_cmd jupyter bat && [ "$ext" = ipynb ]; then
+        jupyter nbconvert --to python --stdout "$1" | bat -f -n -plpython
+    elif has_cmd jq; then
+        jq -Cr . "$1" || echo "Error: jq failed to parse JSON."
+    fi
+elif [ "$kind" = vnd.sqlite3 ]; then
+    if has_cmd yes sqlite3 bat; then
+        yes .q | sqlite3 "$1" | bat -f -n -lsql || echo "Error: sqlite3 command failed."
+    fi
+elif [ -d "$1" ]; then
+    if has_cmd eza; then
+        command eza -1 -A -F -L=2 -@ --git --tree -hl --color=always --icons=always "$1" || echo "Error: eza command failed."
+    elif has_cmd lsd; then
+        command lsd -1 -A -F -X --git --ignore-config --group-directories-first --tree --depth=2 -h -l --color=always --icon=always "$1" || echo "Error: lsd command failed."
+    fi
+elif [ "$kind" = pdf ]; then
+    if has_cmd pdftotext sed; then
+        command pdftotext -q "$1" - | sed "s/\f/$(hr ─)\n/g" || echo "Error: pdftotext or sed command failed."
+    fi
+elif [ "$kind" = rfc822 ]; then
+    if has_cmd bat; then
+        command bat -f -lEmail "$1" || echo "Error: bat command failed."
+    fi
+elif [ "$category" = image ]; then
+    if has_cmd chafa; then
+        command chafa -f symbols "$1" || echo "Error: chafa command failed."
+    fi
+    if has_cmd exiftool; then
+        command exiftool "$1" | bat -f -p -lyaml || echo "Error: exiftool or bat command failed."
+    fi
+elif [ "$category" = text ]; then
+    if has_cmd bat; then
+        command bat -f -p -lwiki "$1" || echo "Error: bat command failed."
+    elif has_cmd pygmentize; then
+        pygmentize "$1" | command less -Rf || echo "Error: pygmentize or less command failed."
+    fi
+else
+    command less -Rf "$1" || echo "Error: less command failed."
+fi

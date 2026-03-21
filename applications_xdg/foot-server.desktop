@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Foot Server
+Type=Application
+GenericName=Terminal
+Comment=A wayland native terminal emulator (server)
+Categories=System;TerminalEmulator;
+Keywords=shell;prompt;command;commandline;
+Icon=foot
+Exec=/usr/bin/uwsm-app -s=session.slice -- foot --server
+Terminal=false

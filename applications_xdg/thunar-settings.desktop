@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Thunar Preferences
+Type=Application
+Comment=Configure the Thunar file manager
+Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
+Keywords=thunar;settings;preferences;configure;thumbnails;file size;date format;shortcuts pane;tree view;tabs;
+Icon=org.xfce.thunar
+Version=1.0
+Exec=/usr/bin/uwsm-app -t=service -- thunar-settings
+Terminal=false
+StartupNotify=true

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Reboot To UEFI
+Name[de]=Neustart (UEFI)
+Comment=Reboot the machine to UEFI
+Comment=Neustart im UEFI Modus
+Exec=/usr/bin/uwsm-app -t=service -- footclient -d=info -T=uefi-reboot -c 'systemctl reboot --firmware-setup'
+Icon=system-reboot
+Categories=System;X-Leave;
+

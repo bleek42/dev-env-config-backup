@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Garuda Rani
+Type=Application
+Comment=Feature-rich system assistant
+Categories=GNOME;GTK;System;Garuda-Setup;
+Keywords=update;package;performance;powersave;systemd;services;configuration
+Icon=garuda-rani
+Encoding=UTF-8
+Exec=/usr/bin/uwsm-app -s=s -- /usr/bin/garuda-rani
+Terminal=false
+NoDisplay=false

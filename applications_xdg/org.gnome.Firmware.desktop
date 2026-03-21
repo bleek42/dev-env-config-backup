@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Firmware
+Type=Application
+Comment=Install firmware on devices
+Icon=org.gnome.Firmware
+Categories=GNOME;GTK;System;
+Keywords=Firmware;System;Gnome;Install;GTK;Tool
+Exec=/usr/bin/uwsm-app -t=service -- gnome-firmware
+Terminal=false
+StartupNotify=true
+DBusActivatable=true
+NoDisplay=false
+X-Purism-FormFactor=Workstation;Mobile;

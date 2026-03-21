@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=zsh sw=2 ts=2 et
+
+zreload() {
+    local cache="${ZSH_CACHE_DIR:=${HOME}/.cache/zsh}"
+    autoload -Uz compinit zrecompile
+    compinit -i -d "$cache/zcompdump-$HOST"
+
+    for f in ${ZDOTDIR:-~}/.zshrc "$cache/zcompdump-$HOST"; do
+        zrecompile -p $f && command rm -f $f.zwc.old
+    done
+
+    # Use $SHELL if available; remove leading dash if login shell
+    [[ -n "$SHELL" ]] && exec ${SHELL#-} || exec zsh
+}
+
+zreload "$@"

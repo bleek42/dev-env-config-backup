@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+StartupWMClass=qFlipper
+Categories=Utility;Education
+Comment=Update your Flipper easily
+Icon=qFlipper
+Name=qFlipper
+Exec=/usr/bin/uwsm-app -t=service -- qFlipper
+Terminal=false
+

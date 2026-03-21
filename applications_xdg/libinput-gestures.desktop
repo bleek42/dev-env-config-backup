@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Libinput Gestures
+Type=Application
+Comment=Background application to intercept and action libinput gestures from touchpad.
+Categories=System;
+Icon=libinput-gestures
+Exec=/usr/bin/uwsm-app -t=service -- /usr/bin/libinput-gestures
+Terminal=false
+Slice=background-graphical.slice
+After=graphical-session.target
+NoDisplay=true
+Hidden=true

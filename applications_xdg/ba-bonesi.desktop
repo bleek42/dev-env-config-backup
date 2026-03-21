@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=bonesi
+Type=Application
+Comment=The DDoS Botnet Simulator.
+Categories=X-BlackArch-Dos;Tools;Utility;
+Icon=utilities-terminal
+TryExec=/usr/bin/uwsm-terminal /usr/bin/bonesi
+Exec=/usr/bin/sh -c '/usr/bin/bonesi;$SHELL'
+StartupNotify=true
+Terminal=true

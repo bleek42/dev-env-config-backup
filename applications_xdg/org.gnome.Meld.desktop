@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Meld
+Type=Application
+GenericName=Diff Viewer
+Comment=Compare and merge your files
+Categories=GTK;Development;
+Keywords=diff;merge;
+Icon=org.gnome.Meld
+MimeType=application/x-meld-comparison;
+Exec=/usr/bin/uwsm-app -- /usr/bin/meld %F
+StartupNotify=true
+Terminal=false

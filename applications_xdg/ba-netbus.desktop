@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=netbus
+Icon=utilities-terminal
+Comment=NetBus remote administration tool
+TryExec=/usr/bin/uwsm-terminal /usr/bin/netbus
+Exec=/usr/bin/sh -c '/usr/bin/netbus;$SHELL'
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories= X-BlackArch-Windows; X-BlackArch-Backdoor;

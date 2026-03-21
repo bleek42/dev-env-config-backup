@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=README file browser
+Type=Application
+GenericName=nwg-shell README file browser
+Comment=README file search and viewing tool
+Exec=/usr/bin/uwsm-app -t=service-- nwg-readme-browser
+Icon=nwg-readme-browser
+Terminal=false
+Categories=Utility;

@@ -1,0 +1,25 @@
+#!/usr/bin/env fish
+
+set -Ux PAGER /usr/bin/less
+# set -x LESS '-RNi -x4'
+set -Ux EDITOR /usr/bin/nvim
+set -Ux VISUAL /usr/bin/codium
+
+set -Ux fifc_editor "$EDITOR"
+
+if type -q vivid
+    set -Ux LS_COLORS (vivid generate snazzy)
+end
+
+#if status --is-interactive
+#    if type -q tmux
+#        set -Ux fish_tmux_autostart true
+#    end
+#end
+
+if type -q mcfly
+    set -gx MCFLY_FUZZY 3
+    set -gx MCFLY_RESULTS 50
+    set -gx MCFLY_RESULTS_SORT LAST_RUN
+    set -gx MCFLY_PROMPT "❯"
+end

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=netexec
+Icon=utilities-terminal
+Comment=A Windows / Active Directory environments pentest tool.
+TryExec=/usr/bin/uwsm-terminal /usr/bin/netexec
+Exec=/usr/bin/sh -c '/usr/bin/netexec;$SHELL'
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories= X-BlackArch-Scanner; X-BlackArch-Exploitation; X-BlackArch-Networking; X-BlackArch-Windows;

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Wave
+Exec=/usr/bin/uwsm-app -s=a -- waveterm --enable-features UseOzonePlatform --ozone-platform-hint auto --no-sandbox %U
+Terminal=false
+Type=Application
+Icon=waveterm
+StartupWMClass=Wave
+Comment=Open-Source AI-Native Terminal Built for Seamless Workflows
+Keywords=developer;terminal;emulator;
+Categories=TerminalEmulator;Utility;

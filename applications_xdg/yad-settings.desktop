@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=YAD settings
+Type=Application
+Comment=Simple GUI for editing YAD settings
+Categories=GTK;Settings;
+Icon=yad
+Encoding=UTF-8
+Exec=/usr/bin/uwsm-app -s=s -- yad-settings
+Terminal=false
+StartupNotify=true

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=pmap
+Icon=utilities-terminal
+Comment=Passively discover, scan, and fingerprint link-local peers by the background noise they generate (i.e. their broadcast and multicast traffic).
+TryExec=/usr/bin/uwsm-terminal /usr/bin/pmap
+Exec=/usr/bin/sh -c '/usr/bin/pmap;$SHELL'
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories= X-BlackArch-Windows; X-BlackArch-Recon; X-BlackArch-Scanner; X-BlackArch-Fingerprint;

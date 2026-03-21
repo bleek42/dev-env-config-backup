@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=OpenStreetMap
+Type=Application
+Icon=map-globe
+MimeType=x-scheme-handler/geo;
+Exec=/usr/bin/uwsm-app -t=service -- kde-geo-uri-handler --coordinate-template "https://www.openstreetmap.org/#map=<Z>/<LAT>/<LON>" --query-template "https://www.openstreetmap.org/search?query=<Q>" --fallback "https://www.openstreetmap.org" %u
+StartupNotify=true
+Terminal=false
+NoDisplay=true

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=dnswatch
+Type=Application
+Comment=DNS Traffic Sniffer and Analyzer.
+Categories=X-BlackArch-Sniffer;
+Icon=utilities-terminal
+TryExec=/usr/bin/uwsm-terminal -s=session.slice -- /usr/bin/dnswatch
+Exec=/usr/bin/uwsm-app -s=session.slice -- footclient -d=info -T=dnswatch -e sh -c '/usr/bin/dnswatch;$SHELL'
+StartupNotify=true
+Terminal=true

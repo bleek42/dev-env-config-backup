@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=firefox-security-toolkit
+Type=Application
+Comment=A tool that transforms Firefox browsers into a penetration testing suite.
+Categories= X-BlackArch-Misc;
+Icon=utilities-terminal
+TryExec=/usr/bin/uwsm-terminal -s=background.slice -- footclient -d=info -T=firefox-security-toolkit /usr/bin/firefox-security-toolkit
+Exec=/usr/bin/sh -c '/usr/bin/firefox-security-toolkit;$SHELL'
+StartupNotify=true
+Terminal=true

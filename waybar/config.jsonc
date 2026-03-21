@@ -1,0 +1,229 @@
+{
+	"name": "garuda-waybar",
+	// "mode": "dock",
+	// "layer": "top",
+	"position": "top",
+	// "height": 4,
+	// "output": [
+	// 	"eDP-1",
+	// 	"HDMI-1"
+	// ],
+
+	"spacing": 1,
+	"padding": 2,
+	"margin-top": 2,
+	"margin-bottom": 2,
+	"margin-left": 4,
+	"margin-right": 4,
+
+	// * Choose the order of the modules
+	"modules-left": [
+		"custom/launcher",
+		"idle_inhibitor",
+		"custom/updater",
+		"pulseaudio",
+		"backlight",
+		"custom/keyboard-layout"
+		// "custom/network_traffic",
+		// "network"
+	],
+	"modules-center": ["hyprland/workspaces", "hyprland/window"],
+	"modules-right": [
+		"cpu",
+		"memory",
+		"temperature",
+		"battery",
+		"tray",
+		"custom/gsconnect",
+		"clock",
+		"custom/power"
+	],
+	// "expand-center": false,
+	// Modules configuration
+
+	"hyprland/workspaces": {
+		"format": "{icon}",
+		"on-click": "activate",
+		"all-outputs": true,
+		"sort-by-number": true,
+		"format-icons": {
+			"1": "󰬺",
+			"2": "󰬻",
+			"3": "󰬼",
+			"4": "󰬽",
+			"5": "󰬾",
+			"6": "󰬿",
+			"7": "󰭀",
+			"8": "󰭁",
+			"9": "󰭂",
+			"10": "󰿩",
+			"focused": "",
+			"urgent": "󱈸",
+			"default": ""
+		},
+		"on-scroll-up": "hyprctl dispatch workspace e+1",
+		"on-scroll-down": "hyprctl dispatch workspace e-1"
+	},
+	"hyprland/window": {
+		"format": "{class}: {title}",
+		"tooltip": true,
+		"icon": true,
+		"icon-size": 36
+	},
+	"custom/keyboard-layout": {
+		"format": "kbd\n <big> </big>", // * Icon: keyboard
+		"on-click": "exec $HOME/.config/waybar/scripts/keyhint.sh"
+	},
+	"idle_inhibitor": {
+		"format": "{icon}",
+		"format-icons": {
+			"activated": "",
+			"deactivated": ""
+		},
+		"on-click": "exec $HOME/.config/hypr/scripts/idle_inhibitor.sh"
+	},
+	//  "custom/network_traffic": {
+	//  	"exec": "exec ~/.config/waybar/scripts/network_traffic.sh",
+	// 	"return-type": "json",
+	// 	"format-ethernet": "{icon} {ifname} ⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}" // ! optional
+	// },
+	"tray": {
+		"icon-size": 24,
+		"spacing": 10
+	},
+	"clock": {
+		"tooltip-format": "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>",
+		// "format": " {:%a %d %b  %I:%M %p}",	//12 hour format
+		"format": " {:%a  %H:%M}", //24 hour format
+		"format-alt": " {:%d/%m/%Y  %H:%M:%S}",
+		// "max-length": 200
+		"interval": 1,
+		"on-click": "exec $HOME/.config/waybar/scripts/calendar.sh"
+	},
+	"cpu": {
+		"format": "{usage}%  ",
+		"on-click": "exec /usr/bin/systemadm"
+	},
+	"memory": {
+		"format": "{}%  ",
+		"on-click": "exec /usr/bin/nwg-processes"
+	},
+	"temperature": {
+		"thermal-zone": 7, // * Check with: # cat /sys/class/hwmon/hwmon*/temp1_input
+		"hwmon-path": "/sys/class/hwmon/hwmon7/temp1_input",
+		"critical-threshold": 80,
+		"format-critical": "{temperatureC}°C ",
+		"format": "{temperatureC}°C "
+	},
+	"backlight": {
+		// "device": "acpi_video1",
+		"format": "{percent}% {icon}",
+		"format-icons": ["", ""],
+		"on-scroll-down": "brightnessctl -c backlight set 1%-",
+		"on-scroll-up": "brightnessctl -c backlight set +1%",
+		"on-click": "exec $HOME/.config/waybar/scripts/backlight-hint.sh"
+	},
+	"battery": {
+		"states": {
+			"good": 75,
+			"warning": 55,
+			"critical": 15
+		},
+		"format": "{capacity}% {icon} ",
+		"format-charging": "{capacity}%  ",
+		"format-plugged": "{capacity}%  ",
+		"format-alt": "{time} {icon}",
+		// "format-good": "", // ! An empty format will hide the module
+		// "format-full": "",
+		"format-icons": ["", "", "", "", ""]
+	},
+	"battery#bat0": {
+		"bat": "BAT0"
+	},
+	// "network": {
+	// "interface": "wlp0s20f3", // ! (Optional) To force the use of this interface  "format-wifi": "  {essid}",
+
+	// 	"interval": 300,
+	// 	"format": " 󰖪 ",
+	// 	"format-wifi": "  ",
+	// 	"format-ethernet": "  ",
+	// 	"format-linked": "{ifname} ⚠",
+	// 	"format-disconnected": " 󱛅 ",
+	// 	"family": "ipv4",
+	// 	"tooltip-format-wifi": "   {ifname}@{essid}\n 󰩟 {ipaddr}\n 󰀂 {signalStrength}%\n 󱑽 {frequency}MHz\n 󰛶 {bandwidthUpBits} 󰛴 {bandwidthDownBits}",
+	// 	"tooltip-format-ethernet": "   {ifname}\n 󰩟 {ipaddr}\n 󰛶 {bandwidthUpBits} 󰛴 {bandwidthDownBits}",
+	// 	//"min-length": 2,
+	// 	//"max-length": 2,
+	// 	"on-click": "nm-connection-editor"
+	// },
+	"pulseaudio": {
+		"scroll-step": 1, // ? percentage (%), but can also be a float (0.35`)
+		"format": "{volume}% {icon} ",
+		"format-bluetooth": "{volume}% {icon}",
+		"format-bluetooth-muted": "{icon} {format_source}",
+		"format-muted": "{format_source}",
+		"format-source": "",
+		"format-source-muted": "",
+		"format-icons": {
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["", "", ""]
+		},
+		"on-click": "pavucontrol"
+	},
+	"custom/media": {
+		"format": " {icon} {}",
+		"return-type": "json",
+		"format-icons": {
+			"spotify": " ",
+			"default": " "
+		},
+		"escape": false,
+		"exec": "/usr/bin/python ~/.config/system_scripts/mediaplayer.py 2> /dev/null",
+		"on-click": "playerctl play-pause"
+	},
+	"custom/launcher": {
+		"format": " {icon} ",
+		"format-icons": {
+			"default": "\uf337",
+			"alt": "\uf359"
+		},
+		"on-click": "exec /usr/bin/nwg-menu -cmd-lock '/usr/bin/gtklock -d -k -t -c $HOME/.config/gtklock/config.ini' -cmd-logout 'loginctl terminate-session' -cmd-shutdown 'systemctl --user -i start wayland-session-shutdown.target' -va top -ha left"
+	},
+	"custom/power": {
+		"format": " ⏻ ",
+		"on-click": "nwgbar",
+		"tooltip": true
+	},
+	"custom/gsconnect": {
+		"format": "  {} ",
+		"escape": true,
+		"exec-if": "which python3",
+		"exec": "/usr/bin/dbus-launch --autolaunch --sh-syntax /usr/bin/python3 $HOME/.config/waybar/scripts/gsconnect-status.py",
+		"return-type": "json",
+		"tooltip": "{tooltip}",
+		"interval": 60,
+		"on-click": "gapplication launch org.gnome.Shell.Extensions.GSConnect preferences"
+	}
+
+	// "custom/updater": {
+	// 	"format": " 󰱠 {} {icon} ",
+	// 	"return-type": "json",
+	// 	"tooltip": true,
+	// 	// "tooltip-format": " 󰱠 {text} ",
+	// 	"format-icons": {
+	// 		"default": "󰱠",
+	// 		"has-updates": "󰚰",
+	// 		"updated": "󰂪"
+	// 	},
+	// 	"restart-interval": 12000,
+	// 	"exec-if": "which waybar-module-pacman-updates",
+	// 	"exec": "waybar-module-pacman-updates",
+	// 	"on-click": "footclient -e garuda-update -a || foot -e garuda-update -a"
+	// },
+
+}

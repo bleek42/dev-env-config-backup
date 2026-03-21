@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Universal Radio Hacker
+Comment=investigate wireless protocols like a boss
+Categories=Radio
+Icon=urh
+Exec=/usr/bin/uwsm-app -- /usr/bin/urh
+Terminal=false

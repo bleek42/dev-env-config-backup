@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=pwncat
+Icon=utilities-terminal
+Comment=Bind and reverse shell handler with FW/IDS/IPS evasion, self-inject and port-scanning.
+TryExec=/usr/bin/uwsm-terminal /usr/bin/pwncat
+Exec=/usr/bin/sh -c '/usr/bin/pwncat;$SHELL'
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories= X-BlackArch-Backdoor; X-BlackArch-Scanner; X-BlackArch-Proxy; X-BlackArch-Networking;

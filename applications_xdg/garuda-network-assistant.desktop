@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Garuda Network Assistant
+Type=Application
+Comment=Network configuration and troubleshooting
+Categories=System;Garuda-Setup;
+Icon=garuda-network-assistant
+Exec=/usr/bin/uwsm-app -s=s -- /usr/lib/garuda/pkexec-gui garuda-network-assistant
+Terminal=false
+NoDisplay=false

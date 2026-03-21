@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Snapper Tools
+Comment=Create, delete and restore Snapper snapshots
+Exec=/usr/bin/uwsm-app -t=service -- snapper-tools
+Terminal=false
+Type=Application
+Icon=snapper-tools
+Categories=System;Garuda-Setup;
+NoDisplay=false

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Snes9x
+Comment=A Super Nintendo emulator
+Comment[de]=Ein Super Nintendo‑Emulator
+Comment[pl]=Emulator Super Nintendo
+Type=Application
+Categories=Game;Emulator;
+MimeType=application/vnd.nintendo.snes.rom;application/x-snes-rom;
+Exec=/usr/bin/uwsm-app -t=service -- snes9x-gtk %F
+Icon=snes9x

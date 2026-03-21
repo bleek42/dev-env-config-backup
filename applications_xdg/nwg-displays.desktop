@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Displays Settings
+Type=Application
+GenericName=Output configuration utility
+Comment=nwg-shell tool to configure outputs
+Exec=/usr/bin/uwsm-app -- nwg-displays
+Icon=nwg-displays
+Terminal=false
+Categories=Settings;DesktopSettings;

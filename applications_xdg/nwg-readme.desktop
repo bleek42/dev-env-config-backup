@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=nwg-shell README
+Type=Application
+GenericName=README Browser
+Comment=Search & browse nwg-shell README files
+Exec=/usr/bin/uwsm-app -- nwg-readme-browser -i
+Icon=nwg-shell
+Terminal=false
+Categories=Utility;

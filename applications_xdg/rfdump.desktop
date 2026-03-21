@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=RFDump
+Type=Application
+Categories=Utility;Electronics
+GenericName=RFID tool
+Comment=Tool to directly interoperate with an RFID reader
+Encoding=UTF-8
+Icon=/usr/share/pixmaps/rfdump.png
+Version=1.0
+Exec=/usr/bin/uwsm-app -s=a -- rfdump
+Terminal=false
+StartupNotify=false

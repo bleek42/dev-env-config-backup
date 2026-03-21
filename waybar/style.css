@@ -1,0 +1,419 @@
+/* :root {
+
+   Here is an example of CSS that defines a series of 16 colors as variables, mimicking the "Hack The Box" website and VS Code theme:
+
+
+  --htb-blue: #313f55;
+  --htb-orange: #FF8C00;
+  --htb-green: #34C759;
+  --htb-yellow: #F7DC6F;
+  --htb-red: #FF69B4;
+  --htb-purple: #9A66FC;
+  --htb-gray-dark: #333333;
+  --htb-gray-light: #666666;
+  --vscode-blue: #34C759;
+  --vscode-orange: #F7DC6F;
+  --vscode-green: #8BC34A;
+  --vscode-yellow: #FFD700;
+  --vscode-red: #E74C3C;
+  --vscode-purple: #9B59B6;
+  --vscode-gray-dark: #333333;
+  --vscode-gray-light: #666666;
+
+#004cff,
+#5cb2ff,
+#ffcc5c,
+#2ee7b6,
+9fef00,
+#9f00ff",
+	#ff3e3e,
+	#ffffff,
+		"#ffaf00,
+	  #111927,
+		#a4b1cd
+		#313f55,
+		#141d2b,
+		#a4b1cd,
+		#111927,
+		#c5f467,
+		#9fef00,
+		#2e6cff,
+		"#ffffff,
+
+} */
+
+* {
+  font-family: 'Hack Nerd Font Mono', 'FiraCode Nerd Font Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif Meslo;
+  font-size: 20px;
+  letter-spacing: 0.3px;
+  min-height: 0;
+}
+
+@keyframes blink {
+  to {
+    /* background-color: #474343; */
+    background-color: #c5f467;
+  }
+
+  from {
+    background-color: #313f55
+  }
+}
+
+
+@keyframes shimmer {
+  0% {
+    color: #c5f476
+    /* filter: hue-rotate(90deg); */
+  }
+
+  50% {
+    color: #313f55;
+    /* filter: hue-rotate(45deg); */
+  }
+
+  100% {
+    color: #9fef00;
+  }
+
+
+
+}
+
+
+window#waybar {
+  color: #9fef00;
+  background-color: transparent;
+  background-color: #111927;
+  transition-property: background-color;
+  transition-duration: 1.5s;
+  border-radius: 16px 18px 18px 16px;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+.modules-center {
+  font-family: 'ProFontIIx Nerd Font', 'CodeNewRoman Nerd Font', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+}
+
+#workspaces button {
+  color: #5cb2ff;
+  font-size: 14px;
+  text-shadow: 3px 1.5px 0.5px #141d2b;
+  background-color: #313f55;
+  border: 2px groove #9fef00;
+  border-radius: 12px 12px;
+  padding: 12px;
+  margin: 6px 2px;
+
+
+  /* width: 2px; */
+}
+
+#workspaces button.active {
+  color: #4de70b;
+  text-shadow: 3px 2px 0.5px #141d2b;
+  background-color: #313f55;
+  border: 3px outset #c5f467;
+  border-radius: 10px 10px;
+  /* animation: 400ms steps(32) 350ms blink 5; */
+}
+
+
+#workspaces button:hover {
+  color: #9fef00;
+  background-color: #313f55;
+  border: 2px inset #5cb2ff;
+  border-radius: 14px 14px;
+  animation: 400ms steps(28) 300ms blink 4;
+}
+
+
+#mode {
+  /* border: 1px solid #33FF3D; */
+  background-color: #64727D;
+  border-bottom: 2px solid #8EC5FC;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-network_traffic,
+#custom-media,
+#custom-keyboard-layout,
+/* #custom-launcher, */
+#custom-power,
+#custom-gsconnect,
+#tray,
+#mode,
+#idle_inhibitor,
+#mpd {
+  color: #141d2b;
+  font-size: 24px;
+  font-weight: 500;
+  text-shadow: 2px 1px 1px #4de70b;
+  background: linear-gradient(45deg, #313f55 10%, #5cb2ff 25%, #313f55 90%);
+  padding: 4px 12px 4px 12px;
+  border: 1px groove #111927;
+  border-radius: 4px 4px 4px 2px;
+}
+
+#window {
+  border: 1px inset #4de70b;
+  border-radius: 6px 4px 6px 4px;
+/* background: -moz-linear-gradient(top, #111927 0%, #313F55 50%, #111927 100%); */
+/* background: -webkit-linear-gradient(top, #111927 0%, #313F55 50%, #111927 100%); */
+  background: linear-gradient(to bottom, #111927 10%, #313F55 50%, #111927 90%);
+  padding: 8px;
+  /*background-color: #313f55;
+    background: linear-gradient(45deg, #004cf#5cb2ff 90%);*/
+  /* color: #2ee7b6; */
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#workspaces {
+  /* margin: 4px 4px; */
+  padding: 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left>widget:first-child>#workspaces {
+  margin-left: 0px;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right>widget:last-child>#workspaces {
+  margin-right: 0px;
+}
+
+/* #clock { */
+  /* background-color: #313f55; */
+  /* background: linear-gradient(-45deg, #313f55 0%, #5cb2ff 90%); */
+  /* color: #111927; */
+  /* border-radius: 0px 20px 20px 0px; */
+  /* margin-right: 2px; */
+/* } */
+
+#battery.charging {
+  color: #ffaf00;
+}
+
+#battery.plugged {
+  color: #c5f467;
+}
+
+#battery.critical:not(.charging) {
+  background-color: #ff3e3e;
+  color: #111927;
+  animation-name: blink;
+  animation-duration: 550ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+label:focus {
+  color: #c5f467;
+}
+
+#cpu {
+  /* background-color: #313f55; */
+  background: linear-gradient(35deg, #313f55 8%, #5cb2ff 75%);
+  color: #111927;
+  font-size: 24px;
+  border: 1px outset #141d2b;
+  border-radius: 12px 0px 0px 12px;
+}
+
+/* #disk
+#memory,
+#backlight,
+#battery {
+    background: linear-gradient(-25deg, #313f55 16%, #5cb2ff 70%);
+    color: #111927;
+    font-size: 24px;
+
+} */
+
+#cpu:hover,
+#disk:hover,
+#clock:hover,
+#battery:hover,
+#memory:hover,
+#backlight:hover,
+#pulseaudio:hover,
+#custom-gsconnect.GSdevices:hover {
+  text-shadow: 1.5px 1px 0.5px #141d2b;
+  animation: shimmer 550ms steps(42) forwards alternate 4;
+  background: linear-gradient(35deg, #313f55 20%, #5cb2ff 50%);
+}
+
+
+#network,
+#custom-gsconnect {
+  /* background-color: #313f55; */
+  color: #111927;
+  font-size: 30px;
+  background: linear-gradient(-45deg, #313f55 10%, #5cb2ff 75%);
+  /* background-color: #313f55; */
+  /* background: linear-gradient(-45deg, #313f55 0%, #5cb2ff 90%); */
+  border: 1px groove #313F55;
+  border-radius: 4px 6px 6px 8px;
+}
+
+#network.disconnected {
+  color: #ff3e3e;
+  /* background-color: #313f55; */
+  /* background: linear-gradient(-45deg, #313f55 0%, #5cb2ff 90%); */
+}
+
+#custom-network_traffic {
+  background: linear-gradient(35deg, #313f55 8%, #5cb2ff 88%);
+  border: 1px groove #111927;
+  border-radius: 8px 2px 8px 2px;
+}
+
+
+#pulseaudio.muted {
+  /* background-color: #313f55; */
+  color: #ff3e3e;
+  background: linear-gradient(35deg, #64727D 16%, #5cb2ff 80%);
+}
+
+#custom-media {
+  /* background-color: #8EC5FC; */
+  background: linear-gradient(30deg, #5cb2ff 84%, #313f55 16%);
+  color: #c5f476;
+  border-radius: 8px 8px;
+  margin-right: 5px;
+}
+
+#custom-media.custom-spotify,
+#custom-media.custom-vlc {
+  /* background-color: #8EC5FC; */
+  background: linear-gradient(62deg, #8EC5FC 10%, #E0C3FC 100%);
+  color: #111927;
+  border-radius: 16px;
+  margin-right: 5px;
+}
+
+#custom-launcher {
+  color: #33FF3D;
+  font-size: 52px;
+  text-shadow: 3px 2px 1px #141d2b;
+  background: linear-gradient(-35deg, #313f55 15%, #5cb2ff 80%);
+  border: 1px outset #141d2b;
+  border-radius: 12px 2px 2px 16px;
+}
+
+#custom-launcher:hover,
+#custom-keyboard-layout:hover {
+  color: #4de70b;
+  /* font-size: 32px; */
+  animation: shimmer 450ms steps(32) forwards alternate 4;
+  background: linear-gradient(25deg, #313f55 12%, #8EC5FC 80%);
+  border-radius: 16px 4px 4px 16px;
+}
+
+#custom-updater {
+  color: #111927;
+  font-size: 28px;
+  /* background-color: #313f55; */
+  background: linear-gradient(45deg, #313f55 10%, #5cb2ff 90%);
+  border-radius: 20px 0px 0px 20px;
+  margin-left: 4px;
+}
+
+#custom-updater:hover,
+#pulseaudio:hover {
+  color: #33FF3D;
+  background: linear-gradient(25deg, #313f55 12%, #8EC5FC 80%);
+  animation: shimmer 450ms steps(32) forwards alternate 4;
+  /* font-size: 32px; */
+  /* background: linear-gradient(-45deg, #313f55 0%, #5cb2ff 90%); */
+  /* border-radius: 16px 4px 4px 16px; */
+}
+
+#temperature {
+  /* background-color: #313f55; */
+  background: linear-gradient(45deg, #5cb2ff 90%, #313f55 10%);
+  color: #111927;
+}
+
+#temperature:hover {
+  /* background-color: #313f55; */
+  background: linear-gradient(25deg, #5cb2ff 80%, #313f55 20%);
+  color: #9fef00;
+}
+
+#temperature.critical {
+  color: #111927;
+  background-color: #ff3e3e;
+}
+
+#temperature.critical:hover {
+  color: #111927;
+  background-color: #ffaf00;
+}
+
+#tray {
+  /* background-color: #313f55; */
+  background: linear-gradient(45deg, #5cb2ff 80%, #313f55 10%);
+  color: #111927;
+}
+
+#tray>.passive {
+  -gtk-icon-effect: dim;
+  /* background-color: #313f55; */
+  background: linear-gradient(-45deg, #313f55 10%, #5cb2ff 80%);
+  color: #33FF3D;
+  text-shadow: 1px 1px #141d2b;
+}
+
+#tray>.needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #313f55;
+  background: linear-gradient(-45deg, #313f55 10%, #5cb2ff 90%);
+  color: #111927;
+}
+
+#idle_inhibitor {
+  /* background-color: #313f55; */
+  background: linear-gradient(45deg, #313f55 10%, #5cb2ff 90%);
+  border-radius: 20px 20px 20px 20px;
+}
+
+#idle_inhibitor.activated {
+  /* background-color: #313f55; */
+  background: linear-gradient(45deg, #313f55 20%, #5cb2ff 80%);
+  color: #111927;
+  border-radius: 20px 0px 0px 20px;
+}
+
+#language {
+  /* background-color: #313f55; */
+  background: linear-gradient(-45deg, #313f55 0%, #5cb2ff 90%);
+  color: #111927;
+  min-width: 16px;
+}
+
+#custom-keyboard-layout {
+  /* background-color: #313f55; */
+  background: linear-gradient(45deg, #313f55 10%, #5cb2ff 90%);
+}
+
+#keyboard-state>label.locked {
+  background: #000000;
+}

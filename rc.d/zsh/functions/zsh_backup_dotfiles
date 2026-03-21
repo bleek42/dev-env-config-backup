@@ -1,0 +1,52 @@
+#!/usr/bin/env zsh
+
+autoload -Uz zmv || return 1
+
+function zsh_backup_dotfiles() {
+
+
+    typeset -r dest_dir_path="$1"
+    typeset -r additional_dotfiles="$2"
+
+    typeset -a zsh_dotfiles=( "${HOME}/.zshrc" "${HOME}/.zshenv" "${HOME}/.zprofile" "${HOME}/.zlogin" "${HOME}/.zlogout" ) # * Add other dotfiles as needed
+
+    # zsh_config_dir="${HOME}/.config/rc.d/zsh"
+    # # ? loop thru zsh_config_dir and create an array with each file found inside of it
+    # for file in "${zsh_config_dir}"/**/*.zsh; do
+    #     if [[ -r "$file" || -x "$file" ]]; then
+    #         zsh_config_files+=( "$file" )
+    #     fi
+    # done
+    # zsh_dotfiles+=( "${zsh_config_files[@]}" )
+
+
+    if [[ -z $additonal_dotfiles ]]; then
+        for file in "${zsh_dotfiles[@]}"; do
+            # * make a variable that takes the path and dot out of the dotfile and appends '.zsh' to the end (ex: $HOME/.zshrc -> zshrc.zsh)
+            new_file_name="$(basename ${file})"
+
+            new_file_name="${new_file_name#.}"
+
+            echo "${new_file_name}"
+            # * "${variable#.}"
+
+            zmv -C -f "${file}" "${dest_dir_path}/${new_file_name}.zsh"
+        done
+    else
+
+        zsh_dotfiles+=( "${additonal_dotfiles}" )
+        for file in "${zsh_dotfiles[@]}"; do
+            # * make a variable that takes the path and dot out of the dotfile and appends '.zsh' to the end (ex: $HOME/.zshrc -> zshrc.zsh)
+            new_file_name="$(basename ${file})"
+            new_file_name="${new_file_name#.}"
+            echo "${new_file_name}"
+
+            zmv -C -f "${file}" "${dest_dir_path}/${new_file_name}.zsh"
+
+        done
+
+    fi
+
+}
+
+zsh_backup_dotfiles "$@"

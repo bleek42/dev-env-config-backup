@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Garuda Assistant
+Type=Application
+Comment=Change system settings
+Categories=GNOME;GTK;System;Garuda-Setup;
+Keywords=update;package;performance;powersave
+Icon=garuda-assistant
+Encoding=UTF-8
+Exec=/usr/bin/uwsm-app -s=s -- /usr/bin/garuda-assistant
+Terminal=false
+NoDisplay=false

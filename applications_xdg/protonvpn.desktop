@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Proton VPN
+Exec=/usr/bin/uwsm-app -t=service -- protonvpn-app
+Terminal=false
+Type=Application
+Icon=proton-vpn-logo
+StartupWMClass=protonvpn-app
+Comment=Proton VPN GUI client
+Categories=Network;

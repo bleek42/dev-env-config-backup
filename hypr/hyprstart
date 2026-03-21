@@ -1,0 +1,184 @@
+#!/usr/bin/env sh
+
+cd "$HOME" || exit 1
+
+## # ######################################
+## #   HYPRLAND: User Preferred Settings ##
+## # ######################################
+
+# * terminal
+export TERM=xterm-256color
+
+# * text editor
+#export MICRO_TRUECOLOR=1
+export EDITOR=/usr/bin/nvim
+export VISUAL="/usr/bin/codium --wait --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform=wayland"
+
+# * browser
+export BROWSER=/usr/bin/firefox-developer-edition
+
+# * mail
+export MAIL=/usr/bin/thunderbird
+
+export XDG_CURRENT_DESKTOP=Hyprstart
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+export XDG_CONFIG_DIRS="${XDG_CONFIG_HOME}:${XDG_CONFIG_DIRS:-/etc/xdg}"
+
+# export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORMTHEME=hyprqt6engine
+
+# * cursor size
+export XCURSOR_SIZE=24
+
+# * toolkit-specific scale
+#export GDK_SCALE=2
+export HYPRCURSOR_THEME=Nordzy-hyprcursors
+export HYPRCURSOR_SIZE=24
+
+# * Example IME Support: fcitx
+#export GTK_IM_MODULE=fcitx
+#export QT_IM_MODULE=fcitx
+#export XMODIFIERS=@im=fcitx
+#export SDL_IM_MODULE=fcitx
+#export GLFW_IM_MODULE=ibus
+
+editor_symbol=' '
+case "${EDITOR}" in
+*nvim*)
+    editor_symbol=' '
+    ;;
+*vim*)
+    editor_symbol=' '
+    ;;
+*)
+    editor_symbol='󱔽 '
+    ;;
+esac
+
+visual_symbol='󰘙 '
+case "${VISUAL}" in
+*codium* | *code*)
+    visual_symbol='󰨞 '
+    ;;
+*)
+    visual_symbol='󰘙 '
+    ;;
+esac
+if command -v ag >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='ag -S -f --hidden --ignore "*.git" -g ""'
+elif command -v fd >/dev/null 2>&1; then
+    FZF_DEFAULT_COMMAND='fd -td -tf -tl -ts -tp -tb -H -l -i -E=".git"'
+elif command -v rg >/dev/null 2>&1; then
+    FZF_DEFAULT_COMMAND='rg'
+fi
+
+
+__fzf_default_header="[^G: 󰱞 |^W:  |^SPC: 󰒅 |^A/^U: 󰒆 |^Y:  | ^O:  |^P:  |Alt+J/K: 󰏕/󰏔 |^F/^B: ↑/↓ |^E: ${editor_symbol} |^V: ${visual_symbol}]"
+__fzf_colors_fg_bg="fg:#33cfad,fg+:#46e253,bg:#121212,bg+:#231f32"
+__fzf_colors_info_marker_hl="hl:#77c6d6,hl+:#3d9d47,info:#afaf87,marker:#5ed7d7"
+__fzf_colors_prompt_icons="prompt:#03ff1c,spinner:#1081f2,pointer:#8dee0e,header:#87afaf"
+__fzf_colors_border="gutter:#1d1717,border:#4afbfb"
+__fzf_colors_label="label:#aeaeae,query:#d9d9d"
+__fzf_default_colors="${__fzf_colors_fg_bg},${__fzf_colors_info_marker_hl},${__fzf_colors_prompt_icons},${__fzf_colors_border}"
+
+FZF_DEFAULT_OPTS="\
+            -m \
+            -e \
+            --ansi \
+            --cycle \
+            --sync \
+            --reverse \
+            --border=block \
+            --info=inline \
+            --height=-1 \
+            --margin=1 \
+            --padding=1 \
+            --tail=10000 \
+            --header-first \
+            --header='$__fzf_default_header' \
+            --preview-window=right:hidden:wrap:~4 \
+            --preview-border=thinblock \
+            --color='$__fzf_default_colors' \
+            --prompt=' ' \
+            --pointer='->' \
+            --marker='*' \
+            --select-1 \
+            --bind='tab:down' \
+            --bind='ctrl-p:toggle-preview' \
+            --bind='ctrl-space:toggle+down' \
+            --bind='ctrl-a:toggle-all' \
+            --bind='ctrl-u:deselect-all' \
+            --bind='ctrl-e:execute($EDITOR {+} < /dev/tty > /dev/tty)' \
+            --bind='ctrl-v:execute($VISUAL {+})' \
+            --bind='alt-j:preview-down' \
+            --bind='alt-k:preview-up' \
+            --bind='ctrl-f:preview-page-down' \
+            --bind='ctrl-b:preview-page-up' \
+            --bind='ctrl-o:accept-non-empty'
+"
+
+export FZF_DEFAULT_COMMAND FZF_DEFAULT_OPTS
+
+declare -a desktop_envs
+desktop_envs=(
+    # * displays (both X11 & Wayland)
+    DISPLAY
+    WAYLAND_DISPLAY
+
+    # * xdg standard desktop, session, etc.
+    USERNAME
+    XDG_BACKEND
+    XDG_CURRENT_DESKTOP
+    XDG_SESSION_TYPE
+    XDG_SESSION_ID
+    XDG_SESSION_CLASS
+    XDG_SESSION_DESKTOP
+    XDG_SEAT
+    XDG_VTNR
+    XDG_CONFIG_HOME
+    XDG_CACHE_HOME
+    XDG_DATA_HOME
+    XDG_STATE_HOME
+
+    # * hyprland specific
+    HYPRLAND_CMD
+    HYPRLAND_INSTANCE_SIGNATURE
+    HYPRCURSOR_THEME
+    HYPRCURSOR_SIZE
+
+    # * misc
+    XCURSOR_SIZE
+    FZF_DEFAULT_COMMAND
+    FZF_DEFAULT_OPTS
+
+    # * toolkits (QT, GTK, etc.)
+    GDK_BACKEND
+    _JAVA_AWT_WM_NONREPARENTING
+    QT_QPA_PLATFORM
+    QT_QPA_PLATFORMTHEME
+    QT_WAYLAND_DISABLE_WINDOWDECORATION
+    GRIM_DEFAULT_DIR
+
+    # * ssh
+    SSH_AUTH_SOCK
+)
+
+systemd_current_state="$(systemctl is-system-running)"
+
+case "${systemd_current_state}" in
+    starting|running)
+        dbus-update-activation-environment --systemd "${desktop_envs[@]}"
+        systemctl import-environment --no-block "${desktop_envs[@]}"
+    ;;
+    *)
+
+    ;;
+esac
+
+# systemctl --user import-environment "${desktop_envs[@]}"
+
+unset systemd_current_state desktop_envs

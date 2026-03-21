@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=xgps
+Type=Application
+GenericName=GPS information
+Comment=Display GPS information from a gpsd daemon
+Categories=Application;Maps;Utility;
+Icon=/usr/share/gpsd/icons/gpsd-logo.png
+Encoding=UTF-8
+Exec=/usr/bin/uwsm-app -s=s -- xgps
+Terminal=false

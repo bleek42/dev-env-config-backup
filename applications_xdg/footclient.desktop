@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Foot Client
+Type=Application
+GenericName=Terminal
+Comment=A wayland native terminal emulator (client)
+Categories=System;TerminalEmulator;
+Keywords=shell;prompt;command;commandline;
+Icon=foot
+Exec=/usr/bin/footclient
+Terminal=false

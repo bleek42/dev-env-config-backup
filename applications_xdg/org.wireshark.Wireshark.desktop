@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Wireshark
+## # The format of this file is specified at
+## # https://specifications.freedesktop.org/desktop-entry-spec/1.0/
+## # The entries are in the order they are listed in version 1.0
+Type=Application
+## # This is the version of the spec for this file, not the application version.
+GenericName=Network Analyzer
+Comment=Network traffic analyzer
+## # Category entry according to:
+## # https://specifications.freedesktop.org/menu-spec/1.0/
+Categories=Network;Monitor;Qt;
+Icon=org.wireshark.Wireshark
+TryExec=/usr/bin/uwsm-app -t=service -- wireshark
+Version=1.0
+Terminal=false
+MimeType=application/vnd.tcpdump.pcap;application/x-pcapng;application/x-snoop;application/x-iptrace;application/x-lanalyzer;application/x-nettl;application/x-radcom;application/x-etherpeek;application/x-visualnetworks;application/x-netinstobserver;application/x-5view;application/x-tektronix-rf5;application/x-micropross-mplog;application/x-apple-packetlogger;application/x-endace-erf;application/ipfix;application/x-ixia-vwr;
+Exec=/usr/bin/uwsm-app -t=service -- wireshark %f

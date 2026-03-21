@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=dnmap
+Type=Application
+Comment=The distributed nmap framework.
+Categories=X-BlackArch-Scanner;Tool;Utility
+Icon=utilities-terminal
+TryExec=/usr/bin/uwsm-terminal /usr/bin/dnmap
+Exec=/usr/bin/sh -c '/usr/bin/dnmap;$SHELL'
+StartupNotify=true
+Terminal=true

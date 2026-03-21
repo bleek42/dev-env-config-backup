@@ -1,0 +1,20 @@
+[Unit]
+Documentation=man:nm-applet(1)
+CollectMode=inactive-or-failed
+PartOf=graphical-session.target
+After=waybar.service graphical-session.target
+
+
+[Service]
+Type=exec
+ExitType=cgroup
+Slice=background-graphical.slice
+# WorkingDirectory=/home/bleek42
+# Environment="XDG_SEAT=seat0" "XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0" "XDG_SESSION_ID=3" "XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session1" "XDG_VTNR>
+# ExecStart=
+ExecStart=-/usr/bin/nm-applet --indicator
+ExecReload=pkill -u %u nm-applet & /usr/bin/nm-applet --indicator
+ExecStop=pkill -u %u nm-applet
+
+[Install]
+WantedBy=graphical-session.target

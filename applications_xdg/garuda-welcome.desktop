@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Garuda Welcome
+Type=Application
+Comment=Display welcome message
+Categories=GNOME;GTK;System;Garuda-Setup;
+Icon=garuda-welcome
+Exec=/usr/bin/uwsm-app -s=s -- garuda-welcome
+Terminal=false
+NoDisplay=false

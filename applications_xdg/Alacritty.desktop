@@ -1,0 +1,19 @@
+[Desktop Entry]
+Name=Alacritty
+GenericName=Terminal
+Type=Application
+Comment=A fast, cross-platform, OpenGL terminal emulator
+Categories=System;TerminalEmulator;
+Icon=Alacritty
+TryExec=/usr/bin/alacritty msg create-window
+TryExec=/usr/bin/uwsm-app -s=session.slice -- /usr/bin/alacritty
+Exec=/usr/bin/uwsm-app -s=session.slice -- /usr/bin/alacritty
+StartupNotify=true
+StartupWMClass=Alacritty
+Terminal=false
+Actions=New;
+X-Desktop-File-Install-Version=0.28
+
+[Desktop Action New]
+Name=New Terminal
+Exec=/usr/bin/uwsm-app -s=session.slice -- /usr/bin/alacritty

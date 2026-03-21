@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Garuda Gamer
+Type=Application
+Comment=A utility For gamers to install gaming stuff
+Categories=GNOME;GTK;System;Garuda-Setup;
+Keywords=gamer;emulation;emulator;
+Icon=garuda-gamer
+Encoding=UTF-8
+Exec=/usr/bin/uwsm-app -s=s -- /usr/bin/garuda-gamer
+Terminal=false
+NoDisplay=false

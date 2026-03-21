@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Qt V4L2 test Utility
+Type=Application
+Comment=Allow testing Video4Linux devices
+Categories=AudioVideo;
+Keywords=video;grabber;V4L;
+Icon=qv4l2
+Exec=/usr/bin/uwsm-app -t=service -- qv4l2
+Terminal=false

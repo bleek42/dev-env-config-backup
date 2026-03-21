@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=owtf
+Icon=utilities-terminal
+Comment=The Offensive (Web) Testing Framework.
+TryExec=/usr/bin/uwsm-terminal /usr/bin/owtf
+Exec=/usr/bin/sh -c '/usr/bin/owtf;$SHELL'
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories= X-BlackArch-Webapp; X-BlackArch-Automation; X-BlackArch-Scanner; X-BlackArch-Fuzzer;

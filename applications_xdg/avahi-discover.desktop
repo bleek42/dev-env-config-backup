@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Avahi Zeroconf Browser
+Type=Application
+Categories=GNOME;System;
+Comment=Browse for Zeroconf services available on your network
+Icon=network-wired
+Version=1.0
+Exec=/usr/bin/uwsm-app -- /usr/bin/avahi-discover
+Terminal=false
+StartupNotify=false

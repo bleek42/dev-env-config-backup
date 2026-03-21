@@ -1,0 +1,71 @@
+* {
+  box-sizing: border-box;
+  text-shadow: 1px 1px 3px rgba(19, 18, 18, 0.7);
+  font-family: '"MxPlus ToshibaSat 8x8", "Mx437 Portfolio 6x8", monospace';
+  color: rgb(6, 250, 193);
+  text-shadow: 0.6px black;
+}
+
+window {
+  background-color: rgba(0, 0, 0, 0.08);
+  background-image: url("/usr/share/backgrounds/garuda-backgrounds/Dr460nized Honeycomb.png");
+}
+
+button {
+  background: linear-gradient(rgba(7, 221, 203, 0.6), rgba(4, 234, 127, 0.6), rgba(7, 221, 203, 0.6));
+  margin: 2px;
+  padding: 8px;
+  border: 2px groove rgba(37, 37, 37, 0.8);
+  border-radius: 1.5px / 1.5px;
+  font-family: '"Hack Nerd Font Mono", monospace';
+  font-weight: 360;
+  font-size: 16;
+}
+
+#clock-label {
+  margin: 2px;
+  padding: 2px;
+  border: 1.5px solid #000;
+  border-radius: 2px / 2px;
+  font-family: '"CodeNewRoman Nerd Font Mono", monospace';
+  font-weight: 600;
+  font-size: 16px;
+}
+
+#unlock-button {
+  background-color: rgba(37, 37, 37, 0.95);
+  margin: 4px;
+  padding: 2px;
+  border: 1px solid #000;
+  font-family: '"CodeNewRoman Nerd Font Mono", monospace';
+  font-size: 14px;
+  font-weight: 200;
+}
+
+#powerbar-box {
+  background-color: rgba(37, 37, 37, 0.95);
+  border: 0.5px solid #000;
+  font-family: '"CodeNewRoman Nerd Font Mono", monospace';
+  font-weight: 200;
+  font-size: 16px;
+}
+
+#input-field {
+  background-color: rgba(37, 37, 37, 0.95);
+  padding: 4px;
+  margin: 2px;
+  border: 0.5px solid #000;
+  font-family: '"CodeNewRoman Nerd Font Mono", monospace';
+  font-weight: 240;
+  font-size: 14px;
+}
+
+#playerctl-box {
+  background-color: rgba(37, 37, 37, 0.8);
+  padding: 2px;
+  margin: 8px;
+  border: 0.5px solid #000;
+  font-family: '"CodeNewRoman Nerd Font Mono", monospace';
+  font-weight: 400;
+  font-size: 16px;
+}

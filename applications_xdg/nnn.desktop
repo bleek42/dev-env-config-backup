@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=nnn
+Comment=Terminal file manager
+Exec=/usr/bin/uwsm-app -s=session.slice -- nnn %f
+Terminal=true
+Icon=nnn
+MimeType=inode/directory
+Categories=System;FileTools;FileManager;ConsoleOnly
+Keywords=File;Manager;Management;Explorer;Launcher

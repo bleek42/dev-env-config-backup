@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=dbusmap
+Type=Application
+Comment=Simple utility for enumerating D-Bus endpoints, an nmap for D-Bus.
+Categories=X-BlackArch-Scanner;Tools;Utilities;
+Icon=utilities-terminal
+TryExec=/usr/bin/uwsm-terminal /usr/bin/dbusmap
+Exec=/usr/bin/sh -c '/usr/bin/dbusmap;$SHELL'
+StartupNotify=true
+Terminal=true

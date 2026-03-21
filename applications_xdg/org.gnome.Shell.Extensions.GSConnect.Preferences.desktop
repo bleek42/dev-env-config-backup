@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=GSConnect Preferences
+Type=Application
+Exec=/usr/bin/uwsm-app -t=service -s=b -- /usr/bin/gapplication action org.gnome.Shell.Extensions.GSConnect preferences
+Terminal=false
+NoDisplay=true
+Icon=org.gnome.Shell.Extensions.GSConnect
+Categories=Network;
+

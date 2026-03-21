@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=xgpsspeed
+Type=Application
+GenericName=GPS speedometer
+Comment=Display GPS speed from a gpsd daemon
+Categories=Application;Maps;Utility;
+Icon=/usr/share/gpsd/icons/gpsd-logo.png
+Encoding=UTF-8
+Exec=/usr/bin/uwsm-app -s=s -- xgpsspeed
+Terminal=false

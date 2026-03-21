@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Ventoy
+Type=Application
+Icon=ventoy
+Comment=Ventoy2Disk GUI
+Categories=Utility;Disk;
+StartupWMClass=Ventoy2Disk.gtk3
+Exec=/usr/bin/uwsm-app -s=a -- ventoygui
+Terminal=false
+Hidden=false

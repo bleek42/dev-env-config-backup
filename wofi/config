@@ -1,0 +1,13 @@
+term=foot
+prompt=󰅂
+width=800
+height=800
+location=middle
+show=drun
+always_parse_args=true
+show_all=true
+print_command=true
+layer=overlay
+insensitive=true
+line_wrap=word_char
+allow_markup=true

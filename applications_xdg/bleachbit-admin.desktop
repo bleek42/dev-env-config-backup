@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=BleachBit (root)
+Comment=Run BleachBit as administrator
+Exec=/usr/bin/uwsm-app -- /usr/bin/bleachbit-admin %F
+Icon=bleachbit
+Categories=System;Utility
+Keywords=cache;clean;free;performance;privacy;
+StartupNotify=true
+Terminal=true
+StartupWMClass=bleachbit
+X-GNOME-UsesNotifications=true
+

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Software Token
+GenericName=Software Token
+Comment=RSA SecurID-compatible software token
+Exec=/usr/bin/uwsm-app -t=service -- stoken-gui
+Icon=stoken-gui
+Terminal=false
+Type=Application
+Categories=Security;GTK;Utility;
+Keywords=RSA;SecurID;Authenticator;
